@@ -10,10 +10,11 @@
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="70dp"
+        android:layout_marginBottom="60dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <!--todo: забрати marginBottom!!!-->
 
     <!--<TextView
         android:id="@+id/text_dashboard"
