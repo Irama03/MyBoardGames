@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.addGame.AddGameFragment"
+    android:overScrollMode="never">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/nameText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="name"
+            android:inputType="text"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/descriptionText"
+            app:layout_constraintTop_toTopOf="parent" />
+        <EditText
+            android:id="@+id/descriptionText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="description"
+            android:inputType="textMultiLine"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/photoPathText"
+            app:layout_constraintTop_toBottomOf="@id/nameText" />
+        <EditText
+            android:id="@+id/photoPathText"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:hint="photoPath"
+            android:inputType="text"
+            android:visibility="invisible"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/imageView"
+            app:layout_constraintTop_toBottomOf="@id/descriptionText" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxHeight="200dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_cubiki"
+            android:contentDescription="Choose photo.."
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/rulesText"
+            app:layout_constraintTop_toBottomOf="@id/photoPathText"/>
+        <EditText
+            android:id="@+id/rulesText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="rules"
+            android:inputType="textMultiLine"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/rulesText"
+            app:layout_constraintTop_toBottomOf="@id/photoPathText" />
+        <EditText
+            android:id="@+id/placeText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="place"
+            android:inputType="textMultiLine"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/smallestAgeText"
+            app:layout_constraintTop_toBottomOf="@id/rulesText" />
+        <EditText
+            android:id="@+id/smallestAgeText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="smallestAge"
+            android:inputType="numberSigned"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/biggestAgeText"
+            app:layout_constraintTop_toBottomOf="@id/placeText" />
+        <EditText
+            android:id="@+id/biggestAgeText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="biggestAge"
+            android:inputType="numberSigned"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/smallestQuantOfPlayersText"
+            app:layout_constraintTop_toBottomOf="@id/smallestAgeText" />
+        <EditText
+            android:id="@+id/smallestQuantOfPlayersText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="smallestQuantOfPlayers"
+            android:inputType="numberSigned"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/biggestQuantOfPlayersText"
+            app:layout_constraintTop_toBottomOf="@id/biggestAgeText" />
+        <EditText
+            android:id="@+id/biggestQuantOfPlayersText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="biggestQuantOfPlayers"
+            android:inputType="numberSigned"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/categoriesText"
+            app:layout_constraintTop_toBottomOf="@id/smallestQuantOfPlayersText" />
+        <EditText
+            android:id="@+id/categoriesText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="categories"
+            android:inputType="textMultiLine"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/quantOfPointsText"
+            app:layout_constraintTop_toBottomOf="@id/biggestQuantOfPlayersText" />
+        <EditText
+            android:id="@+id/quantOfPointsText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="quantOfPoints"
+            android:inputType="numberSigned"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/isFavoriteText"
+            app:layout_constraintTop_toBottomOf="@id/categoriesText" />
+        <EditText
+            android:id="@+id/isFavoriteText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="isFavorite"
+            android:inputType="text"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/addButton"
+            app:layout_constraintTop_toBottomOf="@id/quantOfPointsText" />
+        <!--<Button
+            android:id="@+id/addButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="400dp"
+            android:text="Додати"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/saveButton"
+            app:layout_constraintTop_toBottomOf="@id/isFavoriteText" />-->
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/addButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="70dp"
+            android:layout_marginBottom="100dp"
+            android:fontFamily="sans-serif-condensed-light"
+            android:text="Додати"
+            android:background="#C171CF"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.714"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/isFavoriteText"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <!--<Button
+            android:id="@+id/saveButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="400dp"
+            android:text="Зберегти"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/openButton"
+            app:layout_constraintTop_toBottomOf="@id/addButton"/>
+        <Button
+            android:id="@+id/openButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="400dp"
+            android:text="Відкрити"
+            app:layout_constraintLeft_toRightOf="@id/saveButton"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/addButton"/>-->
+
+        <!--<TextView
+            android:id="@+id/text_notifications"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:textAlignment="center"
+            android:gravity="center_horizontal"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

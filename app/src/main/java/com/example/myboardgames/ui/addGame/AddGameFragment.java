@@ -1,41 +1,31 @@
-package com.example.myboardgames.ui.notifications;
+package com.example.myboardgames.ui.addGame;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.myboardgames.FirstFragment;
 import com.example.myboardgames.Game;
 import com.example.myboardgames.GamesProcessor;
 import com.example.myboardgames.JSONHelper;
 import com.example.myboardgames.MainActivity;
 import com.example.myboardgames.R;
-import com.example.myboardgames.ui.dashboard.DashboardFragment;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
-public class NotificationsFragment extends Fragment {
+public class AddGameFragment extends Fragment {
 
-    private NotificationsViewModel notificationsViewModel;
+    private AddGameViewModel addGameViewModel;
 
     private EditText nameText, descriptionText, photoPathText, rulesText, placeText;
     private EditText smallestAgeText, biggestAgeText, smallestQuantOfPlayersText;
@@ -48,11 +38,11 @@ public class NotificationsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_notifications, container, false);
+        addGameViewModel =
+                new ViewModelProvider(this).get(AddGameViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_add_game, container, false);
         /*final TextView textView = root.findViewById(R.id.text_notifications);
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        addGameViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
@@ -81,20 +71,15 @@ public class NotificationsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 addGame(view);
+                save(view);
             }
         });
-        view.findViewById(R.id.saveButton).setOnClickListener(new View.OnClickListener() {
+        /*view.findViewById(R.id.saveButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 save(view);
             }
-        });
-        view.findViewById(R.id.openButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                open(view);
-            }
-        });
+        });*/
 
         //Связываемся с нашим ImageView:
         imageView = (ImageView)(view.findViewById(R.id.imageView));
@@ -136,7 +121,7 @@ public class NotificationsFragment extends Fragment {
 
         Game game = new Game(name, description, photoPath, rules, place, smallestAge,
                 biggestAge, smallestQuantOfPlayers, biggestQuantOfPlayers, categories,
-                quantOfPoints, quantOfTimesBeingChosen, isFavorite);
+                quantOfPoints, quantOfTimesBeingChosen, isFavorite, new Date(), null);
         GamesProcessor.getGames().add(game);
         Toast.makeText(getActivity(), "Quant of games: " + GamesProcessor.getGames().size(), Toast.LENGTH_LONG).show();
         ((MainActivity)getActivity()).adapter.notifyDataSetChanged();

@@ -7,8 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -17,26 +15,20 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import android.view.View;
-
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     //public List<Game> games;
     public ArrayAdapter<Game> adapter;
-    private final int Pick_image = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
+                R.id.navigation_home, R.id.navigation_games, R.id.navigation_add_game)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
@@ -106,23 +98,32 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+        //Toast.makeText(this, "In onActivityResult()", Toast.LENGTH_LONG).show();
 
-        switch(requestCode) {
-            case Pick_image:
+        //if (requestCode == Pick_image) {
+        Toast.makeText(this, "requestCode: " + requestCode, Toast.LENGTH_LONG).show();
                 if(resultCode == RESULT_OK){
                     try {
 
                         //Получаем URI изображения, преобразуем его в Bitmap
                         //объект и отображаем в элементе ImageView нашего интерфейса:
+                        //Toast.makeText(this, "resultCode == RESULT_OK. Before getting uri", Toast.LENGTH_LONG).show();
                         final Uri imageUri = imageReturnedIntent.getData();
+                        //Toast.makeText(this, "Got uri: " + imageUri.toString(), Toast.LENGTH_LONG).show();
                         final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                         final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                         ((ImageView)findViewById(R.id.imageView)).setImageBitmap(selectedImage);
                         ((EditText)findViewById(R.id.photoPathText)).setText(imageUri.toString());
+                        //Toast.makeText(this, "Uri set!", Toast.LENGTH_LONG).show();
                     } catch (FileNotFoundException e) {
+                        //Toast.makeText(this, "FileNotFoundException: " + e.getMessage(), Toast.LENGTH_LONG).show();
                         e.printStackTrace();
                     }
                 }
-        }
+
+        //}
+        //else {
+         //   Toast.makeText(this, "Error. requestCode == " + requestCode, Toast.LENGTH_LONG).show();
+        //}
     }
 }

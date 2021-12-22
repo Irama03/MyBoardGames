@@ -16,6 +16,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class FirstFragment extends Fragment {
@@ -72,18 +73,6 @@ public class FirstFragment extends Fragment {
                 addGame(view);
             }
         });
-        view.findViewById(R.id.saveButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                save(view);
-            }
-        });
-        view.findViewById(R.id.openButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                open(view);
-            }
-        });
     }
 
     public void addGame(View view){
@@ -104,7 +93,7 @@ public class FirstFragment extends Fragment {
 
         Game game = new Game(name, description, photoPath, rules, place, smallestAge,
                 biggestAge, smallestQuantOfPlayers, biggestQuantOfPlayers, categories,
-                quantOfPoints, quantOfTimesBeingChosen, isFavorite);
+                quantOfPoints, quantOfTimesBeingChosen, isFavorite, new Date(), null);
         games.add(game);
         adapter.notifyDataSetChanged();
     }

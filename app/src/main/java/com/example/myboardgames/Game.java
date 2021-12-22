@@ -1,6 +1,10 @@
 package com.example.myboardgames;
 
+import com.github.thunder413.datetimeutils.DateTimeStyle;
+import com.github.thunder413.datetimeutils.DateTimeUtils;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Game {
@@ -22,6 +26,8 @@ public class Game {
     private int quantOfTimesBeingChosen;
     //will be with star
     private boolean isFavorite;
+    private Date dateOfAdding;
+    private Date dateOfLastChoosing;
 
     public Game(){
 
@@ -30,7 +36,8 @@ public class Game {
     public Game(String name, String description, String photoPath, String rules, String place,
                 int smallestAge, int biggestAge, int smallestQuantOfPlayers,
                 int biggestQuantOfPlayers, List<String> categories, int quantOfPoints,
-                int quantOfTimesBeingChosen, boolean isFavorite) {
+                int quantOfTimesBeingChosen, boolean isFavorite, Date dateOfAdding,
+                Date dateOfLastChoosing) {
         this.name = name;
         this.description = description;
         this.photoPath = photoPath;
@@ -44,6 +51,8 @@ public class Game {
         this.quantOfPoints = quantOfPoints;
         this.quantOfTimesBeingChosen = quantOfTimesBeingChosen;
         this.isFavorite = isFavorite;
+        this.dateOfAdding = dateOfAdding;
+        this.dateOfLastChoosing = dateOfLastChoosing;
     }
 
     public String getName() {
@@ -150,6 +159,22 @@ public class Game {
         isFavorite = favorite;
     }
 
+    public Date getDateOfAdding() {
+        return dateOfAdding;
+    }
+
+    public void setDateOfAdding(Date dateOfAdding) {
+        this.dateOfAdding = dateOfAdding;
+    }
+
+    public Date getDateOfLastChoosing() {
+        return dateOfLastChoosing;
+    }
+
+    public void setDateOfLastChoosing(Date dateOfLastChoosing) {
+        this.dateOfLastChoosing = dateOfLastChoosing;
+    }
+
     @Override
     public String toString(){
         return "Назва: " + name + "\nОпис: " + description + "\nЗображення: " + photoPath +
@@ -160,7 +185,9 @@ public class Game {
                 "\nНайбільша кількість гравців: "+ biggestQuantOfPlayers +
                 "\nКатегорії: " + categories + "\nКількість балів: " + quantOfPoints +
                 "\nСкільки разів гру обирали: " + quantOfTimesBeingChosen +
-                "\nЧи є улюбленою: " + isFavorite;
+                "\nЧи є улюбленою: " + isFavorite +
+                "\nДата додання: " + (dateOfLastChoosing == null ? "no date" : DateTimeUtils.formatWithStyle(dateOfAdding, DateTimeStyle.LONG)) +
+                "\nДата останнього обрання: " + (dateOfLastChoosing == null ? "no date" : DateTimeUtils.formatWithStyle(dateOfLastChoosing, DateTimeStyle.LONG));
     }
 
 }
