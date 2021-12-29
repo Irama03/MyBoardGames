@@ -1,20 +1,22 @@
 package com.example.myboardgames.ui.games;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myboardgames.Game;
 import com.example.myboardgames.GamesProcessor;
-import com.example.myboardgames.MainActivity;
 import com.example.myboardgames.R;
+import com.example.myboardgames.adapters.GameAdapter;
+import com.example.myboardgames.ui.GameInfoActivity;
 
 import java.util.List;
 
@@ -33,8 +35,13 @@ public class GamesFragment extends Fragment {
 
     private GamesViewModel gamesViewModel;
 
+    private View view;
+    private RecyclerView recyclerView;
+    private GameAdapter adapter;
     private List<Game> games;
+    private List<Game> filteredGames;
     private ListView listView;
+    private static final int GAME_INFO_REQUEST = 2;
     //public ArrayAdapter<Game> adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -54,29 +61,34 @@ public class GamesFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initRecyclerView();
 
-        //((MainActivity)getActivity()).open(listView);
-
-        //games = new ArrayList<Game>();
-        //games = ((MainActivity)getActivity()).games;
-        //listView.setAdapter(((MainActivity)getActivity()).adapter);
-
-        listView = (ListView)(view.findViewById(R.id.list));
+        /*listView = (ListView)(view.findViewById(R.id.recyclerViewGames));
         if (!GamesProcessor.gamesAreLoaded())
             GamesProcessor.loadGames(getActivity());
         games = GamesProcessor.getGames();
 
-        //adapter = ((MainActivity)getActivity()).adapter;
         ((MainActivity)getActivity()).adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, games);
-        /*if (games == null)
-            Toast.makeText(getActivity(), "games is null", Toast.LENGTH_LONG).show();
-        else if (listView == null)
-            Toast.makeText(getActivity(), "listview is null", Toast.LENGTH_LONG).show();
-        //Null!!!?
-        else if (((MainActivity)getActivity()).adapter == null)
-            Toast.makeText(getActivity(), "adapter is null", Toast.LENGTH_LONG).show();
-        else{*/
-            listView.setAdapter(((MainActivity)getActivity()).adapter);
-        //}
+        listView.setAdapter(((MainActivity)getActivity()).adapter);)*/
+    }
+
+    /**
+     * method is used to initialise recycler view
+     */
+    private void initRecyclerView() {
+        recyclerView = view.findViewById(R.id.recyclerViewGames);
+        if (!GamesProcessor.gamesAreLoaded())
+            GamesProcessor.loadGames(getActivity());
+        games = GamesProcessor.getGames();
+        filteredGames = games;
+        adapter = new GameAdapter(getContext(), filteredGames, new GameAdapter.OnGameClickListener() {
+            @Override
+            public void onGameClicked(Game game, int position) {
+                Intent intent = new Intent(GamesFragment.this.getContext(), GameInfoActivity.class);
+                intent.putExtra("Game", game);
+                startActivityForResult(intent, GAME_INFO_REQUEST);
+            }
+        });
+        recyclerView.setAdapter(adapter);
     }
 }

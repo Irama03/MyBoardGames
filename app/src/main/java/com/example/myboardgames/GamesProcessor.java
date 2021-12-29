@@ -47,9 +47,8 @@ public class GamesProcessor {
         games.add(game);
     }
 
-    public void chooseGame(Game game){
-        game.setQuantOfTimesBeingChosen(game.getQuantOfTimesBeingChosen() + 1);
-        //smth with graphical interface
+    public static void chooseGame(Game game){
+        game.increaseQuantOfTimesBeingChosen();
     }
 
     //Maybe, not useful

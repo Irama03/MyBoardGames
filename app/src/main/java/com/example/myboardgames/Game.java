@@ -3,11 +3,12 @@ package com.example.myboardgames;
 import com.github.thunder413.datetimeutils.DateTimeStyle;
 import com.github.thunder413.datetimeutils.DateTimeUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Game {
+public class Game implements Serializable {
 
     private String name;
     private String description;
@@ -149,6 +150,10 @@ public class Game {
 
     public void setQuantOfTimesBeingChosen(int quantOfTimesBeingChosen) {
         this.quantOfTimesBeingChosen = quantOfTimesBeingChosen;
+    }
+
+    public void increaseQuantOfTimesBeingChosen() {
+        quantOfTimesBeingChosen = quantOfTimesBeingChosen + 1;
     }
 
     public boolean isFavorite() {

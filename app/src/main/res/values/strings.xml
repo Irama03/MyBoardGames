@@ -13,4 +13,17 @@
     <string name="title_home">Home</string>
     <string name="title_games">Games</string>
     <string name="title_add_game">Add game</string>
+
+    <string-array name="sort_items">
+        <item>By name</item>
+        <item>By name reverse</item>
+        <item>By date of adding</item>
+        <item>By date of adding reverse</item>
+    </string-array>
+    <string name="title_activity_game_info">GameInfoActivity</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
 </resources>

@@ -22,4 +22,11 @@
     <style name="Theme.MyBoardGames.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.MyBoardGames.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="GameName"
+        parent="TextAppearance.AppCompat.Headline"/>
+    <style name="CategoriesText"
+        parent="TextAppearance.AppCompat.Subhead"/>
+    <style name="DescriptionText"
+        parent="TextAppearance.AppCompat.Subhead"/>
 </resources>

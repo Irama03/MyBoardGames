@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -53,7 +52,7 @@ public class FirstFragment extends Fragment {
         quantOfPointsText = (EditText)(getActivity().findViewById(R.id.quantOfPointsText));
         isFavoriteText = (EditText)(getActivity().findViewById(R.id.isFavoriteText));
 
-        listView = (ListView)(getActivity().findViewById(R.id.list));
+        listView = (ListView)(getActivity().findViewById(R.id.recyclerViewGames));
         games = new ArrayList<Game>();
 
         adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, games);

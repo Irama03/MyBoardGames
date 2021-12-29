@@ -28,7 +28,7 @@ import java.io.InputStream;
 public class MainActivity extends AppCompatActivity {
 
     //public List<Game> games;
-    public ArrayAdapter<Game> adapter;
+    //public ArrayAdapter<Game> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
