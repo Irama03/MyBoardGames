@@ -40,15 +40,15 @@ public class GamesFragment extends Fragment {
     private GameAdapter adapter;
     private List<Game> games;
     private List<Game> filteredGames;
-    private ListView listView;
-    private static final int GAME_INFO_REQUEST = 2;
+    //private ListView listView;
+    public static final int GAME_INFO_REQUEST = 2;
     //public ArrayAdapter<Game> adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         gamesViewModel =
                 new ViewModelProvider(this).get(GamesViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_games, container, false);
+        view = inflater.inflate(R.layout.fragment_games, container, false);
         /*final TextView textView = root.findViewById(R.id.text_notifications);
         notificationsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -56,7 +56,7 @@ public class GamesFragment extends Fragment {
                 textView.setText(s);
             }
         });*/
-        return root;
+        return view;
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {

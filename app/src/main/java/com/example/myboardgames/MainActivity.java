@@ -1,5 +1,6 @@
 package com.example.myboardgames;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -23,6 +24,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
@@ -94,6 +97,23 @@ public class MainActivity extends AppCompatActivity {
         }
     }*/
 
+    /*private static void copyFileUsingStream(File source, File dest) throws IOException {
+        InputStream is = null;
+        OutputStream os = null;
+        try {
+            is = new FileInputStream(source);
+            os = new FileOutputStream(dest);
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = is.read(buffer)) > 0) {
+                os.write(buffer, 0, length);
+            }
+        } finally {
+            is.close();
+            os.close();
+        }
+    }*/
+
     //Обрабатываем результат выбора в галерее:
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
@@ -101,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         //Toast.makeText(this, "In onActivityResult()", Toast.LENGTH_LONG).show();
 
         //if (requestCode == Pick_image) {
-        Toast.makeText(this, "requestCode: " + requestCode, Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "requestCode: " + requestCode, Toast.LENGTH_LONG).show();
                 if(resultCode == RESULT_OK){
                     try {
 
@@ -113,7 +133,43 @@ public class MainActivity extends AppCompatActivity {
                         final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                         final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                         ((ImageView)findViewById(R.id.imageView)).setImageBitmap(selectedImage);
-                        ((EditText)findViewById(R.id.photoPathText)).setText(imageUri.toString());
+
+                        InputStream is = getContentResolver().openInputStream(imageUri);
+                        FileOutputStream fileOutputStream = null;
+                        String[] fN = imageUri.toString().split("/");
+                        String fileName = fN[fN.length - 1];
+
+                        try {
+                            fileOutputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
+                            byte[] buffer = new byte[1024];
+                            int length;
+                            while ((length = is.read(buffer)) > 0) {
+                                fileOutputStream.write(buffer, 0, length);
+                            }
+                            //fileOutputStream.write(selectedImage.getNinePatchChunk());
+                            //copyFileUsingStream();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        } finally {
+                            if (fileOutputStream != null) {
+                                try {
+                                    fileOutputStream.close();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            if (is != null) {
+                                try {
+                                    is.close();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                        ((EditText)findViewById(R.id.photoPathText)).setText(fileName);
+                        Toast.makeText(this, fileName, Toast.LENGTH_LONG).show();
+                        //Uri uri = Uri.parse(imageUri.toString());
+
                         //Toast.makeText(this, "Uri set!", Toast.LENGTH_LONG).show();
                     } catch (FileNotFoundException e) {
                         //Toast.makeText(this, "FileNotFoundException: " + e.getMessage(), Toast.LENGTH_LONG).show();

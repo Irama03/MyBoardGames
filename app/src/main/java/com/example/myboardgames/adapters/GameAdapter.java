@@ -1,13 +1,17 @@
 package com.example.myboardgames.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +20,8 @@ import com.example.myboardgames.Game;
 import com.example.myboardgames.GamesProcessor;
 import com.example.myboardgames.R;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.List;
 
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder>{
@@ -86,6 +92,10 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder>{
         ibStar.setImageResource(R.drawable.ic_baseline_star_24);
     }
 
+    private void removeStar(ImageButton ibStar) {
+        ibStar.setImageResource(R.drawable.ic_baseline_star_outline_24);
+    }
+
     /**
      * method is used to set data to the game item
      *
@@ -108,14 +118,30 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder>{
 
         Game game = games.get(position);
         //think about case when photo was deleted
-        holder.ivGameImage.setImageBitmap(BitmapFactory.decodeFile(game.getPhotoPath()));
+        //holder.ivGameImage.setImageBitmap(BitmapFactory.decodeFile(game.getPhotoPath()));
+
+        try {
+            //final Uri imageUri = Uri.parse(game.getPhotoPath());
+            //final InputStream imageStream = context.getContentResolver().openInputStream(imageUri);
+            final InputStream imageStream = context.openFileInput(game.getPhotoPath());
+            final Bitmap image = BitmapFactory.decodeStream(imageStream);
+            holder.ivGameImage.setImageBitmap(image);
+            //holder.ivGameImage.setImageURI(imageUri);
+        } catch (FileNotFoundException e) {
+            //Toast.makeText(context, "FileNotFoundException: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        } catch (Exception e) {
+            //Toast.makeText(context, "Exception: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
 
         int points = game.getQuantOfPoints();
-        if (points > 0) addStar(holder.ibStar1);
-        if (points > 1) addStar(holder.ibStar2);
-        if (points > 2) addStar(holder.ibStar3);
-        if (points > 3) addStar(holder.ibStar4);
-        if (points > 4) addStar(holder.ibStar5);
+        //Why fignya???
+        if (points > 0) addStar(holder.ibStar1); else removeStar(holder.ibStar1);
+        if (points > 1) addStar(holder.ibStar2); else removeStar(holder.ibStar2);
+        if (points > 2) addStar(holder.ibStar3); else removeStar(holder.ibStar3);
+        if (points > 3) addStar(holder.ibStar4); else removeStar(holder.ibStar4);
+        if (points > 4) addStar(holder.ibStar5); else removeStar(holder.ibStar5);
 
         holder.ibCheckGame.setOnClickListener(new View.OnClickListener() {
             @Override

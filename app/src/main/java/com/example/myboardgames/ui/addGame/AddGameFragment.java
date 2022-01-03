@@ -94,6 +94,7 @@ public class AddGameFragment extends Fragment {
 
                 //Вызываем стандартную галерею для выбора изображения с помощью Intent.ACTION_PICK:
                 Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                //Intent photoPickerIntent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
                 //Тип получаемых объектов - image:
                 photoPickerIntent.setType("image/*");
                 //Запускаем переход с ожиданием обратного результата в виде информации об изображении:
@@ -124,7 +125,8 @@ public class AddGameFragment extends Fragment {
                 quantOfPoints, quantOfTimesBeingChosen, isFavorite, new Date(), null);
         GamesProcessor.getGames().add(game);
         Toast.makeText(getActivity(), "Quant of games: " + GamesProcessor.getGames().size(), Toast.LENGTH_LONG).show();
-        ((MainActivity)getActivity()).adapter.notifyDataSetChanged();
+        //??????
+        //((MainActivity)getActivity()).adapter.notifyDataSetChanged();
     }
 
     public void save(View view){
