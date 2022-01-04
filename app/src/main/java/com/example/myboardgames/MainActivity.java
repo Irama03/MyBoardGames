@@ -18,7 +18,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -167,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         ((EditText)findViewById(R.id.photoPathText)).setText(fileName);
-                        Toast.makeText(this, fileName, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(this, fileName, Toast.LENGTH_LONG).show();
                         //Uri uri = Uri.parse(imageUri.toString());
 
                         //Toast.makeText(this, "Uri set!", Toast.LENGTH_LONG).show();

@@ -16,7 +16,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.myboardgames.Game;
 import com.example.myboardgames.GamesProcessor;
 import com.example.myboardgames.JSONHelper;
-import com.example.myboardgames.MainActivity;
 import com.example.myboardgames.R;
 
 import java.util.Arrays;
@@ -29,11 +28,9 @@ public class AddGameFragment extends Fragment {
 
     private EditText nameText, descriptionText, photoPathText, rulesText, placeText;
     private EditText smallestAgeText, biggestAgeText, smallestQuantOfPlayersText;
-    private EditText biggestQuantOfPlayersText, categoriesText, quantOfPointsText, isFavoriteText;
-
-    //Объявляем используемые переменные:
+    private EditText biggestQuantOfPlayersText, categoriesText, quantOfPointsText;
     private ImageView imageView;
-    private final int Pick_image = 1;
+    public static final int PICK_IMAGE = 1;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -65,7 +62,6 @@ public class AddGameFragment extends Fragment {
         biggestQuantOfPlayersText = (EditText)(view.findViewById(R.id.biggestQuantOfPlayersText));
         categoriesText = (EditText)(view.findViewById(R.id.categoriesText));
         quantOfPointsText = (EditText)(view.findViewById(R.id.quantOfPointsText));
-        isFavoriteText = (EditText)(view.findViewById(R.id.isFavoriteText));
 
         view.findViewById(R.id.addButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +78,7 @@ public class AddGameFragment extends Fragment {
         });*/
 
         //Связываемся с нашим ImageView:
-        imageView = (ImageView)(view.findViewById(R.id.imageView));
+        imageView = (ImageView)(view.findViewById(R.id.imageViewI));
 
         //Связываемся с нашей кнопкой Button:
         //Button pickImage = (Button)(view.findViewById(R.id.pickImageButton));
@@ -91,14 +87,13 @@ public class AddGameFragment extends Fragment {
 
             @Override
             public void onClick(View view) {
-
                 //Вызываем стандартную галерею для выбора изображения с помощью Intent.ACTION_PICK:
                 Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
                 //Intent photoPickerIntent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
                 //Тип получаемых объектов - image:
                 photoPickerIntent.setType("image/*");
                 //Запускаем переход с ожиданием обратного результата в виде информации об изображении:
-                startActivityForResult(photoPickerIntent, Pick_image);
+                startActivityForResult(photoPickerIntent, PICK_IMAGE);
                 //view.getContext().startActivity(photoPickerIntent);
             }
         });
@@ -118,7 +113,8 @@ public class AddGameFragment extends Fragment {
         List<String> categories = Arrays.asList(categoriesText.getText().toString().split(", "));
         int quantOfPoints = Integer.parseInt(quantOfPointsText.getText().toString());
         int quantOfTimesBeingChosen = 0;
-        boolean isFavorite = Boolean.parseBoolean(isFavoriteText.getText().toString());
+        //boolean isFavorite = Boolean.parseBoolean(isFavoriteText.getText().toString());
+        boolean isFavorite = quantOfPoints == 5;
 
         Game game = new Game(name, description, photoPath, rules, place, smallestAge,
                 biggestAge, smallestQuantOfPlayers, biggestQuantOfPlayers, categories,

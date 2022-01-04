@@ -39,18 +39,18 @@ public class FirstFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        nameText = (EditText)(getActivity().findViewById(R.id.nameText));
-        descriptionText = (EditText)(getActivity().findViewById(R.id.descriptionText));
-        photoPathText = (EditText)(getActivity().findViewById(R.id.photoPathText));
-        rulesText = (EditText)(getActivity().findViewById(R.id.rulesText));
-        placeText = (EditText)(getActivity().findViewById(R.id.placeText));
-        smallestAgeText = (EditText)(getActivity().findViewById(R.id.smallestAgeText));
-        biggestAgeText = (EditText)(getActivity().findViewById(R.id.biggestAgeText));
-        smallestQuantOfPlayersText = (EditText)(getActivity().findViewById(R.id.smallestQuantOfPlayersText));
-        biggestQuantOfPlayersText = (EditText)(getActivity().findViewById(R.id.biggestQuantOfPlayersText));
-        categoriesText = (EditText)(getActivity().findViewById(R.id.categoriesText));
-        quantOfPointsText = (EditText)(getActivity().findViewById(R.id.quantOfPointsText));
-        isFavoriteText = (EditText)(getActivity().findViewById(R.id.isFavoriteText));
+        nameText = (EditText)(getActivity().findViewById(R.id.nameTextI));
+        descriptionText = (EditText)(getActivity().findViewById(R.id.descriptionTextI));
+        photoPathText = (EditText)(getActivity().findViewById(R.id.photoPathTextI));
+        rulesText = (EditText)(getActivity().findViewById(R.id.rulesTextI));
+        placeText = (EditText)(getActivity().findViewById(R.id.placeTextI));
+        smallestAgeText = (EditText)(getActivity().findViewById(R.id.smallestAgeTextI));
+        biggestAgeText = (EditText)(getActivity().findViewById(R.id.biggestAgeTextI));
+        smallestQuantOfPlayersText = (EditText)(getActivity().findViewById(R.id.smallestQuantOfPlayersTextI));
+        biggestQuantOfPlayersText = (EditText)(getActivity().findViewById(R.id.biggestQuantOfPlayersTextI));
+        categoriesText = (EditText)(getActivity().findViewById(R.id.categoriesTextI));
+        quantOfPointsText = (EditText)(getActivity().findViewById(R.id.quantOfPointsTextI));
+        isFavoriteText = (EditText)(getActivity().findViewById(R.id.isFavoriteTextI));
 
         listView = (ListView)(getActivity().findViewById(R.id.recyclerViewGames));
         games = new ArrayList<Game>();

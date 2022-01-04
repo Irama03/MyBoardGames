@@ -6,6 +6,7 @@ import com.github.thunder413.datetimeutils.DateTimeUtils;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 public class Game implements Serializable {
@@ -132,6 +133,17 @@ public class Game implements Serializable {
         return categories;
     }
 
+    public String getCategoriesToString() {
+        StringBuilder sb = new StringBuilder();
+        Iterator<String> it = categories.iterator();
+        if (it.hasNext()) sb.append(it.next());
+        while (it.hasNext()) {
+            sb.append(", ");
+            sb.append(it.next());
+        }
+        return sb.toString();
+    }
+
     public void setCategories(List<String> categories) {
         this.categories = categories;
     }
@@ -160,7 +172,7 @@ public class Game implements Serializable {
         return isFavorite;
     }
 
-    public void setFavorite(boolean favorite) {
+    public void setIsFavorite(boolean favorite) {
         isFavorite = favorite;
     }
 
