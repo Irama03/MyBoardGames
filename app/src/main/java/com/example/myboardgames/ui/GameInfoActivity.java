@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,13 +22,16 @@ import com.example.myboardgames.ui.addGame.AddGameFragment;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.List;
 
 public class GameInfoActivity extends AppCompatActivity {
 
     private EditText nameTextI, descriptionTextI, photoPathTextI, rulesTextI, placeTextI;
     private EditText smallestAgeTextI, biggestAgeTextI, smallestQuantOfPlayersTextI;
-    private EditText biggestQuantOfPlayersTextI, categoriesTextI, quantOfPointsTextI, isFavoriteTextI;
+    private EditText biggestQuantOfPlayersTextI, categoriesTextI, quantOfPointsTextI;
     private ImageView imageViewI;
+    private ImageButton favoriteButtonI;
 
     //private TextView mTextView;
     private Game game;
@@ -73,8 +77,23 @@ public class GameInfoActivity extends AppCompatActivity {
         quantOfPointsTextI = (EditText)(findViewById(R.id.quantOfPointsTextI));
         quantOfPointsTextI.setText(game.getQuantOfPoints());
 
-        isFavoriteTextI = (EditText)(findViewById(R.id.isFavoriteTextI));
-        isFavoriteTextI.setText(game.isFavorite() + " ");
+        favoriteButtonI = (ImageButton)(findViewById(R.id.favoriteButtonI));
+        if (game.isFavorite())
+            favoriteButtonI.setImageResource(R.drawable.ic_baseline_favorite_24);
+        else favoriteButtonI.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+        favoriteButtonI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (game.isFavorite()) {
+                    favoriteButtonI.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+                    game.setIsFavorite(false);
+                }
+                else {
+                    favoriteButtonI.setImageResource(R.drawable.ic_baseline_favorite_24);
+                    game.setIsFavorite(true);
+                }
+            }
+        });
 
         findViewById(R.id.updateButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,11 +137,24 @@ public class GameInfoActivity extends AppCompatActivity {
     }
 
     public void updateGame(){
-
+        game.setName(nameTextI.getText().toString());
+        game.setDescription(descriptionTextI.getText().toString());
+        game.setPhotoPath(photoPathTextI.getText().toString());
+        game.setRules(rulesTextI.getText().toString());
+        game.setPlace(placeTextI.getText().toString());
+        game.setSmallestAge(Integer.parseInt(smallestAgeTextI.getText().toString()));
+        game.setBiggestAge(Integer.parseInt(biggestAgeTextI.getText().toString()));
+        game.setSmallestQuantOfPlayers(Integer.parseInt(smallestQuantOfPlayersTextI.getText().toString()));
+        game.setBiggestQuantOfPlayers(Integer.parseInt(biggestQuantOfPlayersTextI.getText().toString()));
+        game.setCategories(Arrays.asList(categoriesTextI.getText().toString().split(", ")));
+        //game.setQuantOfPoints(Integer.parseInt(quantOfPointsTextI.getText().toString()));
+        //boolean isFavorite = quantOfPoints == 5;
     }
 
     public void removeGame(){
-
+        GamesProcessor.getGames().remove(game);
+        Toast.makeText(this, "Гру було видалено", Toast.LENGTH_LONG).show();
+        this.finish();
     }
 
     public void save(){

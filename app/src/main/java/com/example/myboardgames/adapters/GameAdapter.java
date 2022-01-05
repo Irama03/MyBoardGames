@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -143,6 +142,23 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder>{
         if (points > 3) addStar(holder.ibStar4); else removeStar(holder.ibStar4);
         if (points > 4) addStar(holder.ibStar5); else removeStar(holder.ibStar5);
 
+        if (game.isFavorite())
+            holder.ibFavoriteButton.setImageResource(R.drawable.ic_baseline_favorite_24);
+        else holder.ibFavoriteButton.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+        holder.ibFavoriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (game.isFavorite()) {
+                    holder.ibFavoriteButton.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+                    game.setIsFavorite(false);
+                }
+                else {
+                    holder.ibFavoriteButton.setImageResource(R.drawable.ic_baseline_favorite_24);
+                    game.setIsFavorite(true);
+                }
+            }
+        });
+
         holder.ibCheckGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -200,7 +216,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder>{
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView ivGameImage;
-        public ImageButton ibStar1, ibStar2, ibStar3, ibStar4, ibStar5, ibCheckGame;
+        public ImageButton ibStar1, ibStar2, ibStar3, ibStar4, ibStar5, ibFavoriteButton, ibCheckGame;
         public TextView tvGameName, tvGameCategories, tvGameDescription;
 
         /**
@@ -225,6 +241,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder>{
             ibStar3 = itemView.findViewById(R.id.ibStar3);
             ibStar4 = itemView.findViewById(R.id.ibStar4);
             ibStar5 = itemView.findViewById(R.id.ibStar5);
+            ibFavoriteButton = itemView.findViewById(R.id.ibFavoriteButton);
             ibCheckGame = itemView.findViewById(R.id.ibCheckGame);
             tvGameName = itemView.findViewById(R.id.tvGameName);
             tvGameCategories = itemView.findViewById(R.id.tvGameCategories);

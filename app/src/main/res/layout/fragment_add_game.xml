@@ -142,8 +142,18 @@
             android:inputType="numberSigned"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/addButton"
+            app:layout_constraintBottom_toTopOf="@id/favoriteButton"
             app:layout_constraintTop_toBottomOf="@id/categoriesText" />
+        <ImageButton
+            android:id="@+id/favoriteButton"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:src="@drawable/ic_baseline_favorite_border_24"
+            android:background="@android:color/transparent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/addButton"
+            app:layout_constraintTop_toBottomOf="@id/quantOfPointsText" />
         <!--<EditText
             android:id="@+id/isFavoriteTextI"
             android:layout_width="0dp"
@@ -182,7 +192,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.714"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/quantOfPointsText"
+            app:layout_constraintTop_toBottomOf="@+id/favoriteButton"
             app:layout_constraintVertical_bias="1.0" />
 
         <!--<Button

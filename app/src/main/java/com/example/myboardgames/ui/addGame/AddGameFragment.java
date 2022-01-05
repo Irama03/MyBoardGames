@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -30,8 +31,9 @@ public class AddGameFragment extends Fragment {
     private EditText smallestAgeText, biggestAgeText, smallestQuantOfPlayersText;
     private EditText biggestQuantOfPlayersText, categoriesText, quantOfPointsText;
     private ImageView imageView;
+    private ImageButton favoriteButton;
     public static final int PICK_IMAGE = 1;
-
+    private boolean isFavorite = false;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -62,12 +64,26 @@ public class AddGameFragment extends Fragment {
         biggestQuantOfPlayersText = (EditText)(view.findViewById(R.id.biggestQuantOfPlayersText));
         categoriesText = (EditText)(view.findViewById(R.id.categoriesText));
         quantOfPointsText = (EditText)(view.findViewById(R.id.quantOfPointsText));
+        favoriteButton = (ImageButton)(view.findViewById(R.id.favoriteButton));
+        favoriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isFavorite) {
+                    favoriteButton.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+                    isFavorite = false;
+                }
+                else {
+                    favoriteButton.setImageResource(R.drawable.ic_baseline_favorite_24);
+                    isFavorite = true;
+                }
+            }
+        });
 
         view.findViewById(R.id.addButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addGame(view);
-                save(view);
+                addGame();
+                save();
             }
         });
         /*view.findViewById(R.id.saveButton).setOnClickListener(new View.OnClickListener() {
@@ -99,10 +115,12 @@ public class AddGameFragment extends Fragment {
         });
     }
 
-    public void addGame(View view){
+    private void addGame(){
         String name = nameText.getText().toString();
         String description = descriptionText.getText().toString();
         String photoPath = photoPathText.getText().toString();
+        //For clearing!
+        Toast.makeText(getActivity(), "photo path of cubiki: " + photoPath, Toast.LENGTH_LONG).show();
         String rules = rulesText.getText().toString();
         String place = placeText.getText().toString();
         int smallestAge = Integer.parseInt(smallestAgeText.getText().toString());
@@ -114,7 +132,6 @@ public class AddGameFragment extends Fragment {
         int quantOfPoints = Integer.parseInt(quantOfPointsText.getText().toString());
         int quantOfTimesBeingChosen = 0;
         //boolean isFavorite = Boolean.parseBoolean(isFavoriteText.getText().toString());
-        boolean isFavorite = quantOfPoints == 5;
 
         Game game = new Game(name, description, photoPath, rules, place, smallestAge,
                 biggestAge, smallestQuantOfPlayers, biggestQuantOfPlayers, categories,
@@ -125,28 +142,31 @@ public class AddGameFragment extends Fragment {
         //((MainActivity)getActivity()).adapter.notifyDataSetChanged();
     }
 
-    public void save(View view){
-
+    private void save(){
         boolean result = JSONHelper.exportToJSON(getActivity(), GamesProcessor.getGames());
         if(result){
             Toast.makeText(getActivity(), "Дані збережено", Toast.LENGTH_LONG).show();
+            clearFields();
         }
         else{
             Toast.makeText(getActivity(), "Не вдалося зберегти дані", Toast.LENGTH_LONG).show();
         }
     }
 
-    public void open(View view){
-
-        /*games = JSONHelper.importFromJSON(getActivity());
-        if(games !=null){
-            adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, games);
-            listView.setAdapter(adapter);
-            Toast.makeText(getActivity(), "Дані відновлено", Toast.LENGTH_LONG).show();
-        }
-        else{
-            Toast.makeText(getActivity(), "Не вдалося відновити дані", Toast.LENGTH_LONG).show();
-        }*/
+    private void clearFields() {
+        nameText.setText("");
+        descriptionText.setText("");
+        //see on phone!!!
+        photoPathText.setText("ic_cubiki.xml");
+        imageView.setImageResource(R.drawable.ic_cubiki);
+        rulesText.setText("");
+        placeText.setText("");
+        smallestAgeText.setText("");
+        biggestAgeText.setText("");
+        smallestQuantOfPlayersText.setText("");
+        biggestQuantOfPlayersText.setText("");
+        categoriesText.setText("");
+        quantOfPointsText.setText("");
     }
 
 }

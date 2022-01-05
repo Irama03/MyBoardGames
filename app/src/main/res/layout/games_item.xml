@@ -17,12 +17,19 @@
             android:src="@drawable/ic_cubiki"
             android:adjustViewBounds="true"/>
 
+        <ImageButton
+            android:id="@+id/ibFavoriteButton"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:src="@drawable/ic_baseline_favorite_border_24"
+            android:background="@android:color/transparent"
+            android:layout_alignStart="@id/ivGameImage"/>
+
         <include
             layout="@layout/stars"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@id/ivGameImage"
-            android:layout_alignRight="@id/ivGameImage"/>
+            android:layout_alignEnd="@id/ivGameImage"/>
 
         <ImageButton
             android:id="@+id/ibCheckGame"
@@ -32,7 +39,6 @@
             android:background="@android:color/transparent"
             android:layout_alignBottom="@id/ivGameImage"
             android:layout_alignEnd="@id/ivGameImage"
-            android:layout_alignRight="@id/ivGameImage"
             android:padding="8dp"/>
 
         <!--android:theme="@style/ThemeOverlay.MaterialComponents.Dark"-->
