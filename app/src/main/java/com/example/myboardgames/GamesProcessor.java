@@ -5,6 +5,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class GamesProcessor {
@@ -39,8 +40,16 @@ public class GamesProcessor {
         }
     }
 
-    public void saveGames(){
-
+    public static boolean saveGames(Context context){
+        boolean result = JSONHelper.exportToJSON(context, GamesProcessor.getGames());
+        if(result){
+            Toast.makeText(context, "Дані збережено", Toast.LENGTH_LONG).show();
+            return true;
+        }
+        else{
+            Toast.makeText(context, "Не вдалося зберегти дані", Toast.LENGTH_LONG).show();
+            return false;
+        }
     }
 
     public void createGame(Game game){
@@ -49,6 +58,7 @@ public class GamesProcessor {
 
     public static void chooseGame(Game game){
         game.increaseQuantOfTimesBeingChosen();
+        game.setDateOfLastChoosing(Utils.getCurrentDate());
     }
 
     //Maybe, not useful

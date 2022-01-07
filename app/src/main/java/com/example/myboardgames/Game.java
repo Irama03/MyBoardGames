@@ -25,9 +25,9 @@ public class Game implements Serializable {
     private List<String> categories;
     //from 1 to 5
     private int quantOfPoints;
-    private int quantOfTimesBeingChosen;
-    //will be with star
+    //will be with heart
     private boolean isFavorite;
+    private int quantOfTimesBeingChosen;
     private Date dateOfAdding;
     private Date dateOfLastChoosing;
 
@@ -190,6 +190,18 @@ public class Game implements Serializable {
 
     public void setDateOfLastChoosing(Date dateOfLastChoosing) {
         this.dateOfLastChoosing = dateOfLastChoosing;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+        Game game = (Game) obj;
+        return name.equals(game.getName());
     }
 
     @Override

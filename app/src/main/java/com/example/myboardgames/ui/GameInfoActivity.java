@@ -1,5 +1,6 @@
 package com.example.myboardgames.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,35 +15,58 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myboardgames.ButtonsActions;
 import com.example.myboardgames.Game;
 import com.example.myboardgames.GamesProcessor;
-import com.example.myboardgames.JSONHelper;
 import com.example.myboardgames.R;
 import com.example.myboardgames.ui.addGame.AddGameFragment;
+import com.example.myboardgames.ui.games.AdapterInterface;
+import com.github.thunder413.datetimeutils.DateTimeUtils;
 
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Locale;
 
 public class GameInfoActivity extends AppCompatActivity {
 
     private EditText nameTextI, descriptionTextI, photoPathTextI, rulesTextI, placeTextI;
     private EditText smallestAgeTextI, biggestAgeTextI, smallestQuantOfPlayersTextI;
     private EditText biggestQuantOfPlayersTextI, categoriesTextI, quantOfPointsTextI;
+    private TextView quantOfTimesBeingChosenText, dateOfAddingText, dateOfLastChoosingText, btnBack;
     private ImageView imageViewI;
-    private ImageButton favoriteButtonI;
+    private ImageButton favoriteButtonI, checkButtonI;
 
     //private TextView mTextView;
+    private Game gameCopy;
     private Game game;
+    private int gamePosition;
+    private AdapterInterface adapterInterface;
+    //private FrameLayout mContainer;
+    //private GameAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_info);
-        game = (Game)getIntent().getSerializableExtra("Game");
+        //mContainer = findViewById(R.id.nav_host_fragment_container);
+        gameCopy = (Game)getIntent().getSerializableExtra("Game");
+        gamePosition = (int)getIntent().getSerializableExtra("GamePosition");
+        game = GamesProcessor.getGames().get(gamePosition);
+        adapterInterface = (AdapterInterface) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        //adapter = (RecyclerView.Adapter<GameAdapter.ViewHolder>)getIntent().getParcelableExtra("Adapter");
         //mTextView = (TextView) findViewById(R.id.text);
         //mTextView.setText(game.getName());
+
+        btnBack = (TextView)(findViewById(R.id.btnBack));
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         nameTextI = (EditText)(findViewById(R.id.nameTextI));
         nameTextI.setText(game.getName());
@@ -51,7 +75,7 @@ public class GameInfoActivity extends AppCompatActivity {
         descriptionTextI.setText(game.getDescription());
 
         photoPathTextI = (EditText)(findViewById(R.id.photoPathTextI));
-        photoPathTextI.setText(game.getPhotoPath());
+        //photoPathTextI.setText(game.getPhotoPath());
 
         rulesTextI = (EditText)(findViewById(R.id.rulesTextI));
         rulesTextI.setText(game.getRules());
@@ -60,53 +84,56 @@ public class GameInfoActivity extends AppCompatActivity {
         placeTextI.setText(game.getPlace());
 
         smallestAgeTextI = (EditText)(findViewById(R.id.smallestAgeTextI));
-        smallestAgeTextI.setText(game.getSmallestAge());
+        smallestAgeTextI.setText(game.getSmallestAge() + "");
 
         biggestAgeTextI = (EditText)(findViewById(R.id.biggestAgeTextI));
-        biggestAgeTextI.setText(game.getBiggestAge());
+        biggestAgeTextI.setText(game.getBiggestAge() + "");
 
         smallestQuantOfPlayersTextI = (EditText)(findViewById(R.id.smallestQuantOfPlayersTextI));
-        smallestQuantOfPlayersTextI.setText(game.getSmallestQuantOfPlayers());
+        smallestQuantOfPlayersTextI.setText(game.getSmallestQuantOfPlayers() + "");
 
         biggestQuantOfPlayersTextI = (EditText)(findViewById(R.id.biggestQuantOfPlayersTextI));
-        biggestQuantOfPlayersTextI.setText(game.getBiggestQuantOfPlayers());
+        biggestQuantOfPlayersTextI.setText(game.getBiggestQuantOfPlayers() + "");
 
         categoriesTextI = (EditText)(findViewById(R.id.categoriesTextI));
         categoriesTextI.setText(game.getCategoriesToString());
 
         quantOfPointsTextI = (EditText)(findViewById(R.id.quantOfPointsTextI));
-        quantOfPointsTextI.setText(game.getQuantOfPoints());
+        quantOfPointsTextI.setText(game.getQuantOfPoints() + "");
+
+        quantOfTimesBeingChosenText = (TextView)(findViewById(R.id.quantOfTimesBeingChosenText));
+        quantOfTimesBeingChosenText.setText(game.getQuantOfTimesBeingChosen() + "");
+
+        dateOfAddingText = (TextView)(findViewById(R.id.dateOfAddingText));
+        if (game.getDateOfAdding() == null)
+            dateOfAddingText.setText("No adding date");
+        //else dateOfAddingText.setText(DateTimeUtils.formatDate(new Date(), Locale.getDefault()));
+        else dateOfAddingText.setText(DateTimeUtils.formatDate(game.getDateOfAdding(), Locale.getDefault()));
+
+        dateOfLastChoosingText = (TextView)(findViewById(R.id.dateOfLastChoosingText));
+        if (game.getDateOfLastChoosing() == null)
+            dateOfLastChoosingText.setText("No choosing date");
+        else dateOfLastChoosingText.setText(DateTimeUtils.formatDate(game.getDateOfLastChoosing()));
 
         favoriteButtonI = (ImageButton)(findViewById(R.id.favoriteButtonI));
-        if (game.isFavorite())
-            favoriteButtonI.setImageResource(R.drawable.ic_baseline_favorite_24);
-        else favoriteButtonI.setImageResource(R.drawable.ic_baseline_favorite_border_24);
-        favoriteButtonI.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (game.isFavorite()) {
-                    favoriteButtonI.setImageResource(R.drawable.ic_baseline_favorite_border_24);
-                    game.setIsFavorite(false);
-                }
-                else {
-                    favoriteButtonI.setImageResource(R.drawable.ic_baseline_favorite_24);
-                    game.setIsFavorite(true);
-                }
-            }
-        });
+        checkButtonI = (ImageButton)(findViewById(R.id.checkGameI));
+
+        ButtonsActions.favoriteAction(game, favoriteButtonI, this);
+        ButtonsActions.chooseAction(game, checkButtonI, this);
 
         findViewById(R.id.updateButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 updateGame();
-                save();
+                GamesProcessor.saveGames(GameInfoActivity.this);
+                //Toast.makeText(GameInfoActivity.this, "updating", Toast.LENGTH_LONG).show();
             }
         });
         findViewById(R.id.removeButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 removeGame();
-                save();
+                GamesProcessor.saveGames(GameInfoActivity.this);
             }
         });
 
@@ -136,7 +163,9 @@ public class GameInfoActivity extends AppCompatActivity {
         });
     }
 
-    public void updateGame(){
+    private void updateGame(){
+        //З position можуть виникнути проблеми при сортуванні та фільтраці,
+        // але без нього не виходить, бо game, по ідеїб - це копія гри в списку
         game.setName(nameTextI.getText().toString());
         game.setDescription(descriptionTextI.getText().toString());
         game.setPhotoPath(photoPathTextI.getText().toString());
@@ -147,24 +176,94 @@ public class GameInfoActivity extends AppCompatActivity {
         game.setSmallestQuantOfPlayers(Integer.parseInt(smallestQuantOfPlayersTextI.getText().toString()));
         game.setBiggestQuantOfPlayers(Integer.parseInt(biggestQuantOfPlayersTextI.getText().toString()));
         game.setCategories(Arrays.asList(categoriesTextI.getText().toString().split(", ")));
-        //game.setQuantOfPoints(Integer.parseInt(quantOfPointsTextI.getText().toString()));
+        //g.setQuantOfPoints(Integer.parseInt(quantOfPointsTextI.getText().toString()));
         //boolean isFavorite = quantOfPoints == 5;
+        Toast.makeText(this, "Інформацію про гру було оновлено", Toast.LENGTH_LONG).show();
+        if (adapterInterface != null) {
+            Toast.makeText(this, "adapterInterface not null", Toast.LENGTH_LONG).show();
+            adapterInterface.notifyGameChanged(gamePosition);
+        }
     }
 
     public void removeGame(){
+        //String res = "There were " + GamesProcessor.getGames().size() + " games. Game "
+                //+ game.getName() + " on position " + gamePosition + " is deleting... ";
         GamesProcessor.getGames().remove(game);
+        //res = res + "Now there are " + GamesProcessor.getGames().size() + " games.";
+        //Toast.makeText(this, res, Toast.LENGTH_LONG).show();
         Toast.makeText(this, "Гру було видалено", Toast.LENGTH_LONG).show();
+        if (adapterInterface != null) {
+            Toast.makeText(this, "adapterInterface not null", Toast.LENGTH_LONG).show();
+            adapterInterface.notifyGameRemoved(gamePosition);
+        }
         this.finish();
     }
 
-    public void save(){
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+        //Toast.makeText(this, "In onActivityResult()", Toast.LENGTH_LONG).show();
 
-        boolean result = JSONHelper.exportToJSON(this, GamesProcessor.getGames());
-        if(result){
-            Toast.makeText(this, "Дані збережено", Toast.LENGTH_LONG).show();
+        //if (requestCode == Pick_image) {
+        //Toast.makeText(this, "requestCode: " + requestCode, Toast.LENGTH_LONG).show();
+        if(resultCode == RESULT_OK){
+            try {
+
+                //Получаем URI изображения, преобразуем его в Bitmap
+                //объект и отображаем в элементе ImageView нашего интерфейса:
+                //Toast.makeText(this, "resultCode == RESULT_OK. Before getting uri", Toast.LENGTH_LONG).show();
+                final Uri imageUri = imageReturnedIntent.getData();
+                //Toast.makeText(this, "Got uri: " + imageUri.toString(), Toast.LENGTH_LONG).show();
+                final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                ((ImageView)findViewById(R.id.imageViewI)).setImageBitmap(selectedImage);
+
+                InputStream is = getContentResolver().openInputStream(imageUri);
+                FileOutputStream fileOutputStream = null;
+                String[] fN = imageUri.toString().split("/");
+                String fileName = fN[fN.length - 1];
+
+                try {
+                    fileOutputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
+                    byte[] buffer = new byte[1024];
+                    int length;
+                    while ((length = is.read(buffer)) > 0) {
+                        fileOutputStream.write(buffer, 0, length);
+                    }
+                    //fileOutputStream.write(selectedImage.getNinePatchChunk());
+                    //copyFileUsingStream();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    if (fileOutputStream != null) {
+                        try {
+                            fileOutputStream.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if (is != null) {
+                        try {
+                            is.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                ((EditText)findViewById(R.id.photoPathTextI)).setText(fileName);
+                //Toast.makeText(this, fileName, Toast.LENGTH_LONG).show();
+                //Uri uri = Uri.parse(imageUri.toString());
+
+                //Toast.makeText(this, "Uri set!", Toast.LENGTH_LONG).show();
+            } catch (FileNotFoundException e) {
+                //Toast.makeText(this, "FileNotFoundException: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            }
         }
-        else{
-            Toast.makeText(this, "Не вдалося зберегти дані", Toast.LENGTH_LONG).show();
-        }
+
+        //}
+        //else {
+        //   Toast.makeText(this, "Error. requestCode == " + requestCode, Toast.LENGTH_LONG).show();
+        //}
     }
 }

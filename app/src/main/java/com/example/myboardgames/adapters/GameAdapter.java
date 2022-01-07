@@ -15,9 +15,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myboardgames.ButtonsActions;
 import com.example.myboardgames.Game;
 import com.example.myboardgames.GamesProcessor;
 import com.example.myboardgames.R;
+import com.example.myboardgames.ui.GameInfoActivity;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -142,29 +144,9 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder>{
         if (points > 3) addStar(holder.ibStar4); else removeStar(holder.ibStar4);
         if (points > 4) addStar(holder.ibStar5); else removeStar(holder.ibStar5);
 
-        if (game.isFavorite())
-            holder.ibFavoriteButton.setImageResource(R.drawable.ic_baseline_favorite_24);
-        else holder.ibFavoriteButton.setImageResource(R.drawable.ic_baseline_favorite_border_24);
-        holder.ibFavoriteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (game.isFavorite()) {
-                    holder.ibFavoriteButton.setImageResource(R.drawable.ic_baseline_favorite_border_24);
-                    game.setIsFavorite(false);
-                }
-                else {
-                    holder.ibFavoriteButton.setImageResource(R.drawable.ic_baseline_favorite_24);
-                    game.setIsFavorite(true);
-                }
-            }
-        });
+        ButtonsActions.favoriteAction(game, holder.ibFavoriteButton, context);
 
-        holder.ibCheckGame.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                GamesProcessor.chooseGame(game);
-            }
-        });
+        ButtonsActions.chooseAction(game, holder.ibCheckGame, context);
 
         holder.tvGameName.setText(game.getName());
 

@@ -14,18 +14,18 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.myboardgames.ButtonsActions;
 import com.example.myboardgames.Game;
 import com.example.myboardgames.GamesProcessor;
 import com.example.myboardgames.JSONHelper;
 import com.example.myboardgames.R;
+import com.example.myboardgames.Utils;
 
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 public class AddGameFragment extends Fragment {
-
-    private AddGameViewModel addGameViewModel;
 
     private EditText nameText, descriptionText, photoPathText, rulesText, placeText;
     private EditText smallestAgeText, biggestAgeText, smallestQuantOfPlayersText;
@@ -37,8 +37,6 @@ public class AddGameFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        addGameViewModel =
-                new ViewModelProvider(this).get(AddGameViewModel.class);
         View root = inflater.inflate(R.layout.fragment_add_game, container, false);
         /*final TextView textView = root.findViewById(R.id.text_notifications);
         addGameViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -64,16 +62,17 @@ public class AddGameFragment extends Fragment {
         biggestQuantOfPlayersText = (EditText)(view.findViewById(R.id.biggestQuantOfPlayersText));
         categoriesText = (EditText)(view.findViewById(R.id.categoriesText));
         quantOfPointsText = (EditText)(view.findViewById(R.id.quantOfPointsText));
+
         favoriteButton = (ImageButton)(view.findViewById(R.id.favoriteButton));
         favoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isFavorite) {
-                    favoriteButton.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+                    ButtonsActions.makeNotFavorite(favoriteButton);
                     isFavorite = false;
                 }
                 else {
-                    favoriteButton.setImageResource(R.drawable.ic_baseline_favorite_24);
+                    ButtonsActions.makeFavorite(favoriteButton);
                     isFavorite = true;
                 }
             }
@@ -83,7 +82,7 @@ public class AddGameFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 addGame();
-                save();
+                if (GamesProcessor.saveGames(getContext())) clearFields();
             }
         });
         /*view.findViewById(R.id.saveButton).setOnClickListener(new View.OnClickListener() {
@@ -94,7 +93,7 @@ public class AddGameFragment extends Fragment {
         });*/
 
         //Связываемся с нашим ImageView:
-        imageView = (ImageView)(view.findViewById(R.id.imageViewI));
+        imageView = (ImageView)(view.findViewById(R.id.imageView));
 
         //Связываемся с нашей кнопкой Button:
         //Button pickImage = (Button)(view.findViewById(R.id.pickImageButton));
@@ -135,29 +134,19 @@ public class AddGameFragment extends Fragment {
 
         Game game = new Game(name, description, photoPath, rules, place, smallestAge,
                 biggestAge, smallestQuantOfPlayers, biggestQuantOfPlayers, categories,
-                quantOfPoints, quantOfTimesBeingChosen, isFavorite, new Date(), null);
+                quantOfPoints, quantOfTimesBeingChosen, isFavorite, Utils.getCurrentDate(), null);
         GamesProcessor.getGames().add(game);
         Toast.makeText(getActivity(), "Quant of games: " + GamesProcessor.getGames().size(), Toast.LENGTH_LONG).show();
         //??????
         //((MainActivity)getActivity()).adapter.notifyDataSetChanged();
     }
 
-    private void save(){
-        boolean result = JSONHelper.exportToJSON(getActivity(), GamesProcessor.getGames());
-        if(result){
-            Toast.makeText(getActivity(), "Дані збережено", Toast.LENGTH_LONG).show();
-            clearFields();
-        }
-        else{
-            Toast.makeText(getActivity(), "Не вдалося зберегти дані", Toast.LENGTH_LONG).show();
-        }
-    }
-
     private void clearFields() {
         nameText.setText("");
         descriptionText.setText("");
         //see on phone!!!
-        photoPathText.setText("ic_cubiki.xml");
+        //photoPathText.setText("ic_cubiki.xml");
+        photoPathText.setText("");
         imageView.setImageResource(R.drawable.ic_cubiki);
         rulesText.setText("");
         placeText.setText("");
@@ -167,6 +156,8 @@ public class AddGameFragment extends Fragment {
         biggestQuantOfPlayersText.setText("");
         categoriesText.setText("");
         quantOfPointsText.setText("");
+        favoriteButton.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+        isFavorite = false;
     }
 
 }

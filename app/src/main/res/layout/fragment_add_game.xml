@@ -18,7 +18,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+
+        android:paddingStart="2dp"
+        android:paddingEnd="2dp">
 
         <EditText
             android:id="@+id/nameText"
@@ -54,11 +57,11 @@
             app:layout_constraintTop_toBottomOf="@id/descriptionText" />
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxHeight="200dp"
-            android:layout_gravity="center"
             android:src="@drawable/ic_cubiki"
+            android:adjustViewBounds="true"
             android:contentDescription="Choose photo.."
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -150,10 +153,19 @@
             android:layout_width="wrap_content"
             android:src="@drawable/ic_baseline_favorite_border_24"
             android:background="@android:color/transparent"
+            android:layout_marginStart="30dp"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/starsButtons"
+            app:layout_constraintTop_toTopOf="@id/starsButtons" />
+        <include
+            layout="@layout/stars"
+            android:id="@+id/starsButtons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toTopOf="@id/addButton"
-            app:layout_constraintTop_toBottomOf="@id/quantOfPointsText" />
+            app:layout_constraintTop_toBottomOf="@id/quantOfPointsText"/>
         <!--<EditText
             android:id="@+id/isFavoriteTextI"
             android:layout_width="0dp"

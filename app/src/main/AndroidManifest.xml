@@ -28,6 +28,7 @@
         <activity
             android:name=".ui.GameInfoActivity"
             android:label="@string/title_activity_game_info"
+            android:theme="@style/Theme.MyBoardGames.NoActionBar"
             android:parentActivityName=".MainActivity">
         </activity>
         <activity

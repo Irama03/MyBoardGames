@@ -113,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }*/
 
-    //Обрабатываем результат выбора в галерее:
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);

@@ -1,13 +1,16 @@
 package com.example.myboardgames.ui.games;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,58 +21,51 @@ import com.example.myboardgames.R;
 import com.example.myboardgames.adapters.GameAdapter;
 import com.example.myboardgames.ui.GameInfoActivity;
 
+import java.io.Serializable;
 import java.util.List;
 
-//example of game
-/*
-games = new ArrayList<>();
-        List<String> categories = new ArrayList<>();
-        categories.add("Interesting");
-        Game game = new Game("A", "A", "A", "A", "A", 1,
-                3, 2, 4, categories,
-                2, 1, false);
-        games.add(game);
-* */
+public class GamesFragment extends Fragment implements AdapterInterface {
 
-public class GamesFragment extends Fragment {
-
-    private GamesViewModel gamesViewModel;
+    private AppCompatActivity mActivity;
 
     private View view;
     private RecyclerView recyclerView;
     private GameAdapter adapter;
     private List<Game> games;
     private List<Game> filteredGames;
-    //private ListView listView;
     public static final int GAME_INFO_REQUEST = 2;
-    //public ArrayAdapter<Game> adapter;
+
+    //In previous project it was used for databaseReference
+    //private ValueEventListener valueEventListener;
+
+    /**
+     * method is used to initialise fragment on attach
+     * @param context
+     */
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        mActivity = (AppCompatActivity) context;
+    }
+
+    /**
+     * method is used to initialise fragment when it is started
+     */
+    @Override
+    public void onStart() {
+        super.onStart();
+        initRecyclerView();
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        gamesViewModel =
-                new ViewModelProvider(this).get(GamesViewModel.class);
         view = inflater.inflate(R.layout.fragment_games, container, false);
-        /*final TextView textView = root.findViewById(R.id.text_notifications);
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });*/
         return view;
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initRecyclerView();
-
-        /*listView = (ListView)(view.findViewById(R.id.recyclerViewGames));
-        if (!GamesProcessor.gamesAreLoaded())
-            GamesProcessor.loadGames(getActivity());
-        games = GamesProcessor.getGames();
-
-        ((MainActivity)getActivity()).adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, games);
-        listView.setAdapter(((MainActivity)getActivity()).adapter);)*/
+        //initRecyclerView();
     }
 
     /**
@@ -86,9 +82,23 @@ public class GamesFragment extends Fragment {
             public void onGameClicked(Game game, int position) {
                 Intent intent = new Intent(GamesFragment.this.getContext(), GameInfoActivity.class);
                 intent.putExtra("Game", game);
-                startActivityForResult(intent, GAME_INFO_REQUEST);
+                intent.putExtra("GamePosition", position);
+                //intent.putExtra("Adapter", (Parcelable) adapter);
+                //startActivityForResult(intent, GAME_INFO_REQUEST);
+                startActivity(intent);
             }
         });
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void notifyGameChanged(int position) {
+        adapter.notifyItemChanged(position);
+    }
+
+    @Override
+    public void notifyGameRemoved(int position) {
+        //adapter.notifyDataSetChanged();
+        adapter.notifyItemRemoved(position);
     }
 }

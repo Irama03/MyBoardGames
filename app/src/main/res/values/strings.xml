@@ -20,7 +20,7 @@
         <item>By date of adding</item>
         <item>By date of adding reverse</item>
     </string-array>
-    <string name="title_activity_game_info">GameInfoActivity</string>
+    <string name="title_activity_game_info">Game Info</string>
     <!--
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.
