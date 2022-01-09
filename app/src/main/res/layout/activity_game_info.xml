@@ -186,18 +186,8 @@
                 android:inputType="textMultiLine"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/quantOfPointsTextI"
+                app:layout_constraintBottom_toTopOf="@id/checkGameI"
                 app:layout_constraintTop_toBottomOf="@id/biggestQuantOfPlayersTextI" />
-            <EditText
-                android:id="@+id/quantOfPointsTextI"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="quantOfPoints"
-                android:inputType="numberSigned"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/favoriteButtonI"
-                app:layout_constraintTop_toBottomOf="@id/categoriesTextI" />
             <ImageButton
                 android:id="@+id/checkGameI"
                 android:layout_width="wrap_content"
@@ -207,7 +197,7 @@
                 android:layout_margin="8dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/quantOfTimesBeingChosenText"
-                app:layout_constraintTop_toBottomOf="@id/quantOfPointsTextI"/>
+                app:layout_constraintTop_toBottomOf="@id/categoriesTextI"/>
             <ImageButton
                 android:id="@+id/favoriteButtonI"
                 android:layout_height="wrap_content"
@@ -217,7 +207,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/quantOfTimesBeingChosenText"
-                app:layout_constraintTop_toBottomOf="@id/quantOfPointsTextI" />
+                app:layout_constraintTop_toBottomOf="@id/categoriesTextI" />
             <include
                 layout="@layout/stars"
                 android:id="@+id/starsButtonsI"
@@ -226,7 +216,7 @@
                 android:layout_marginEnd="8dp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/quantOfTimesBeingChosenText"
-                app:layout_constraintTop_toBottomOf="@id/quantOfPointsTextI"/>
+                app:layout_constraintTop_toBottomOf="@id/categoriesTextI"/>
             <TextView
                 android:id="@+id/quantOfTimesBeingChosenText"
                 android:layout_width="0dp"

@@ -34,10 +34,11 @@ public class GameInfoActivity extends AppCompatActivity {
 
     private EditText nameTextI, descriptionTextI, photoPathTextI, rulesTextI, placeTextI;
     private EditText smallestAgeTextI, biggestAgeTextI, smallestQuantOfPlayersTextI;
-    private EditText biggestQuantOfPlayersTextI, categoriesTextI, quantOfPointsTextI;
+    private EditText biggestQuantOfPlayersTextI, categoriesTextI;
     private TextView quantOfTimesBeingChosenText, dateOfAddingText, dateOfLastChoosingText, btnBack;
     private ImageView imageViewI;
-    private ImageButton favoriteButtonI, checkButtonI;
+    private ImageButton ibStar1, ibStar2, ibStar3, ibStar4, ibStar5, favoriteButtonI, checkButtonI;
+    private ImageButton[] stars = new ImageButton[5];
 
     //private TextView mTextView;
     private Game gameCopy;
@@ -98,9 +99,6 @@ public class GameInfoActivity extends AppCompatActivity {
         categoriesTextI = (EditText)(findViewById(R.id.categoriesTextI));
         categoriesTextI.setText(game.getCategoriesToString());
 
-        quantOfPointsTextI = (EditText)(findViewById(R.id.quantOfPointsTextI));
-        quantOfPointsTextI.setText(game.getQuantOfPoints() + "");
-
         quantOfTimesBeingChosenText = (TextView)(findViewById(R.id.quantOfTimesBeingChosenText));
         quantOfTimesBeingChosenText.setText(game.getQuantOfTimesBeingChosen() + "");
 
@@ -115,11 +113,23 @@ public class GameInfoActivity extends AppCompatActivity {
             dateOfLastChoosingText.setText("No choosing date");
         else dateOfLastChoosingText.setText(DateTimeUtils.formatDate(game.getDateOfLastChoosing()));
 
+        ibStar1 = (ImageButton)findViewById(R.id.ibStar1);
+        ibStar2 = (ImageButton)findViewById(R.id.ibStar2);
+        ibStar3 = (ImageButton)findViewById(R.id.ibStar3);
+        ibStar4 = (ImageButton)findViewById(R.id.ibStar4);
+        ibStar5 = (ImageButton)findViewById(R.id.ibStar5);
+        stars[0] = ibStar1;
+        stars[1] = ibStar2;
+        stars[2] = ibStar3;
+        stars[3] = ibStar4;
+        stars[4] = ibStar5;
+
         favoriteButtonI = (ImageButton)(findViewById(R.id.favoriteButtonI));
         checkButtonI = (ImageButton)(findViewById(R.id.checkGameI));
 
         ButtonsActions.favoriteAction(game, favoriteButtonI, this);
         ButtonsActions.chooseAction(game, checkButtonI, this);
+        ButtonsActions.pointsAction(game, stars, this);
 
         findViewById(R.id.updateButton).setOnClickListener(new View.OnClickListener() {
             @Override

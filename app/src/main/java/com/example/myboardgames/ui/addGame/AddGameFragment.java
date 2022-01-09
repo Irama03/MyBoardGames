@@ -29,11 +29,13 @@ public class AddGameFragment extends Fragment {
 
     private EditText nameText, descriptionText, photoPathText, rulesText, placeText;
     private EditText smallestAgeText, biggestAgeText, smallestQuantOfPlayersText;
-    private EditText biggestQuantOfPlayersText, categoriesText, quantOfPointsText;
+    private EditText biggestQuantOfPlayersText, categoriesText;
     private ImageView imageView;
-    private ImageButton favoriteButton;
+    private ImageButton ibStar1, ibStar2, ibStar3, ibStar4, ibStar5, favoriteButton;
+    private ImageButton[] stars = new ImageButton[5];
     public static final int PICK_IMAGE = 1;
     private boolean isFavorite = false;
+    private int quantOfPoints = 0;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -61,7 +63,41 @@ public class AddGameFragment extends Fragment {
         smallestQuantOfPlayersText = (EditText)(view.findViewById(R.id.smallestQuantOfPlayersText));
         biggestQuantOfPlayersText = (EditText)(view.findViewById(R.id.biggestQuantOfPlayersText));
         categoriesText = (EditText)(view.findViewById(R.id.categoriesText));
-        quantOfPointsText = (EditText)(view.findViewById(R.id.quantOfPointsText));
+
+        ibStar1 = (ImageButton)(view.findViewById(R.id.ibStar1));
+        ibStar2 = (ImageButton)(view.findViewById(R.id.ibStar2));
+        ibStar3 = (ImageButton)(view.findViewById(R.id.ibStar3));
+        ibStar4 = (ImageButton)(view.findViewById(R.id.ibStar4));
+        ibStar5 = (ImageButton)(view.findViewById(R.id.ibStar5));
+        stars[0] = ibStar1;
+        stars[1] = ibStar2;
+        stars[2] = ibStar3;
+        stars[3] = ibStar4;
+        stars[4] = ibStar5;
+
+        for (int i = 0; i < stars.length; i++) {
+            int finalI = i;
+            //Why fignya???
+            if (quantOfPoints > i) ButtonsActions.addStar(stars[i]); else ButtonsActions.removeStar(stars[i]);
+            stars[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //TODO Перевірити в якомусь додатку!
+                    if (quantOfPoints <= finalI) {
+                        ButtonsActions.processSmallerQuantOfStars(stars, finalI);
+                        quantOfPoints = finalI + 1;
+                    }
+                    else if (quantOfPoints == finalI + 1) {
+                        ButtonsActions.processTheSameQuantOfStars(stars);
+                        quantOfPoints = 0;
+                    }
+                    else {
+                        ButtonsActions.processBiggerQuantOfStars(stars, finalI);
+                        quantOfPoints = finalI + 1;
+                    }
+                }
+            });
+        }
 
         favoriteButton = (ImageButton)(view.findViewById(R.id.favoriteButton));
         favoriteButton.setOnClickListener(new View.OnClickListener() {
@@ -128,7 +164,7 @@ public class AddGameFragment extends Fragment {
         int biggestQuantOfPlayers = Integer.parseInt(biggestQuantOfPlayersText.getText().toString());
         //ArrayList<String> categories = (ArrayList<String>) (Arrays.asList(categoriesText.getText().toString().split(", ")));
         List<String> categories = Arrays.asList(categoriesText.getText().toString().split(", "));
-        int quantOfPoints = Integer.parseInt(quantOfPointsText.getText().toString());
+        //int quantOfPoints = Integer.parseInt(quantOfPointsText.getText().toString());
         int quantOfTimesBeingChosen = 0;
         //boolean isFavorite = Boolean.parseBoolean(isFavoriteText.getText().toString());
 
@@ -155,7 +191,7 @@ public class AddGameFragment extends Fragment {
         smallestQuantOfPlayersText.setText("");
         biggestQuantOfPlayersText.setText("");
         categoriesText.setText("");
-        quantOfPointsText.setText("");
+        ButtonsActions.setDefaultStars(stars);
         favoriteButton.setImageResource(R.drawable.ic_baseline_favorite_border_24);
         isFavorite = false;
     }

@@ -3,6 +3,7 @@ package com.example.myboardgames.adapters;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -89,14 +90,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder>{
         return new ViewHolder(view);
     }
 
-    private void addStar(ImageButton ibStar) {
-        ibStar.setImageResource(R.drawable.ic_baseline_star_24);
-    }
-
-    private void removeStar(ImageButton ibStar) {
-        ibStar.setImageResource(R.drawable.ic_baseline_star_outline_24);
-    }
-
     /**
      * method is used to set data to the game item
      *
@@ -136,17 +129,9 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder>{
             e.printStackTrace();
         }
 
-        int points = game.getQuantOfPoints();
-        //Why fignya???
-        if (points > 0) addStar(holder.ibStar1); else removeStar(holder.ibStar1);
-        if (points > 1) addStar(holder.ibStar2); else removeStar(holder.ibStar2);
-        if (points > 2) addStar(holder.ibStar3); else removeStar(holder.ibStar3);
-        if (points > 3) addStar(holder.ibStar4); else removeStar(holder.ibStar4);
-        if (points > 4) addStar(holder.ibStar5); else removeStar(holder.ibStar5);
-
         ButtonsActions.favoriteAction(game, holder.ibFavoriteButton, context);
-
         ButtonsActions.chooseAction(game, holder.ibCheckGame, context);
+        ButtonsActions.pointsAction(game, holder.stars, context);
 
         holder.tvGameName.setText(game.getName());
 
@@ -200,6 +185,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder>{
         public ImageView ivGameImage;
         public ImageButton ibStar1, ibStar2, ibStar3, ibStar4, ibStar5, ibFavoriteButton, ibCheckGame;
         public TextView tvGameName, tvGameCategories, tvGameDescription;
+        public ImageButton[] stars = new ImageButton[5];
 
         /**
          * public constructor with parameters
@@ -223,6 +209,11 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder>{
             ibStar3 = itemView.findViewById(R.id.ibStar3);
             ibStar4 = itemView.findViewById(R.id.ibStar4);
             ibStar5 = itemView.findViewById(R.id.ibStar5);
+            stars[0] = ibStar1;
+            stars[1] = ibStar2;
+            stars[2] = ibStar3;
+            stars[3] = ibStar4;
+            stars[4] = ibStar5;
             ibFavoriteButton = itemView.findViewById(R.id.ibFavoriteButton);
             ibCheckGame = itemView.findViewById(R.id.ibCheckGame);
             tvGameName = itemView.findViewById(R.id.tvGameName);

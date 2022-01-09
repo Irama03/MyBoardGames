@@ -135,18 +135,8 @@
             android:inputType="textMultiLine"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/quantOfPointsText"
-            app:layout_constraintTop_toBottomOf="@id/biggestQuantOfPlayersText" />
-        <EditText
-            android:id="@+id/quantOfPointsText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="quantOfPoints"
-            android:inputType="numberSigned"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toTopOf="@id/favoriteButton"
-            app:layout_constraintTop_toBottomOf="@id/categoriesText" />
+            app:layout_constraintTop_toBottomOf="@id/biggestQuantOfPlayersText" />
         <ImageButton
             android:id="@+id/favoriteButton"
             android:layout_height="wrap_content"
@@ -165,7 +155,7 @@
             android:layout_marginEnd="30dp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toTopOf="@id/addButton"
-            app:layout_constraintTop_toBottomOf="@id/quantOfPointsText"/>
+            app:layout_constraintTop_toBottomOf="@id/categoriesText"/>
         <!--<EditText
             android:id="@+id/isFavoriteTextI"
             android:layout_width="0dp"
