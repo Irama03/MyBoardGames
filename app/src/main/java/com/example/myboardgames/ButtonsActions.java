@@ -81,17 +81,17 @@ public class ButtonsActions {
                     if (points <= finalI) {
                         processSmallerQuantOfStars(stars, finalI);
                         game.setQuantOfPoints(finalI + 1);
-                        Toast.makeText(context, "smaller; there were " + points + " points; now " + (finalI + 1) + " points", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(context, "smaller; there were " + points + " points; now " + (finalI + 1) + " points", Toast.LENGTH_LONG).show();
                     }
                     else if (points == finalI + 1) {
                         processTheSameQuantOfStars(stars);
                         game.setQuantOfPoints(0);
-                        Toast.makeText(context, "the same; there were " + points + " points; now " + (0) + " points", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(context, "the same; there were " + points + " points; now " + (0) + " points", Toast.LENGTH_LONG).show();
                     }
                     else {
                         processBiggerQuantOfStars(stars, finalI);
                         game.setQuantOfPoints(finalI + 1);
-                        Toast.makeText(context, "bigger; there were " + points + " points; now " + (finalI + 1) + " points", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(context, "bigger; there were " + points + " points; now " + (finalI + 1) + " points", Toast.LENGTH_LONG).show();
                     }
                     GamesProcessor.saveGames(context);
                 }

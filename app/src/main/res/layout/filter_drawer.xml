@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/filter_drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <ViewStub
+        android:id="@+id/filter_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <LinearLayout
+        android:id="@+id/filter_drawer"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:background="@color/purple_light"
+        android:orientation="vertical"
+        >
+        <ExpandableListView
+            android:id="@+id/filter_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"/>
+    </LinearLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

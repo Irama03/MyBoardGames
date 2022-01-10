@@ -16,14 +16,34 @@
 
     <string-array name="sort_items">
         <item>By name</item>
-        <item>By name reverse</item>
-        <item>By date of adding</item>
-        <item>By date of adding reverse</item>
+        <item>By name\nreverse</item>
+        <item>By date of\nlast choosing</item>
+        <item>By date of\nlast choosing\nreverse</item>
+        <item>By quantity\nof points</item>
+        <item>By quantity\nof points reverse</item>
     </string-array>
+
+    <string-array name="points">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="favorite">
+        <item>Так</item>
+        <item>Ні</item>
+    </string-array>
+
     <string name="title_activity_game_info">Game Info</string>
     <!--
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.
     -->
     <string name="hello_world">Hello Square World!</string>
+    <string name="categories_filter_label">Категорії</string>
+    <string name="points_filter_label">Бали</string>
+    <string name="favorite_filter_label">Улюблені</string>
 </resources>

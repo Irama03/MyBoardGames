@@ -72,8 +72,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder>{
         this.context = context;
         onGameClickListener = onClickListener;
         inflater = LayoutInflater.from(context);
-        //userSignedIn = context instanceof BaseActivity;
-        //userKey = AppDatabase.emailToId(FirebaseAuth.getInstance().getCurrentUser().getEmail());
     }
 
     /**
@@ -170,6 +168,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder>{
 
     private static RecyclerView.LayoutParams getDefaultLayoutParams() {
         RecyclerView.LayoutParams res = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT);
+        //TODO Звідки такі числа???
         res.topMargin = 25;
         res.rightMargin = 25;
         res.leftMargin = 25;
