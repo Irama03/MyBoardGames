@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.SearchView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,7 +45,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class GamesFragment extends Fragment implements AdapterInterface {
+public class GamesFragment extends Fragment { // implements AdapterInterface {
 
     private AppCompatActivity mActivity;
 
@@ -99,7 +101,10 @@ public class GamesFragment extends Fragment implements AdapterInterface {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_games, container, false);
+        view = inflater.inflate(R.layout.filter_drawer, container, false);
+        ViewStub stub = view.findViewById(R.id.filter_content);
+        stub.setLayoutResource(R.layout.fragment_games);
+        stub.inflate();
         return view;
     }
 
@@ -213,7 +218,7 @@ public class GamesFragment extends Fragment implements AdapterInterface {
     }
 
     private void initFilter() {
-        //String[] spheres = getResources().getStringArray(R.array.spheres);
+        String[] categories = {"funny", "other"};
         String[] points = getResources().getStringArray(R.array.points);
         String[] favorites = getResources().getStringArray(R.array.favorite);
 
@@ -223,8 +228,8 @@ public class GamesFragment extends Fragment implements AdapterInterface {
         String pointsLabel = getResources().getString(R.string.points_filter_label);
         String favoriteLabel = getResources().getString(R.string.favorite_filter_label);
 
-        //childData.put(sphereLabel, Arrays.asList(spheres));
-        childData.put(categoryLabel, GamesProcessor.getCategories());
+        //childData.put(categoryLabel, GamesProcessor.getCategories());
+        childData.put(categoryLabel, Arrays.asList(categories));
         childData.put(pointsLabel, Arrays.asList(points));
         childData.put(favoriteLabel, Arrays.asList(favorites));
 
@@ -255,10 +260,12 @@ public class GamesFragment extends Fragment implements AdapterInterface {
         String favoriteLabel = getResources().getString(R.string.favorite_filter_label);
 
         filteredGames.clear();
+        //Toast.makeText(getActivity(), "games size: " + games.size(), Toast.LENGTH_LONG).show();
 
         //Categories check
         Set<String> categoriesChecked = checkedItems.remove(categoryLabel);
         if (categoriesChecked != null) {
+            Toast.makeText(getActivity(), "categoriesChecked", Toast.LENGTH_LONG).show();
             for (Game game : games) {
                 if (!Collections.disjoint(categoriesChecked, game.getCategories()))
                     filteredGames.add(game);
@@ -267,9 +274,10 @@ public class GamesFragment extends Fragment implements AdapterInterface {
             filteredGames.addAll(games);
         }
 
-        //Level check
+        //Points check
         Set<String> pointsChecked = checkedItems.remove(pointsLabel);
         if (pointsChecked != null) {
+            Toast.makeText(getActivity(), "pointsChecked", Toast.LENGTH_LONG).show();
             List<Integer> convertedLevels = pointsChecked
                     .stream()
                     .map(Integer::parseInt)
@@ -285,15 +293,18 @@ public class GamesFragment extends Fragment implements AdapterInterface {
         //Favorite check
         Set<String> favoriteChecked = checkedItems.remove(favoriteLabel);
         if (favoriteChecked != null) {
+            //Toast.makeText(getActivity(), "favoriteChecked", Toast.LENGTH_LONG).show();
             String[] favorites = getResources().getStringArray(R.array.favorite);
             for (int i = 0; i < filteredGames.size(); ++i) {
                 if (!favoriteChecked.contains(favorites[filteredGames.get(i).isFavorite() ? 0 : 1])) {
                     filteredGames.remove(i);
+                    Toast.makeText(getActivity(), "favoriteChecked: " + favoriteChecked + "; favorites[" + (filteredGames.get(i).isFavorite() ? 0 : 1) + "] = " + favorites[filteredGames.get(i).isFavorite() ? 0 : 1], Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), filteredGames.get(i).getName() + " is removing. FilteredGames size: " + filteredGames.size(), Toast.LENGTH_LONG).show();
                     --i;
                 }
             }
         }
-
+        Toast.makeText(getActivity(), "filteredGames size: " + filteredGames.size(), Toast.LENGTH_LONG).show();
         adapter.notifyDataSetChanged();
     }
 
@@ -319,7 +330,7 @@ public class GamesFragment extends Fragment implements AdapterInterface {
             public void onGameClicked(Game game, int position) {
                 Intent intent = new Intent(GamesFragment.this.getContext(), GameInfoActivity.class);
                 intent.putExtra("Game", game);
-                intent.putExtra("GamePosition", position);
+                //intent.putExtra("GamePosition", position);
                 //intent.putExtra("Adapter", (Parcelable) adapter);
                 //startActivityForResult(intent, GAME_INFO_REQUEST);
                 startActivity(intent);
@@ -328,7 +339,7 @@ public class GamesFragment extends Fragment implements AdapterInterface {
         recyclerView.setAdapter(adapter);
     }
 
-    @Override
+    /*@Override
     public void notifyGameChanged(int position) {
         adapter.notifyItemChanged(position);
     }
@@ -337,5 +348,5 @@ public class GamesFragment extends Fragment implements AdapterInterface {
     public void notifyGameRemoved(int position) {
         //adapter.notifyDataSetChanged();
         adapter.notifyItemRemoved(position);
-    }
+    }*/
 }

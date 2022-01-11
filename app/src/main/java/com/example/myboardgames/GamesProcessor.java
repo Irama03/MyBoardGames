@@ -108,6 +108,14 @@ public class GamesProcessor {
         }
     }
 
+    public static Game getGameByName(String name) {
+        for (Game game: games) {
+            if (game.getName().equals(name))
+                return game;
+        }
+        return null;
+    }
+
     public void createGame(Game game){
         games.add(game);
     }

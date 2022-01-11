@@ -20,7 +20,7 @@ import com.example.myboardgames.Game;
 import com.example.myboardgames.GamesProcessor;
 import com.example.myboardgames.R;
 import com.example.myboardgames.ui.addGame.AddGameFragment;
-import com.example.myboardgames.ui.games.AdapterInterface;
+//import com.example.myboardgames.ui.games.AdapterInterface;
 import com.github.thunder413.datetimeutils.DateTimeUtils;
 
 import java.io.FileNotFoundException;
@@ -41,10 +41,8 @@ public class GameInfoActivity extends AppCompatActivity {
     private ImageButton[] stars = new ImageButton[5];
 
     //private TextView mTextView;
-    private Game gameCopy;
     private Game game;
-    private int gamePosition;
-    private AdapterInterface adapterInterface;
+    //private int gamePosition;
     //private FrameLayout mContainer;
     //private GameAdapter adapter;
 
@@ -53,10 +51,11 @@ public class GameInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_info);
         //mContainer = findViewById(R.id.nav_host_fragment_container);
-        gameCopy = (Game)getIntent().getSerializableExtra("Game");
-        gamePosition = (int)getIntent().getSerializableExtra("GamePosition");
-        game = GamesProcessor.getGames().get(gamePosition);
-        adapterInterface = (AdapterInterface) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        Game gameCopy = (Game)getIntent().getSerializableExtra("Game");
+        //gamePosition = (int)getIntent().getSerializableExtra("GamePosition");
+        //game = GamesProcessor.getGames().get(gamePosition);
+        game = GamesProcessor.getGameByName(gameCopy.getName());
+        //adapterInterface = (AdapterInterface) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         //adapter = (RecyclerView.Adapter<GameAdapter.ViewHolder>)getIntent().getParcelableExtra("Adapter");
         //mTextView = (TextView) findViewById(R.id.text);
         //mTextView.setText(game.getName());
@@ -189,10 +188,6 @@ public class GameInfoActivity extends AppCompatActivity {
         //g.setQuantOfPoints(Integer.parseInt(quantOfPointsTextI.getText().toString()));
         //boolean isFavorite = quantOfPoints == 5;
         Toast.makeText(this, "Інформацію про гру було оновлено", Toast.LENGTH_LONG).show();
-        if (adapterInterface != null) {
-            Toast.makeText(this, "adapterInterface not null", Toast.LENGTH_LONG).show();
-            adapterInterface.notifyGameChanged(gamePosition);
-        }
     }
 
     public void removeGame(){
@@ -202,10 +197,6 @@ public class GameInfoActivity extends AppCompatActivity {
         //res = res + "Now there are " + GamesProcessor.getGames().size() + " games.";
         //Toast.makeText(this, res, Toast.LENGTH_LONG).show();
         Toast.makeText(this, "Гру було видалено", Toast.LENGTH_LONG).show();
-        if (adapterInterface != null) {
-            Toast.makeText(this, "adapterInterface not null", Toast.LENGTH_LONG).show();
-            adapterInterface.notifyGameRemoved(gamePosition);
-        }
         this.finish();
     }
 
