@@ -116,6 +116,12 @@ public class GamesProcessor {
         return null;
     }
 
+    public static List<Game> getCopyOfGames() {
+        List<Game> result = new ArrayList<Game>(games.size());
+        result.addAll(games);
+        return result;
+    }
+
     public void createGame(Game game){
         games.add(game);
     }

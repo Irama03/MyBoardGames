@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Spinner xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/spinnerProblemEmergencyLevel"
+    android:layout_width="wrap_content"
+    app:layout_constraintWidth_max="200dp"
+    android:layout_height="wrap_content"
+    android:background="@color/purple_light"/>
+
+<!--
+android:background="@color/purple_light" - тоді буде без стрілочки
+справа, а якщо без кольору, то зі стрілочкою
+
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    app:layout_constraintWidth_max="200dp"
+    android:layout_height="wrap_content">
+
+    <Spinner
+        android:id="@+id/spinnerProblemEmergencyLevel"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
+-->

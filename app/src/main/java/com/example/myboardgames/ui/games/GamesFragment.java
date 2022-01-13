@@ -265,7 +265,7 @@ public class GamesFragment extends Fragment { // implements AdapterInterface {
         //Categories check
         Set<String> categoriesChecked = checkedItems.remove(categoryLabel);
         if (categoriesChecked != null) {
-            Toast.makeText(getActivity(), "categoriesChecked", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getActivity(), "categoriesChecked", Toast.LENGTH_LONG).show();
             for (Game game : games) {
                 if (!Collections.disjoint(categoriesChecked, game.getCategories()))
                     filteredGames.add(game);
@@ -277,7 +277,7 @@ public class GamesFragment extends Fragment { // implements AdapterInterface {
         //Points check
         Set<String> pointsChecked = checkedItems.remove(pointsLabel);
         if (pointsChecked != null) {
-            Toast.makeText(getActivity(), "pointsChecked", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getActivity(), "pointsChecked", Toast.LENGTH_LONG).show();
             List<Integer> convertedLevels = pointsChecked
                     .stream()
                     .map(Integer::parseInt)
@@ -298,8 +298,8 @@ public class GamesFragment extends Fragment { // implements AdapterInterface {
             for (int i = 0; i < filteredGames.size(); ++i) {
                 if (!favoriteChecked.contains(favorites[filteredGames.get(i).isFavorite() ? 0 : 1])) {
                     filteredGames.remove(i);
-                    Toast.makeText(getActivity(), "favoriteChecked: " + favoriteChecked + "; favorites[" + (filteredGames.get(i).isFavorite() ? 0 : 1) + "] = " + favorites[filteredGames.get(i).isFavorite() ? 0 : 1], Toast.LENGTH_LONG).show();
-                    Toast.makeText(getActivity(), filteredGames.get(i).getName() + " is removing. FilteredGames size: " + filteredGames.size(), Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getActivity(), "favoriteChecked: " + favoriteChecked + "; favorites[" + (filteredGames.get(i).isFavorite() ? 0 : 1) + "] = " + favorites[filteredGames.get(i).isFavorite() ? 0 : 1], Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getActivity(), filteredGames.get(i).getName() + " is removing. FilteredGames size: " + filteredGames.size(), Toast.LENGTH_LONG).show();
                     --i;
                 }
             }
@@ -324,7 +324,7 @@ public class GamesFragment extends Fragment { // implements AdapterInterface {
         if (!GamesProcessor.gamesAreLoaded())
             GamesProcessor.loadGames(getActivity());
         games = GamesProcessor.getGames();
-        filteredGames = games;
+        filteredGames = GamesProcessor.getCopyOfGames();
         adapter = new GameAdapter(getContext(), filteredGames, new GameAdapter.OnGameClickListener() {
             @Override
             public void onGameClicked(Game game, int position) {

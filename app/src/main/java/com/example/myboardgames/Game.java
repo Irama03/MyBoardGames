@@ -22,6 +22,7 @@ public class Game implements Serializable {
     private int biggestAge;
     private int smallestQuantOfPlayers;
     private int biggestQuantOfPlayers;
+    private String playingTime;
     private List<String> categories;
     //from 1 to 5
     private int quantOfPoints;
@@ -37,9 +38,9 @@ public class Game implements Serializable {
 
     public Game(String name, String description, String photoPath, String rules, String place,
                 int smallestAge, int biggestAge, int smallestQuantOfPlayers,
-                int biggestQuantOfPlayers, List<String> categories, int quantOfPoints,
-                int quantOfTimesBeingChosen, boolean isFavorite, Date dateOfAdding,
-                Date dateOfLastChoosing) {
+                int biggestQuantOfPlayers, String playingTime, List<String> categories,
+                int quantOfPoints, int quantOfTimesBeingChosen, boolean isFavorite,
+                Date dateOfAdding, Date dateOfLastChoosing) {
         this.name = name;
         this.description = description;
         this.photoPath = photoPath;
@@ -49,6 +50,7 @@ public class Game implements Serializable {
         this.biggestAge = biggestAge;
         this.smallestQuantOfPlayers = smallestQuantOfPlayers;
         this.biggestQuantOfPlayers = biggestQuantOfPlayers;
+        this.playingTime = playingTime;
         this.categories = categories;
         this.quantOfPoints = quantOfPoints;
         this.quantOfTimesBeingChosen = quantOfTimesBeingChosen;
@@ -127,6 +129,14 @@ public class Game implements Serializable {
 
     public void setBiggestQuantOfPlayers(int biggestQuantOfPlayers) {
         this.biggestQuantOfPlayers = biggestQuantOfPlayers;
+    }
+
+    public String getPlayingTime() {
+        return playingTime;
+    }
+
+    public void setPlayingTime(String playingTime) {
+        this.playingTime = playingTime;
     }
 
     public List<String> getCategories() {
@@ -212,6 +222,7 @@ public class Game implements Serializable {
                 "\nНайбільший вік гравців: " + biggestAge +
                 "\nНайменша кількість гравців: "+ smallestQuantOfPlayers +
                 "\nНайбільша кількість гравців: "+ biggestQuantOfPlayers +
+                "\nПриблизний час гри: " + playingTime +
                 "\nКатегорії: " + categories + "\nКількість балів: " + quantOfPoints +
                 "\nСкільки разів гру обирали: " + quantOfTimesBeingChosen +
                 "\nЧи є улюбленою: " + isFavorite +

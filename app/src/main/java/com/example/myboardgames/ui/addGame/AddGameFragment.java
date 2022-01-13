@@ -5,31 +5,32 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.ArrayRes;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myboardgames.ButtonsActions;
 import com.example.myboardgames.Game;
 import com.example.myboardgames.GamesProcessor;
-import com.example.myboardgames.JSONHelper;
 import com.example.myboardgames.R;
 import com.example.myboardgames.Utils;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 public class AddGameFragment extends Fragment {
 
     private EditText nameText, descriptionText, photoPathText, rulesText, placeText;
-    private EditText smallestAgeText, biggestAgeText, smallestQuantOfPlayersText;
-    private EditText biggestQuantOfPlayersText, categoriesText;
+    private Spinner smallestAgeSp, biggestAgeSp, smallestQuantOfPlayersSp;
+    private Spinner biggestQuantOfPlayersSp, playingTimeSp;
+    private EditText categoriesText;
     private ImageView imageView;
     private ImageButton ibStar1, ibStar2, ibStar3, ibStar4, ibStar5, favoriteButton;
     private ImageButton[] stars = new ImageButton[5];
@@ -58,10 +59,17 @@ public class AddGameFragment extends Fragment {
         photoPathText = (EditText)(view.findViewById(R.id.photoPathText));
         rulesText = (EditText)(view.findViewById(R.id.rulesText));
         placeText = (EditText)(view.findViewById(R.id.placeText));
-        smallestAgeText = (EditText)(view.findViewById(R.id.smallestAgeText));
-        biggestAgeText = (EditText)(view.findViewById(R.id.biggestAgeText));
-        smallestQuantOfPlayersText = (EditText)(view.findViewById(R.id.smallestQuantOfPlayersText));
-        biggestQuantOfPlayersText = (EditText)(view.findViewById(R.id.biggestQuantOfPlayersText));
+        //smallestAgeText = (EditText)(view.findViewById(R.id.smallestAgeText));
+        smallestAgeSp = (Spinner)(view.findViewById(R.id.smallestAgeSp));
+        initSpinner(R.array.years, smallestAgeSp);
+        biggestAgeSp = (Spinner)(view.findViewById(R.id.biggestAgeSp));
+        initSpinner(R.array.years, biggestAgeSp);
+        smallestQuantOfPlayersSp = (Spinner)(view.findViewById(R.id.smallestQuantOfPlayersSp));
+        initSpinner(R.array.quantOfPlayers, smallestQuantOfPlayersSp);
+        biggestQuantOfPlayersSp = (Spinner)(view.findViewById(R.id.biggestQuantOfPlayersSp));
+        initSpinner(R.array.quantOfPlayers, biggestQuantOfPlayersSp);
+        playingTimeSp = (Spinner)(view.findViewById(R.id.playingTimeSp));
+        initSpinner(R.array.time, playingTimeSp);
         categoriesText = (EditText)(view.findViewById(R.id.categoriesText));
 
         ibStar1 = (ImageButton)(view.findViewById(R.id.ibStar1));
@@ -150,6 +158,12 @@ public class AddGameFragment extends Fragment {
         });
     }
 
+    private void initSpinner(@ArrayRes int id, Spinner spinner) {
+        String[] arr = getResources().getStringArray(id);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),R.layout.spinner_layout,R.id.spinnerItem,arr);
+        spinner.setAdapter(adapter);
+    }
+
     private void addGame(){
         String name = nameText.getText().toString();
         String description = descriptionText.getText().toString();
@@ -158,10 +172,12 @@ public class AddGameFragment extends Fragment {
         Toast.makeText(getActivity(), "photo path of cubiki: " + photoPath, Toast.LENGTH_LONG).show();
         String rules = rulesText.getText().toString();
         String place = placeText.getText().toString();
-        int smallestAge = Integer.parseInt(smallestAgeText.getText().toString());
-        int biggestAge = Integer.parseInt(biggestAgeText.getText().toString());
-        int smallestQuantOfPlayers = Integer.parseInt(smallestQuantOfPlayersText.getText().toString());
-        int biggestQuantOfPlayers = Integer.parseInt(biggestQuantOfPlayersText.getText().toString());
+        //int smallestAge = Integer.parseInt(smallestAgeText.getText().toString());
+        int smallestAge = Integer.parseInt((String)smallestAgeSp.getSelectedItem());
+        int biggestAge = Integer.parseInt((String)biggestAgeSp.getSelectedItem());
+        int smallestQuantOfPlayers = Integer.parseInt((String)smallestQuantOfPlayersSp.getSelectedItem());
+        int biggestQuantOfPlayers = Integer.parseInt((String)biggestQuantOfPlayersSp.getSelectedItem());
+        String playingTime = (String)playingTimeSp.getSelectedItem();
         //ArrayList<String> categories = (ArrayList<String>) (Arrays.asList(categoriesText.getText().toString().split(", ")));
         List<String> categories = Arrays.asList(categoriesText.getText().toString().split(", "));
         //int quantOfPoints = Integer.parseInt(quantOfPointsText.getText().toString());
@@ -169,7 +185,7 @@ public class AddGameFragment extends Fragment {
         //boolean isFavorite = Boolean.parseBoolean(isFavoriteText.getText().toString());
 
         Game game = new Game(name, description, photoPath, rules, place, smallestAge,
-                biggestAge, smallestQuantOfPlayers, biggestQuantOfPlayers, categories,
+                biggestAge, smallestQuantOfPlayers, biggestQuantOfPlayers, playingTime, categories,
                 quantOfPoints, quantOfTimesBeingChosen, isFavorite, Utils.getCurrentDate(), null);
         GamesProcessor.getGames().add(game);
         Toast.makeText(getActivity(), "Quant of games: " + GamesProcessor.getGames().size(), Toast.LENGTH_LONG).show();
@@ -186,10 +202,12 @@ public class AddGameFragment extends Fragment {
         imageView.setImageResource(R.drawable.ic_cubiki);
         rulesText.setText("");
         placeText.setText("");
-        smallestAgeText.setText("");
-        biggestAgeText.setText("");
-        smallestQuantOfPlayersText.setText("");
-        biggestQuantOfPlayersText.setText("");
+        //smallestAgeText.setText("");
+        smallestAgeSp.setSelection(0);
+        biggestAgeSp.setSelection(0);
+        smallestQuantOfPlayersSp.setSelection(0);
+        biggestQuantOfPlayersSp.setSelection(0);
+        playingTimeSp.setSelection(0);
         categoriesText.setText("");
         ButtonsActions.setDefaultStars(stars);
         favoriteButton.setImageResource(R.drawable.ic_baseline_favorite_border_24);
