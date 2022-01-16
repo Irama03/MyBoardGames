@@ -95,7 +95,7 @@ public class Game implements Serializable {
         return place;
     }
 
-    public void setPlace(String rules) {
+    public void setPlace(String place) {
         this.place = place;
     }
 
@@ -170,9 +170,9 @@ public class Game implements Serializable {
         return quantOfTimesBeingChosen;
     }
 
-    public void setQuantOfTimesBeingChosen(int quantOfTimesBeingChosen) {
-        this.quantOfTimesBeingChosen = quantOfTimesBeingChosen;
-    }
+    //public void setQuantOfTimesBeingChosen(int quantOfTimesBeingChosen) {
+    //    this.quantOfTimesBeingChosen = quantOfTimesBeingChosen;
+    //}
 
     public void increaseQuantOfTimesBeingChosen() {
         quantOfTimesBeingChosen = quantOfTimesBeingChosen + 1;
@@ -190,9 +190,9 @@ public class Game implements Serializable {
         return dateOfAdding;
     }
 
-    public void setDateOfAdding(Date dateOfAdding) {
-        this.dateOfAdding = dateOfAdding;
-    }
+    //public void setDateOfAdding(Date dateOfAdding) {
+    //    this.dateOfAdding = dateOfAdding;
+    //}
 
     public Date getDateOfLastChoosing() {
         return dateOfLastChoosing;

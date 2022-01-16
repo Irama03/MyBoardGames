@@ -19,4 +19,12 @@ public class Utils {
                 cal.get(Calendar.YEAR),
                 cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH));*/
     }
+
+    public static int getPositionOfStr(String str, String[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i].equals(str))
+                return i;
+        }
+        return -1;
+    }
 }

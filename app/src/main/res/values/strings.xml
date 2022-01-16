@@ -86,6 +86,7 @@
     </string-array>
 
     <string-array name="time">
+        <item>не встановлено</item>
         <item>5 хв</item>
         <item>10 хв</item>
         <item>15 хв</item>

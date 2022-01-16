@@ -91,18 +91,18 @@ public class GamesProcessor {
                     return -DateTimeUtils.getDateDiff(o1.getDateOfLastChoosing(), o2.getDateOfLastChoosing(), DateTimeUnits.MILLISECONDS);
                 }
             });
-        } else if (type == SortType.POINTS_ASCENDING) {
-            games.sort(new Comparator<Game>() {
-                @Override
-                public int compare(Game o1, Game o2) {
-                    return (int) (o1.getQuantOfPoints() - o2.getQuantOfPoints());
-                }
-            });
         } else if (type == SortType.POINTS_DESCENDING) {
             games.sort(new Comparator<Game>() {
                 @Override
                 public int compare(Game o1, Game o2) {
-                    return (int) (o2.getQuantOfPoints() - o1.getQuantOfPoints());
+                    return o2.getQuantOfPoints() - o1.getQuantOfPoints();
+                }
+            });
+        } else if (type == SortType.POINTS_ASCENDING) {
+            games.sort(new Comparator<Game>() {
+                @Override
+                public int compare(Game o1, Game o2) {
+                    return o1.getQuantOfPoints() - o2.getQuantOfPoints();
                 }
             });
         }
@@ -134,19 +134,6 @@ public class GamesProcessor {
     public void deleteGame(Game game){
         //games.remove(position);
         games.remove(game);
-    }
-
-    //think about effective filter
-    public ArrayList<Game> filterGames(){
-        ArrayList<Game> filteredGames = new ArrayList<>();
-        /////////////////
-        return filteredGames;
-    }
-
-    public ArrayList<Game> findGame(String str){
-        ArrayList<Game> suitableGames = new ArrayList<>();
-        /////////////////
-        return suitableGames;
     }
 
     public Game getRecommendationOfTheDay(){

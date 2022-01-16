@@ -17,6 +17,45 @@
         android:background="@color/purple_light"
         android:orientation="vertical"
         >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Age"/>
+        <include
+            layout="@layout/my_spinner"
+            android:id="@+id/smallestAgeSpF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <!--android:background="@color/white"-->
+        <include
+            layout="@layout/my_spinner"
+            android:id="@+id/biggestAgeSpF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Quantity of players"/>
+        <include
+            layout="@layout/my_spinner"
+            android:id="@+id/smallestQuantOfPlayersSpF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <include
+            layout="@layout/my_spinner"
+            android:id="@+id/biggestQuantOfPlayersSpF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Playing time"/>
+        <include
+            layout="@layout/my_spinner"
+            android:id="@+id/playingTimeSpF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <ExpandableListView
             android:id="@+id/filter_list_view"
             android:layout_width="match_parent"

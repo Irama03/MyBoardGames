@@ -136,48 +136,48 @@
                 android:inputType="textMultiLine"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/smallestAgeTextI"
+                app:layout_constraintBottom_toTopOf="@id/smallestAgeSpI"
                 app:layout_constraintTop_toBottomOf="@id/rulesTextI" />
-            <EditText
-                android:id="@+id/smallestAgeTextI"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="smallestAge"
-                android:inputType="numberSigned"
+            <include
+                layout="@layout/my_spinner"
+                android:id="@+id/smallestAgeSpI"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/biggestAgeTextI"
-                app:layout_constraintTop_toBottomOf="@id/placeTextI" />
-            <EditText
-                android:id="@+id/biggestAgeTextI"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="biggestAge"
-                android:inputType="numberSigned"
+                app:layout_constraintBottom_toTopOf="@id/biggestAgeSpI"
+                app:layout_constraintTop_toBottomOf="@id/placeTextI"/>
+            <include
+                layout="@layout/my_spinner"
+                android:id="@+id/biggestAgeSpI"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/smallestQuantOfPlayersTextI"
-                app:layout_constraintTop_toBottomOf="@id/smallestAgeTextI" />
-            <EditText
-                android:id="@+id/smallestQuantOfPlayersTextI"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="smallestQuantOfPlayers"
-                android:inputType="numberSigned"
+                app:layout_constraintBottom_toTopOf="@id/smallestQuantOfPlayersSpI"
+                app:layout_constraintTop_toBottomOf="@id/smallestAgeSpI"/>
+            <include
+                layout="@layout/my_spinner"
+                android:id="@+id/smallestQuantOfPlayersSpI"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/biggestQuantOfPlayersTextI"
-                app:layout_constraintTop_toBottomOf="@id/biggestAgeTextI" />
-            <EditText
-                android:id="@+id/biggestQuantOfPlayersTextI"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="biggestQuantOfPlayers"
-                android:inputType="numberSigned"
+                app:layout_constraintBottom_toTopOf="@id/biggestQuantOfPlayersSpI"
+                app:layout_constraintTop_toBottomOf="@id/biggestAgeSpI"/>
+            <include
+                layout="@layout/my_spinner"
+                android:id="@+id/biggestQuantOfPlayersSpI"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/playingTimeSpI"
+                app:layout_constraintTop_toBottomOf="@id/smallestQuantOfPlayersSpI"/>
+            <include
+                layout="@layout/my_spinner"
+                android:id="@+id/playingTimeSpI"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/categoriesTextI"
-                app:layout_constraintTop_toBottomOf="@id/smallestQuantOfPlayersTextI" />
+                app:layout_constraintTop_toBottomOf="@id/biggestQuantOfPlayersSpI"/>
             <EditText
                 android:id="@+id/categoriesTextI"
                 android:layout_width="0dp"
@@ -187,7 +187,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/checkGameI"
-                app:layout_constraintTop_toBottomOf="@id/biggestQuantOfPlayersTextI" />
+                app:layout_constraintTop_toBottomOf="@id/playingTimeSpI" />
             <ImageButton
                 android:id="@+id/checkGameI"
                 android:layout_width="wrap_content"

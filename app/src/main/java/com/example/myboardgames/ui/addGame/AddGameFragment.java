@@ -61,15 +61,15 @@ public class AddGameFragment extends Fragment {
         placeText = (EditText)(view.findViewById(R.id.placeText));
         //smallestAgeText = (EditText)(view.findViewById(R.id.smallestAgeText));
         smallestAgeSp = (Spinner)(view.findViewById(R.id.smallestAgeSp));
-        initSpinner(R.array.years, smallestAgeSp);
+        initSpinner(R.array.years, smallestAgeSp, false);
         biggestAgeSp = (Spinner)(view.findViewById(R.id.biggestAgeSp));
-        initSpinner(R.array.years, biggestAgeSp);
+        initSpinner(R.array.years, biggestAgeSp, true);
         smallestQuantOfPlayersSp = (Spinner)(view.findViewById(R.id.smallestQuantOfPlayersSp));
-        initSpinner(R.array.quantOfPlayers, smallestQuantOfPlayersSp);
+        initSpinner(R.array.quantOfPlayers, smallestQuantOfPlayersSp, false);
         biggestQuantOfPlayersSp = (Spinner)(view.findViewById(R.id.biggestQuantOfPlayersSp));
-        initSpinner(R.array.quantOfPlayers, biggestQuantOfPlayersSp);
+        initSpinner(R.array.quantOfPlayers, biggestQuantOfPlayersSp, true);
         playingTimeSp = (Spinner)(view.findViewById(R.id.playingTimeSp));
-        initSpinner(R.array.time, playingTimeSp);
+        initSpinner(R.array.time, playingTimeSp, false);
         categoriesText = (EditText)(view.findViewById(R.id.categoriesText));
 
         ibStar1 = (ImageButton)(view.findViewById(R.id.ibStar1));
@@ -158,10 +158,11 @@ public class AddGameFragment extends Fragment {
         });
     }
 
-    private void initSpinner(@ArrayRes int id, Spinner spinner) {
+    private void initSpinner(@ArrayRes int id, Spinner spinner, boolean setMaxSelection) {
         String[] arr = getResources().getStringArray(id);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),R.layout.spinner_layout,R.id.spinnerItem,arr);
         spinner.setAdapter(adapter);
+        if (setMaxSelection) spinner.setSelection(arr.length - 1);
     }
 
     private void addGame(){

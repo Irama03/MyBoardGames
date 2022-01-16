@@ -128,7 +128,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder>{
         }
 
         ButtonsActions.favoriteAction(game, holder.ibFavoriteButton, context);
-        ButtonsActions.chooseAction(game, holder.ibCheckGame, context);
+        ButtonsActions.chooseAction(game, holder.ibCheckGame, context, null, null);
         ButtonsActions.pointsAction(game, holder.stars, context);
 
         holder.tvGameName.setText(game.getName());

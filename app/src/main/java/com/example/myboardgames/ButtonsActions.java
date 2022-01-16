@@ -3,7 +3,10 @@ package com.example.myboardgames;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.github.thunder413.datetimeutils.DateTimeUtils;
 
 public class ButtonsActions {
 
@@ -35,12 +38,16 @@ public class ButtonsActions {
         });
     }
 
-    public static void chooseAction(Game game, ImageButton check, Context context) {
+    public static void chooseAction(Game game, ImageButton check, Context context, TextView quantOfTimesBeingChosenText, TextView dateOfLastChoosingText) {
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 GamesProcessor.chooseGame(game);
                 GamesProcessor.saveGames(context);
+                if (quantOfTimesBeingChosenText != null) {
+                    quantOfTimesBeingChosenText.setText(game.getQuantOfTimesBeingChosen() + "");
+                    dateOfLastChoosingText.setText(DateTimeUtils.formatDate(game.getDateOfLastChoosing()));
+                }
             }
         });
     }

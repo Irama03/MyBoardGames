@@ -7,18 +7,22 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.ArrayRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myboardgames.ButtonsActions;
 import com.example.myboardgames.Game;
 import com.example.myboardgames.GamesProcessor;
 import com.example.myboardgames.R;
+import com.example.myboardgames.Utils;
 import com.example.myboardgames.ui.addGame.AddGameFragment;
 //import com.example.myboardgames.ui.games.AdapterInterface;
 import com.github.thunder413.datetimeutils.DateTimeUtils;
@@ -33,8 +37,9 @@ import java.util.Locale;
 public class GameInfoActivity extends AppCompatActivity {
 
     private EditText nameTextI, descriptionTextI, photoPathTextI, rulesTextI, placeTextI;
-    private EditText smallestAgeTextI, biggestAgeTextI, smallestQuantOfPlayersTextI;
-    private EditText biggestQuantOfPlayersTextI, categoriesTextI;
+    private Spinner smallestAgeSpI, biggestAgeSpI, smallestQuantOfPlayersSpI;
+    private Spinner biggestQuantOfPlayersSpI, playingTimeSpI;
+    private EditText categoriesTextI;
     private TextView quantOfTimesBeingChosenText, dateOfAddingText, dateOfLastChoosingText, btnBack;
     private ImageView imageViewI;
     private ImageButton ibStar1, ibStar2, ibStar3, ibStar4, ibStar5, favoriteButtonI, checkButtonI;
@@ -83,17 +88,20 @@ public class GameInfoActivity extends AppCompatActivity {
         placeTextI = (EditText)(findViewById(R.id.placeTextI));
         placeTextI.setText(game.getPlace());
 
-        smallestAgeTextI = (EditText)(findViewById(R.id.smallestAgeTextI));
-        smallestAgeTextI.setText(game.getSmallestAge() + "");
+        smallestAgeSpI = (Spinner)(findViewById(R.id.smallestAgeSpI));
+        initSpinnerAndSetSelection(R.array.years, smallestAgeSpI, String.valueOf(game.getSmallestAge()));
 
-        biggestAgeTextI = (EditText)(findViewById(R.id.biggestAgeTextI));
-        biggestAgeTextI.setText(game.getBiggestAge() + "");
+        biggestAgeSpI = (Spinner)(findViewById(R.id.biggestAgeSpI));
+        initSpinnerAndSetSelection(R.array.years, biggestAgeSpI, String.valueOf(game.getBiggestAge()));
 
-        smallestQuantOfPlayersTextI = (EditText)(findViewById(R.id.smallestQuantOfPlayersTextI));
-        smallestQuantOfPlayersTextI.setText(game.getSmallestQuantOfPlayers() + "");
+        smallestQuantOfPlayersSpI = (Spinner)(findViewById(R.id.smallestQuantOfPlayersSpI));
+        initSpinnerAndSetSelection(R.array.quantOfPlayers, smallestQuantOfPlayersSpI, String.valueOf(game.getSmallestQuantOfPlayers()));
 
-        biggestQuantOfPlayersTextI = (EditText)(findViewById(R.id.biggestQuantOfPlayersTextI));
-        biggestQuantOfPlayersTextI.setText(game.getBiggestQuantOfPlayers() + "");
+        biggestQuantOfPlayersSpI = (Spinner)(findViewById(R.id.biggestQuantOfPlayersSpI));
+        initSpinnerAndSetSelection(R.array.quantOfPlayers, biggestQuantOfPlayersSpI, String.valueOf(game.getBiggestQuantOfPlayers()));
+
+        playingTimeSpI = (Spinner)(findViewById(R.id.playingTimeSpI));
+        initSpinnerAndSetSelection(R.array.time, playingTimeSpI, game.getPlayingTime());
 
         categoriesTextI = (EditText)(findViewById(R.id.categoriesTextI));
         categoriesTextI.setText(game.getCategoriesToString());
@@ -127,7 +135,7 @@ public class GameInfoActivity extends AppCompatActivity {
         checkButtonI = (ImageButton)(findViewById(R.id.checkGameI));
 
         ButtonsActions.favoriteAction(game, favoriteButtonI, this);
-        ButtonsActions.chooseAction(game, checkButtonI, this);
+        ButtonsActions.chooseAction(game, checkButtonI, this, quantOfTimesBeingChosenText, dateOfLastChoosingText);
         ButtonsActions.pointsAction(game, stars, this);
 
         findViewById(R.id.updateButton).setOnClickListener(new View.OnClickListener() {
@@ -172,18 +180,25 @@ public class GameInfoActivity extends AppCompatActivity {
         });
     }
 
+    private void initSpinnerAndSetSelection(@ArrayRes int id, Spinner spinner, String str) {
+        String[] arr = getResources().getStringArray(id);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,R.layout.spinner_layout,R.id.spinnerItem,arr);
+        spinner.setAdapter(adapter);
+        if (str != null)
+            spinner.setSelection(Utils.getPositionOfStr(str, arr));
+    }
+
     private void updateGame(){
-        //З position можуть виникнути проблеми при сортуванні та фільтраці,
-        // але без нього не виходить, бо game, по ідеїб - це копія гри в списку
         game.setName(nameTextI.getText().toString());
         game.setDescription(descriptionTextI.getText().toString());
         game.setPhotoPath(photoPathTextI.getText().toString());
         game.setRules(rulesTextI.getText().toString());
         game.setPlace(placeTextI.getText().toString());
-        game.setSmallestAge(Integer.parseInt(smallestAgeTextI.getText().toString()));
-        game.setBiggestAge(Integer.parseInt(biggestAgeTextI.getText().toString()));
-        game.setSmallestQuantOfPlayers(Integer.parseInt(smallestQuantOfPlayersTextI.getText().toString()));
-        game.setBiggestQuantOfPlayers(Integer.parseInt(biggestQuantOfPlayersTextI.getText().toString()));
+        game.setSmallestAge(Integer.parseInt((String)smallestAgeSpI.getSelectedItem()));
+        game.setBiggestAge(Integer.parseInt((String)biggestAgeSpI.getSelectedItem()));
+        game.setSmallestQuantOfPlayers(Integer.parseInt((String)smallestQuantOfPlayersSpI.getSelectedItem()));
+        game.setBiggestQuantOfPlayers(Integer.parseInt((String)biggestQuantOfPlayersSpI.getSelectedItem()));
+        game.setPlayingTime((String)playingTimeSpI.getSelectedItem());
         game.setCategories(Arrays.asList(categoriesTextI.getText().toString().split(", ")));
         //g.setQuantOfPoints(Integer.parseInt(quantOfPointsTextI.getText().toString()));
         //boolean isFavorite = quantOfPoints == 5;
