@@ -178,14 +178,15 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/categoriesTextI"
                 app:layout_constraintTop_toBottomOf="@id/biggestQuantOfPlayersSpI"/>
-            <EditText
+            <TextView
                 android:id="@+id/categoriesTextI"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="categories"
-                android:inputType="textMultiLine"
+                android:hint="@string/choose_categories"
+                android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24"
+                android:drawablePadding="5dp"
+                android:width="200dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/checkGameI"
                 app:layout_constraintTop_toBottomOf="@id/playingTimeSpI" />
             <ImageButton

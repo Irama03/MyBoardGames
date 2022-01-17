@@ -1,12 +1,21 @@
 package com.example.myboardgames;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.FragmentActivity;
+
 import com.github.thunder413.datetimeutils.DateTimeUtils;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class ButtonsActions {
 
@@ -110,4 +119,65 @@ public class ButtonsActions {
         for (ImageButton star : stars)
             removeStar(star);
     }
+
+    /**
+     * method is used to hide keyboard
+     */
+    public static void hideKeyboard(FragmentActivity activity) {
+        View view = activity.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
+    /**
+     * method is used to set listener to spheres list
+     */
+    public static void setCategoriesListener(TextView categoriesText, FragmentActivity activity, List<Integer> categoriesList, String[] categories, boolean[] selectedCategories) {
+        categoriesText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ButtonsActions.hideKeyboard(activity);
+                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                builder.setTitle(R.string.selectCategories);
+                builder.setCancelable(true);
+                builder.setMultiChoiceItems(categories, selectedCategories, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                        if(isChecked){
+                            categoriesList.add(which);
+                            Collections.sort(categoriesList);
+                        }else{
+                            Integer integer = which;
+                            categoriesList.remove(integer);
+                        }
+                    }
+                });
+                builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        StringBuilder stringBuilder = new StringBuilder();
+                        for(int i = 0; i < categoriesList.size(); i++){
+                            stringBuilder.append(categories[categoriesList.get(i)]);
+                            if(i != categoriesList.size() - 1)
+                                stringBuilder.append(", ");
+                        }
+                        String concatCategories = stringBuilder.toString();
+                        categoriesText.setText(concatCategories);
+                        //setEnabledButton();
+                    }
+                });
+                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+            }
+        });
+    }
+
 }

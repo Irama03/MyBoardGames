@@ -101,6 +101,21 @@
         <item>5 год і більше</item>
     </string-array>
 
+    <string-array name="start_categories">
+        <item>загальна категорія</item>
+        <item>бродилки</item>
+        <item>в дорогу</item>
+        <item>гумористичні</item>
+        <item>економічні</item>
+        <item>карткові</item>
+        <item>командні</item>
+        <item>логічні</item>
+        <item>на удачу</item>
+        <item>розвиваючі</item>
+        <item>стратегії</item>
+        <item>творчі</item>
+    </string-array>
+
     <string name="title_activity_game_info">Game Info</string>
     <!--
     This string is used for square devices and overridden by hello_world in
@@ -110,4 +125,7 @@
     <string name="categories_filter_label">Категорії</string>
     <string name="points_filter_label">Бали</string>
     <string name="favorite_filter_label">Улюблені</string>
+    <string name="selectCategories">Оберіть категорії гри</string>
+    <string name="ok">OK</string>
+    <string name="choose_categories">Оберіть категорії</string>
 </resources>

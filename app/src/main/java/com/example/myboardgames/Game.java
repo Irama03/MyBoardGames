@@ -223,7 +223,7 @@ public class Game implements Serializable {
                 "\nНайменша кількість гравців: "+ smallestQuantOfPlayers +
                 "\nНайбільша кількість гравців: "+ biggestQuantOfPlayers +
                 "\nПриблизний час гри: " + playingTime +
-                "\nКатегорії: " + categories + "\nКількість балів: " + quantOfPoints +
+                "\nКатегорії: " + getCategoriesToString() + "\nКількість балів: " + quantOfPoints +
                 "\nСкільки разів гру обирали: " + quantOfTimesBeingChosen +
                 "\nЧи є улюбленою: " + isFavorite +
                 "\nДата додання: " + (dateOfLastChoosing == null ? "no date" : DateTimeUtils.formatWithStyle(dateOfAdding, DateTimeStyle.LONG)) +

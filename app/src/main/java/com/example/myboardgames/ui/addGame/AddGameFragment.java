@@ -1,5 +1,7 @@
 package com.example.myboardgames.ui.addGame;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.ArrayRes;
@@ -22,7 +25,9 @@ import com.example.myboardgames.GamesProcessor;
 import com.example.myboardgames.R;
 import com.example.myboardgames.Utils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class AddGameFragment extends Fragment {
@@ -30,10 +35,14 @@ public class AddGameFragment extends Fragment {
     private EditText nameText, descriptionText, photoPathText, rulesText, placeText;
     private Spinner smallestAgeSp, biggestAgeSp, smallestQuantOfPlayersSp;
     private Spinner biggestQuantOfPlayersSp, playingTimeSp;
-    private EditText categoriesText;
     private ImageView imageView;
-    private ImageButton ibStar1, ibStar2, ibStar3, ibStar4, ibStar5, favoriteButton;
+    private ImageButton ibStar1, ibStar2, ibStar3, ibStar4, ibStar5;
+    private ImageButton favoriteButton, addCategoryButton;
     private ImageButton[] stars = new ImageButton[5];
+    private TextView categoriesText;
+    private boolean[] selectedCategories;
+    private ArrayList<Integer> categoriesList;
+    private String[] categories;
     public static final int PICK_IMAGE = 1;
     private boolean isFavorite = false;
     private int quantOfPoints = 0;
@@ -70,7 +79,10 @@ public class AddGameFragment extends Fragment {
         initSpinner(R.array.quantOfPlayers, biggestQuantOfPlayersSp, true);
         playingTimeSp = (Spinner)(view.findViewById(R.id.playingTimeSp));
         initSpinner(R.array.time, playingTimeSp, false);
-        categoriesText = (EditText)(view.findViewById(R.id.categoriesText));
+        categoriesText = (TextView)(view.findViewById(R.id.categoriesText));
+        //ButtonsActions.initMultiSpinner(categoriesList, categories, selectedCategories);
+        initMultiSpinner();
+        ButtonsActions.setCategoriesListener(categoriesText, getActivity(), categoriesList, categories, selectedCategories);
 
         ibStar1 = (ImageButton)(view.findViewById(R.id.ibStar1));
         ibStar2 = (ImageButton)(view.findViewById(R.id.ibStar2));
@@ -106,6 +118,14 @@ public class AddGameFragment extends Fragment {
                 }
             });
         }
+
+        addCategoryButton = (ImageButton)(view.findViewById(R.id.addCategoryButton));
+        addCategoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         favoriteButton = (ImageButton)(view.findViewById(R.id.favoriteButton));
         favoriteButton.setOnClickListener(new View.OnClickListener() {
@@ -165,12 +185,20 @@ public class AddGameFragment extends Fragment {
         if (setMaxSelection) spinner.setSelection(arr.length - 1);
     }
 
+    /**
+     * method is used to initialise multispinner
+     */
+    private void initMultiSpinner() {
+        categoriesList = new ArrayList<>();
+        List<String> listCategories = GamesProcessor.getCategories();
+        categories = listCategories.toArray(new String[0]);
+        selectedCategories = new boolean[categories.length];
+    }
+
     private void addGame(){
         String name = nameText.getText().toString();
         String description = descriptionText.getText().toString();
         String photoPath = photoPathText.getText().toString();
-        //For clearing!
-        Toast.makeText(getActivity(), "photo path of cubiki: " + photoPath, Toast.LENGTH_LONG).show();
         String rules = rulesText.getText().toString();
         String place = placeText.getText().toString();
         //int smallestAge = Integer.parseInt(smallestAgeText.getText().toString());
@@ -180,7 +208,7 @@ public class AddGameFragment extends Fragment {
         int biggestQuantOfPlayers = Integer.parseInt((String)biggestQuantOfPlayersSp.getSelectedItem());
         String playingTime = (String)playingTimeSp.getSelectedItem();
         //ArrayList<String> categories = (ArrayList<String>) (Arrays.asList(categoriesText.getText().toString().split(", ")));
-        List<String> categories = Arrays.asList(categoriesText.getText().toString().split(", "));
+        List<String> categories = Arrays.asList(categoriesText.getText().toString().split("\\s*,\\s*"));
         //int quantOfPoints = Integer.parseInt(quantOfPointsText.getText().toString());
         int quantOfTimesBeingChosen = 0;
         //boolean isFavorite = Boolean.parseBoolean(isFavoriteText.getText().toString());
@@ -210,6 +238,8 @@ public class AddGameFragment extends Fragment {
         biggestQuantOfPlayersSp.setSelection(0);
         playingTimeSp.setSelection(0);
         categoriesText.setText("");
+        //ButtonsActions.initMultiSpinner(categoriesList, categories, selectedCategories);
+        initMultiSpinner();
         ButtonsActions.setDefaultStars(stars);
         favoriteButton.setImageResource(R.drawable.ic_baseline_favorite_border_24);
         isFavorite = false;

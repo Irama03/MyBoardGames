@@ -31,7 +31,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 
 public class GameInfoActivity extends AppCompatActivity {
@@ -39,7 +42,10 @@ public class GameInfoActivity extends AppCompatActivity {
     private EditText nameTextI, descriptionTextI, photoPathTextI, rulesTextI, placeTextI;
     private Spinner smallestAgeSpI, biggestAgeSpI, smallestQuantOfPlayersSpI;
     private Spinner biggestQuantOfPlayersSpI, playingTimeSpI;
-    private EditText categoriesTextI;
+    private TextView categoriesTextI;
+    private boolean[] selectedCategories;
+    private ArrayList<Integer> categoriesList;
+    private String[] categories;
     private TextView quantOfTimesBeingChosenText, dateOfAddingText, dateOfLastChoosingText, btnBack;
     private ImageView imageViewI;
     private ImageButton ibStar1, ibStar2, ibStar3, ibStar4, ibStar5, favoriteButtonI, checkButtonI;
@@ -103,8 +109,11 @@ public class GameInfoActivity extends AppCompatActivity {
         playingTimeSpI = (Spinner)(findViewById(R.id.playingTimeSpI));
         initSpinnerAndSetSelection(R.array.time, playingTimeSpI, game.getPlayingTime());
 
-        categoriesTextI = (EditText)(findViewById(R.id.categoriesTextI));
+        categoriesTextI = (TextView)(findViewById(R.id.categoriesTextI));
         categoriesTextI.setText(game.getCategoriesToString());
+        //ButtonsActions.initMultiSpinner(categoriesList, categories, selectedCategories);
+        initMultiSpinner();
+        ButtonsActions.setCategoriesListener(categoriesTextI, this, categoriesList, categories, selectedCategories);
 
         quantOfTimesBeingChosenText = (TextView)(findViewById(R.id.quantOfTimesBeingChosenText));
         quantOfTimesBeingChosenText.setText(game.getQuantOfTimesBeingChosen() + "");
@@ -188,6 +197,22 @@ public class GameInfoActivity extends AppCompatActivity {
             spinner.setSelection(Utils.getPositionOfStr(str, arr));
     }
 
+    /**
+     * method is used to initialise multispinner
+     */
+    private void initMultiSpinner() {
+        List<String> listCategories = GamesProcessor.getCategories();
+        categories = listCategories.toArray(new String[0]);
+        categoriesList = new ArrayList<>();
+        selectedCategories = new boolean[categories.length];
+        for (String category: game.getCategories()) {
+            int position = Utils.getPositionOfStr(category, categories);
+            categoriesList.add(position);
+            selectedCategories[position] = true;
+            Collections.sort(categoriesList);
+        }
+    }
+
     private void updateGame(){
         game.setName(nameTextI.getText().toString());
         game.setDescription(descriptionTextI.getText().toString());
@@ -199,7 +224,7 @@ public class GameInfoActivity extends AppCompatActivity {
         game.setSmallestQuantOfPlayers(Integer.parseInt((String)smallestQuantOfPlayersSpI.getSelectedItem()));
         game.setBiggestQuantOfPlayers(Integer.parseInt((String)biggestQuantOfPlayersSpI.getSelectedItem()));
         game.setPlayingTime((String)playingTimeSpI.getSelectedItem());
-        game.setCategories(Arrays.asList(categoriesTextI.getText().toString().split(", ")));
+        game.setCategories(Arrays.asList(categoriesTextI.getText().toString().split("\\s*,\\s*")));
         //g.setQuantOfPoints(Integer.parseInt(quantOfPointsTextI.getText().toString()));
         //boolean isFavorite = quantOfPoints == 5;
         Toast.makeText(this, "Інформацію про гру було оновлено", Toast.LENGTH_LONG).show();

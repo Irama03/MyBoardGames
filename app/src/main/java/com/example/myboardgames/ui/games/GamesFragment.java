@@ -27,6 +27,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myboardgames.ButtonsActions;
 import com.example.myboardgames.Game;
 import com.example.myboardgames.GamesProcessor;
 import com.example.myboardgames.R;
@@ -156,16 +157,6 @@ public class GamesFragment extends Fragment { // implements AdapterInterface {
         adapter.notifyDataSetChanged();
     }
 
-    /**
-     * method is used to hide keyboard
-     */
-    private void hideKeyboard() {
-        View view = getActivity().getCurrentFocus();
-        if (view != null) {
-            InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-    }
 
     private void init() {
         drawerLayout = view.findViewById(R.id.filter_drawer_layout);
@@ -205,7 +196,7 @@ public class GamesFragment extends Fragment { // implements AdapterInterface {
                     sortSpinner.setEnabled(true);
                     filterOrRecommend(true);
                 }
-                hideKeyboard();
+                ButtonsActions.hideKeyboard(getActivity());
                 drawerLayout.openDrawer(Gravity.LEFT);
             }
         });
@@ -220,7 +211,7 @@ public class GamesFragment extends Fragment { // implements AdapterInterface {
                     sortSpinner.setEnabled(false);
                     filterOrRecommend(true);
                 }
-                hideKeyboard();
+                ButtonsActions.hideKeyboard(getActivity());
                 drawerLayout.openDrawer(Gravity.LEFT);
             }
         });
@@ -242,7 +233,7 @@ public class GamesFragment extends Fragment { // implements AdapterInterface {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                hideKeyboard();
+                ButtonsActions.hideKeyboard(getActivity());
                 return false;
             }
         });
@@ -291,7 +282,10 @@ public class GamesFragment extends Fragment { // implements AdapterInterface {
         selectedFilterItems.put(SpinnerName.BIGGEST_QUANT_OF_PLAYERS, (String)biggestQuantOfPlayersSpF.getSelectedItem());
         selectedFilterItems.put(SpinnerName.PLAYING_TIME, (String)playingTimeSpF.getSelectedItem());
 
-        String[] categories = {"funny", "other"};
+        if (!GamesProcessor.categoriesAreLoaded())
+            GamesProcessor.loadCategories(getActivity());
+        //games = GamesProcessor.getGames();
+        //String[] categories = {"funny", "other"};
         String[] points = getResources().getStringArray(R.array.points);
         String[] favorites = getResources().getStringArray(R.array.favorite);
 
@@ -301,8 +295,8 @@ public class GamesFragment extends Fragment { // implements AdapterInterface {
         String pointsLabel = getResources().getString(R.string.points_filter_label);
         String favoriteLabel = getResources().getString(R.string.favorite_filter_label);
 
-        //childData.put(categoryLabel, GamesProcessor.getCategories());
-        childData.put(categoryLabel, Arrays.asList(categories));
+        childData.put(categoryLabel, GamesProcessor.getCategories());
+        //childData.put(categoryLabel, Arrays.asList(categories));
         childData.put(pointsLabel, Arrays.asList(points));
         childData.put(favoriteLabel, Arrays.asList(favorites));
 
