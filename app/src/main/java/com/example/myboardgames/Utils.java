@@ -27,4 +27,8 @@ public class Utils {
         }
         return -1;
     }
+
+    public static boolean validateName(String categoryName) {
+        return !categoryName.isEmpty();
+    }
 }

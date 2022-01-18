@@ -139,6 +139,23 @@ public class GamesProcessor {
         return result;
     }
 
+    public static boolean categoryNameAlreadyExists(String categoryName) {
+        String catName = categoryName.toLowerCase();
+        for (String category: categories) {
+            if (catName.equals(category.toLowerCase()))
+                return true;
+        }
+        return false;
+    }
+
+    public static void addCategory(String categoryName) {
+        categories.add(categoryName);
+    }
+
+    public static void addGame(Game game) {
+        games.add(game);
+    }
+
     public void createGame(Game game){
         games.add(game);
     }

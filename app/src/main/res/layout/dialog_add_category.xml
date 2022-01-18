@@ -31,7 +31,7 @@
 
 
     <EditText
-        android:id="@+id/resetEmail"
+        android:id="@+id/categoryName"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -48,7 +48,7 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnSend"
+        android:id="@+id/addCategory"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -58,9 +58,9 @@
         android:textAllCaps="false"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/resetEmail"
-        app:layout_constraintStart_toStartOf="@+id/resetEmail"
-        app:layout_constraintTop_toBottomOf="@+id/resetEmail" />
+        app:layout_constraintEnd_toEndOf="@+id/categoryName"
+        app:layout_constraintStart_toStartOf="@+id/categoryName"
+        app:layout_constraintTop_toBottomOf="@+id/categoryName" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

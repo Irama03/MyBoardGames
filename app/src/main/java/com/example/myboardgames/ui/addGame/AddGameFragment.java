@@ -1,7 +1,5 @@
 package com.example.myboardgames.ui.addGame;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,6 +17,7 @@ import androidx.annotation.ArrayRes;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.myboardgames.AddCategoryDialog;
 import com.example.myboardgames.ButtonsActions;
 import com.example.myboardgames.Game;
 import com.example.myboardgames.GamesProcessor;
@@ -27,11 +26,11 @@ import com.example.myboardgames.Utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class AddGameFragment extends Fragment {
 
+    private View view;
     private EditText nameText, descriptionText, photoPathText, rulesText, placeText;
     private Spinner smallestAgeSp, biggestAgeSp, smallestQuantOfPlayersSp;
     private Spinner biggestQuantOfPlayersSp, playingTimeSp;
@@ -39,6 +38,7 @@ public class AddGameFragment extends Fragment {
     private ImageButton ibStar1, ibStar2, ibStar3, ibStar4, ibStar5;
     private ImageButton favoriteButton, addCategoryButton;
     private ImageButton[] stars = new ImageButton[5];
+    private AddCategoryDialog dialog;
     private TextView categoriesText;
     private boolean[] selectedCategories;
     private ArrayList<Integer> categoriesList;
@@ -63,6 +63,7 @@ public class AddGameFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        this.view = view;
         nameText = (EditText)(view.findViewById(R.id.nameText));
         descriptionText = (EditText)(view.findViewById(R.id.descriptionText));
         photoPathText = (EditText)(view.findViewById(R.id.photoPathText));
@@ -79,7 +80,7 @@ public class AddGameFragment extends Fragment {
         initSpinner(R.array.quantOfPlayers, biggestQuantOfPlayersSp, true);
         playingTimeSp = (Spinner)(view.findViewById(R.id.playingTimeSp));
         initSpinner(R.array.time, playingTimeSp, false);
-        categoriesText = (TextView)(view.findViewById(R.id.categoriesText));
+        //categoriesText = (TextView)(view.findViewById(R.id.categoriesText));
         //ButtonsActions.initMultiSpinner(categoriesList, categories, selectedCategories);
         initMultiSpinner();
         ButtonsActions.setCategoriesListener(categoriesText, getActivity(), categoriesList, categories, selectedCategories);
@@ -123,7 +124,34 @@ public class AddGameFragment extends Fragment {
         addCategoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                dialog = new AddCategoryDialog(getContext(), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String categoryName = dialog.getCategoryName();
+                        if(!Utils.validateName(categoryName))
+                            Toast.makeText(getContext(), "Введіть непорожню назву категорії!", Toast.LENGTH_LONG).show();
+                        else if (GamesProcessor.categoryNameAlreadyExists(categoryName))
+                            Toast.makeText(getContext(), "Така категорія вже існує!", Toast.LENGTH_LONG).show();
+                        else{
+                            GamesProcessor.addCategory(categoryName);
+                            GamesProcessor.saveCategories(getContext());
+                            int size = GamesProcessor.getCategories().size();
+                            String[] helpCategories = new String[size];
+                            System.arraycopy(categories, 0, helpCategories, 0, size - 1);
+                            helpCategories[size-1] = categoryName;
+                            categories = helpCategories;
+                            boolean[] helpSelectedCategories = new boolean[size];
+                            System.arraycopy(selectedCategories, 0, helpSelectedCategories, 0, size - 1);
+                            selectedCategories = helpSelectedCategories;
+                            //Toast.makeText(getContext(), "Категорію додано", Toast.LENGTH_LONG).show();
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                dialog.show();
+                //List<String> listCategories = GamesProcessor.getCategories();
+                //        categories = listCategories.toArray(new String[0]);
+                //        selectedCategories = new boolean[categories.length];
             }
         });
 
@@ -189,6 +217,7 @@ public class AddGameFragment extends Fragment {
      * method is used to initialise multispinner
      */
     private void initMultiSpinner() {
+        categoriesText = (TextView)(view.findViewById(R.id.categoriesText));
         categoriesList = new ArrayList<>();
         List<String> listCategories = GamesProcessor.getCategories();
         categories = listCategories.toArray(new String[0]);
@@ -216,7 +245,7 @@ public class AddGameFragment extends Fragment {
         Game game = new Game(name, description, photoPath, rules, place, smallestAge,
                 biggestAge, smallestQuantOfPlayers, biggestQuantOfPlayers, playingTime, categories,
                 quantOfPoints, quantOfTimesBeingChosen, isFavorite, Utils.getCurrentDate(), null);
-        GamesProcessor.getGames().add(game);
+        GamesProcessor.addGame(game);
         Toast.makeText(getActivity(), "Quant of games: " + GamesProcessor.getGames().size(), Toast.LENGTH_LONG).show();
         //??????
         //((MainActivity)getActivity()).adapter.notifyDataSetChanged();
