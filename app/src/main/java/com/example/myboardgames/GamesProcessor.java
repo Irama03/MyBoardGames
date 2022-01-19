@@ -98,6 +98,8 @@ public class GamesProcessor {
             games.sort(new Comparator<Game>() {
                 @Override
                 public int compare(Game o1, Game o2) {
+                    if (o1.getDateOfLastChoosing() == null) return -1;
+                    if (o2.getDateOfLastChoosing() == null) return 1;
                     return DateTimeUtils.getDateDiff(o1.getDateOfLastChoosing(), o2.getDateOfLastChoosing(), DateTimeUnits.MILLISECONDS);
                 }
             });
@@ -105,6 +107,8 @@ public class GamesProcessor {
             games.sort(new Comparator<Game>() {
                 @Override
                 public int compare(Game o1, Game o2) {
+                    if (o1.getDateOfLastChoosing() == null) return 1;
+                    if (o2.getDateOfLastChoosing() == null) return -1;
                     return -DateTimeUtils.getDateDiff(o1.getDateOfLastChoosing(), o2.getDateOfLastChoosing(), DateTimeUnits.MILLISECONDS);
                 }
             });
@@ -165,9 +169,20 @@ public class GamesProcessor {
         game.setDateOfLastChoosing(Utils.getCurrentDate());
     }
 
-    public void deleteGame(Game game){
+    public static void deleteGame(Game game){
         //games.remove(position);
         games.remove(game);
+    }
+
+    public static void deleteCategory(Context context, String category){
+        for (Game game: games) {
+            if (game.getCategories().remove(category)) {
+                if (game.getCategories().size() == 0)
+                    game.getCategories().add(categories.get(0));
+                saveGames(context);
+            }
+        }
+        categories.remove(category);
     }
 
     public Game getRecommendationOfTheDay(){

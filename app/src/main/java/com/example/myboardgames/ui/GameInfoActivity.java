@@ -67,7 +67,7 @@ public class GameInfoActivity extends AppCompatActivity {
         //game = GamesProcessor.getGames().get(gamePosition);
         game = GamesProcessor.getGameByName(gameCopy.getName());
         //adapterInterface = (AdapterInterface) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
-        //adapter = (RecyclerView.Adapter<GameAdapter.ViewHolder>)getIntent().getParcelableExtra("Adapter");
+        //adapter = (RecyclerView.Adapter<GameAdapter.GameViewHolder>)getIntent().getParcelableExtra("Adapter");
         //mTextView = (TextView) findViewById(R.id.text);
         //mTextView.setText(game.getName());
 
@@ -233,7 +233,7 @@ public class GameInfoActivity extends AppCompatActivity {
     public void removeGame(){
         //String res = "There were " + GamesProcessor.getGames().size() + " games. Game "
                 //+ game.getName() + " on position " + gamePosition + " is deleting... ";
-        GamesProcessor.getGames().remove(game);
+        GamesProcessor.deleteGame(game);
         //res = res + "Now there are " + GamesProcessor.getGames().size() + " games.";
         //Toast.makeText(this, res, Toast.LENGTH_LONG).show();
         Toast.makeText(this, "Гру було видалено", Toast.LENGTH_LONG).show();

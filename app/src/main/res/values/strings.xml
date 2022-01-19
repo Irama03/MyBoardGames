@@ -128,4 +128,7 @@
     <string name="selectCategories">Оберіть категорії гри</string>
     <string name="ok">OK</string>
     <string name="choose_categories">Оберіть категорії</string>
+    <string name="action_categories">Categories</string>
+    <string name="title_activity_categories">Categories</string>
+    <string name="title_activity_settings">Settings</string>
 </resources>

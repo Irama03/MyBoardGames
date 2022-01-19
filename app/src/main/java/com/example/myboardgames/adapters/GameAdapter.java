@@ -3,30 +3,25 @@ package com.example.myboardgames.adapters;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myboardgames.ButtonsActions;
 import com.example.myboardgames.Game;
-import com.example.myboardgames.GamesProcessor;
 import com.example.myboardgames.R;
-import com.example.myboardgames.ui.GameInfoActivity;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
 
-public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder>{
+public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder>{
 
     private List<Game> games;
     private boolean[] isHidden;
@@ -83,9 +78,9 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder>{
      */
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public GameViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.games_item, parent, false);
-        return new ViewHolder(view);
+        return new GameViewHolder(view);
     }
 
     /**
@@ -95,7 +90,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder>{
      * @param position
      */
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull GameViewHolder holder, int position) {
         if (games.size() != isHidden.length) {
             isHidden = new boolean[games.size()];
         }
@@ -179,7 +174,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder>{
         return new RecyclerView.LayoutParams(0, 0);
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class GameViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView ivGameImage;
         public ImageButton ibStar1, ibStar2, ibStar3, ibStar4, ibStar5, ibFavoriteButton, ibCheckGame;
@@ -191,7 +186,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder>{
          *
          * @param itemView
          */
-        public ViewHolder(@NonNull View itemView) {
+        public GameViewHolder(@NonNull View itemView) {
             super(itemView);
             init(itemView);
         }

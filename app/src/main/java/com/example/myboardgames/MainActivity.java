@@ -7,6 +7,8 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.example.myboardgames.ui.CategoriesActivity;
+import com.example.myboardgames.ui.SettingsActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -69,16 +71,28 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Handles app bar item clicks.
+     *
+     * @param item Item clicked.
+     * @return True if one of the defined items was clicked.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_categories:
+                Intent intent = new Intent(MainActivity.this,
+                        CategoriesActivity.class);
+                //intent.putExtra(EXTRA_MESSAGE, mOrderMessage);
+                startActivity(intent);
+                return true;
+            case R.id.action_settings:
+                Intent settingsIntent = new Intent(this,
+                        SettingsActivity.class);
+                startActivity(settingsIntent);
+                return true;
+            default:
+                // Do nothing
         }
 
         return super.onOptionsItemSelected(item);

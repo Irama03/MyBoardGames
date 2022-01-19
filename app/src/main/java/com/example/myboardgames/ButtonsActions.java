@@ -139,6 +139,7 @@ public class ButtonsActions {
             @Override
             public void onClick(View v) {
                 ButtonsActions.hideKeyboard(activity);
+                //Toast.makeText(activity, "categoriesList: " + categoriesList + "; categories.length: " + categories.length + "; selectedCategories.length: " + selectedCategories.length, Toast.LENGTH_LONG).show();
                 AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                 builder.setTitle(R.string.selectCategories);
                 builder.setCancelable(true);
@@ -178,6 +179,11 @@ public class ButtonsActions {
                 alertDialog.show();
             }
         });
+    }
+
+    public static void removeOnClickListener(View view) {
+        view.setOnClickListener(null);
+        view.setClickable(false);
     }
 
 }

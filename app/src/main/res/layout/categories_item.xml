@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvCategoryName"
+            style="@style/DescriptionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="Name" />
+
+        <ImageButton
+            android:id="@+id/ibEditButton"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:src="@drawable/ic_baseline_edit_24"
+            android:background="@android:color/transparent"
+            android:layout_toEndOf="@id/tvCategoryName"
+            android:padding="8dp"/>
+
+        <ImageButton
+            android:id="@+id/ibRemoveCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_delete_24"
+            android:background="@android:color/transparent"
+            android:layout_toEndOf="@id/ibEditButton"
+            android:padding="8dp"/>
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

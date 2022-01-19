@@ -81,9 +81,8 @@ public class AddGameFragment extends Fragment {
         playingTimeSp = (Spinner)(view.findViewById(R.id.playingTimeSp));
         initSpinner(R.array.time, playingTimeSp, false);
         //categoriesText = (TextView)(view.findViewById(R.id.categoriesText));
-        //ButtonsActions.initMultiSpinner(categoriesList, categories, selectedCategories);
         initMultiSpinner();
-        ButtonsActions.setCategoriesListener(categoriesText, getActivity(), categoriesList, categories, selectedCategories);
+        //ButtonsActions.setCategoriesListener(categoriesText, getActivity(), categoriesList, categories, selectedCategories);
 
         ibStar1 = (ImageButton)(view.findViewById(R.id.ibStar1));
         ibStar2 = (ImageButton)(view.findViewById(R.id.ibStar2));
@@ -143,6 +142,7 @@ public class AddGameFragment extends Fragment {
                             boolean[] helpSelectedCategories = new boolean[size];
                             System.arraycopy(selectedCategories, 0, helpSelectedCategories, 0, size - 1);
                             selectedCategories = helpSelectedCategories;
+                            ButtonsActions.setCategoriesListener(categoriesText, getActivity(), categoriesList, categories, selectedCategories);
                             //Toast.makeText(getContext(), "Категорію додано", Toast.LENGTH_LONG).show();
                             dialog.dismiss();
                         }
@@ -222,6 +222,7 @@ public class AddGameFragment extends Fragment {
         List<String> listCategories = GamesProcessor.getCategories();
         categories = listCategories.toArray(new String[0]);
         selectedCategories = new boolean[categories.length];
+        ButtonsActions.setCategoriesListener(categoriesText, getActivity(), categoriesList, categories, selectedCategories);
     }
 
     private void addGame(){
