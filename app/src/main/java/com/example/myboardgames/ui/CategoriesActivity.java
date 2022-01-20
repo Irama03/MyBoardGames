@@ -33,13 +33,8 @@ public class CategoriesActivity extends AppCompatActivity {
         adapter = new CategoryAdapter(this, categories, new CategoryAdapter.OnCategoryClickListener() {
             @Override
             public void onCategoryClicked(String category, int position) {
+                //TODO: maybe delete listener
                 Toast.makeText(CategoriesActivity.this, category + " on position " + position + " clicked", Toast.LENGTH_LONG).show();
-                //Intent intent = new Intent(GamesFragment.this.getContext(), GameInfoActivity.class);
-                //intent.putExtra("Game", game);
-                //intent.putExtra("GamePosition", position);
-                //intent.putExtra("Adapter", (Parcelable) adapter);
-                //startActivityForResult(intent, GAME_INFO_REQUEST);
-                //startActivity(intent);
             }
         });
         recyclerView.setAdapter(adapter);

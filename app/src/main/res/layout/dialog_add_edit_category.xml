@@ -11,23 +11,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="sans-serif-condensed-medium"
-        android:text="Додавання категорії"
+        android:text="@string/dialog_title_add"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/dialogMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="sans-serif-condensed-light"
-        android:text="Введіть назву нової категорії"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dialogTitle" />
 
 
     <EditText
@@ -38,28 +26,43 @@
         android:ems="10"
         android:fontFamily="sans-serif-condensed-light"
         android:freezesText="true"
-        android:hint="Введіть назву категорії"
+        android:hint="@string/dialog_category_name_hint_add"
         android:inputType="textEmailAddress"
         android:padding="5dp"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dialogMessage" />
+        app:layout_constraintTop_toBottomOf="@+id/dialogTitle" />
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/addCategory"
+        android:id="@+id/cancelCategory"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="sans-serif-condensed-light"
-        android:text="Додати"
+        android:background="#C171CF"
+        android:text="@string/cancel"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/categoryName"
+        app:layout_constraintTop_toBottomOf="@+id/categoryName" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/doCategory"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="sans-serif-condensed-light"
+        android:text="@string/dialog_button_add"
+        android:background="#C171CF"
         android:textAllCaps="false"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/categoryName"
-        app:layout_constraintStart_toStartOf="@+id/categoryName"
         app:layout_constraintTop_toBottomOf="@+id/categoryName" />
 
 

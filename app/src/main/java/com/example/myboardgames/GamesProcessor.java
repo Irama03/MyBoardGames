@@ -176,13 +176,25 @@ public class GamesProcessor {
 
     public static void deleteCategory(Context context, String category){
         for (Game game: games) {
-            if (game.getCategories().remove(category)) {
-                if (game.getCategories().size() == 0)
-                    game.getCategories().add(categories.get(0));
+            List<String> gameCategories = game.getCategories();
+            if (gameCategories.remove(category)) {
+                if ( gameCategories.size() == 0)
+                    gameCategories.add(categories.get(0));
                 saveGames(context);
             }
         }
         categories.remove(category);
+    }
+
+    public static void editCategory(Context context, int position, String prevName, String categoryName) {
+        for (Game game: games) {
+            List<String> gameCategories = game.getCategories();
+            if (gameCategories.contains(prevName)) {
+                gameCategories.set(gameCategories.indexOf(prevName), categoryName);
+                saveGames(context);
+            }
+        }
+        categories.set(position, categoryName);
     }
 
     public Game getRecommendationOfTheDay(){

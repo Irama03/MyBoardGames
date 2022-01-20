@@ -5,16 +5,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myboardgames.CategoryDialog;
+import com.example.myboardgames.ButtonsActions;
 import com.example.myboardgames.GamesProcessor;
 import com.example.myboardgames.R;
-import com.example.myboardgames.ui.CategoriesActivity;
-import com.github.thunder413.datetimeutils.DateTimeUtils;
+import com.example.myboardgames.Utils;
 
 import java.util.List;
 
@@ -89,19 +90,51 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
         String category = categories.get(position);
 
-        holder.ibRemoveCategory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                GamesProcessor.deleteCategory(context, category);
-                GamesProcessor.saveCategories(context);
-                CategoryAdapter.this.notifyDataSetChanged();
-            }
-        });
-
-        //ButtonsActions.favoriteAction(category, holder.ibFavoriteButton, context);
-        //ButtonsActions.chooseAction(category, holder.ibCheckcategory, context, null, null);
-
         holder.tvCategoryName.setText(category);
+
+        if (category.equals(GamesProcessor.getCategories().get(0))) {
+            holder.ibEditButton.setVisibility(View.INVISIBLE);
+            holder.ibRemoveCategory.setVisibility(View.INVISIBLE);
+        }
+        else {
+            holder.ibEditButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    holder.dialog = new CategoryDialog(context, R.string.dialog_title_edit,
+                            R.string.dialog_category_name_hint_edit, R.string.dialog_button_edit,
+                            category, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String categoryName = holder.dialog.getCategoryName();
+                            if(!Utils.validateName(categoryName))
+                                Toast.makeText(context, "Введіть непорожню назву категорії!", Toast.LENGTH_LONG).show();
+                            else if (category.equals(categoryName)) {
+                                Toast.makeText(context, "Назву категорії не було змінено", Toast.LENGTH_LONG).show();
+                                holder.dialog.dismiss();
+                            }
+                            else if (!(categoryName.toLowerCase().equals(category.toLowerCase())) && GamesProcessor.categoryNameAlreadyExists(categoryName))
+                                Toast.makeText(context, "Така категорія вже існує!", Toast.LENGTH_LONG).show();
+                            else{
+                                GamesProcessor.editCategory(context, position, category, categoryName);
+                                GamesProcessor.saveCategories(context);
+                                CategoryAdapter.this.notifyItemChanged(position);
+                                holder.dialog.dismiss();
+                            }
+                        }
+                    });
+                    holder.dialog.show();
+                }
+            });
+
+            holder.ibRemoveCategory.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    GamesProcessor.deleteCategory(context, category);
+                    GamesProcessor.saveCategories(context);
+                    CategoryAdapter.this.notifyDataSetChanged();
+                }
+            });
+        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,6 +171,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
         public TextView tvCategoryName;
         public ImageButton ibEditButton, ibRemoveCategory;
+        public CategoryDialog dialog;
 
         /**
          * public constructor with parameters

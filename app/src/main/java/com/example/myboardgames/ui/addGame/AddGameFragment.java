@@ -17,7 +17,7 @@ import androidx.annotation.ArrayRes;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.myboardgames.AddCategoryDialog;
+import com.example.myboardgames.CategoryDialog;
 import com.example.myboardgames.ButtonsActions;
 import com.example.myboardgames.Game;
 import com.example.myboardgames.GamesProcessor;
@@ -38,7 +38,7 @@ public class AddGameFragment extends Fragment {
     private ImageButton ibStar1, ibStar2, ibStar3, ibStar4, ibStar5;
     private ImageButton favoriteButton, addCategoryButton;
     private ImageButton[] stars = new ImageButton[5];
-    private AddCategoryDialog dialog;
+    private CategoryDialog dialog;
     private TextView categoriesText;
     private boolean[] selectedCategories;
     private ArrayList<Integer> categoriesList;
@@ -123,7 +123,9 @@ public class AddGameFragment extends Fragment {
         addCategoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog = new AddCategoryDialog(getContext(), new View.OnClickListener() {
+                dialog = new CategoryDialog(getContext(), R.string.dialog_title_add,
+                        R.string.dialog_category_name_hint_add, R.string.dialog_button_add, "",
+                        new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         String categoryName = dialog.getCategoryName();

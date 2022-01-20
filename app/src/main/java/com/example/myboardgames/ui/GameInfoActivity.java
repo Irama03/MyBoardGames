@@ -19,6 +19,7 @@ import androidx.annotation.ArrayRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myboardgames.ButtonsActions;
+import com.example.myboardgames.CategoryDialog;
 import com.example.myboardgames.Game;
 import com.example.myboardgames.GamesProcessor;
 import com.example.myboardgames.R;
@@ -48,8 +49,10 @@ public class GameInfoActivity extends AppCompatActivity {
     private String[] categories;
     private TextView quantOfTimesBeingChosenText, dateOfAddingText, dateOfLastChoosingText, btnBack;
     private ImageView imageViewI;
-    private ImageButton ibStar1, ibStar2, ibStar3, ibStar4, ibStar5, favoriteButtonI, checkButtonI;
+    private ImageButton ibStar1, ibStar2, ibStar3, ibStar4, ibStar5;
+    private ImageButton favoriteButtonI, checkButtonI, addCategoryButtonI;
     private ImageButton[] stars = new ImageButton[5];
+    private CategoryDialog dialog;
 
     //private TextView mTextView;
     private Game game;
@@ -139,6 +142,44 @@ public class GameInfoActivity extends AppCompatActivity {
         stars[2] = ibStar3;
         stars[3] = ibStar4;
         stars[4] = ibStar5;
+
+        addCategoryButtonI = (ImageButton)(findViewById(R.id.addCategoryButtonI));
+        addCategoryButtonI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog = new CategoryDialog(GameInfoActivity.this, R.string.dialog_title_add,
+                        R.string.dialog_category_name_hint_add, R.string.dialog_button_add, "",
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                String categoryName = dialog.getCategoryName();
+                                if(!Utils.validateName(categoryName))
+                                    Toast.makeText(GameInfoActivity.this, "Введіть непорожню назву категорії!", Toast.LENGTH_LONG).show();
+                                else if (GamesProcessor.categoryNameAlreadyExists(categoryName))
+                                    Toast.makeText(GameInfoActivity.this, "Така категорія вже існує!", Toast.LENGTH_LONG).show();
+                                else{
+                                    GamesProcessor.addCategory(categoryName);
+                                    GamesProcessor.saveCategories(GameInfoActivity.this);
+                                    int size = GamesProcessor.getCategories().size();
+                                    String[] helpCategories = new String[size];
+                                    System.arraycopy(categories, 0, helpCategories, 0, size - 1);
+                                    helpCategories[size-1] = categoryName;
+                                    categories = helpCategories;
+                                    boolean[] helpSelectedCategories = new boolean[size];
+                                    System.arraycopy(selectedCategories, 0, helpSelectedCategories, 0, size - 1);
+                                    selectedCategories = helpSelectedCategories;
+                                    ButtonsActions.setCategoriesListener(categoriesTextI, GameInfoActivity.this, categoriesList, categories, selectedCategories);
+                                    //Toast.makeText(getContext(), "Категорію додано", Toast.LENGTH_LONG).show();
+                                    dialog.dismiss();
+                                }
+                            }
+                        });
+                dialog.show();
+                //List<String> listCategories = GamesProcessor.getCategories();
+                //        categories = listCategories.toArray(new String[0]);
+                //        selectedCategories = new boolean[categories.length];
+            }
+        });
 
         favoriteButtonI = (ImageButton)(findViewById(R.id.favoriteButtonI));
         checkButtonI = (ImageButton)(findViewById(R.id.checkGameI));
