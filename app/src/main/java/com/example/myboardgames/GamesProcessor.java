@@ -38,6 +38,7 @@ public class GamesProcessor {
             Toast.makeText(context, "Дані відновлено", Toast.LENGTH_LONG).show();
         }
         else{
+            games = new ArrayList<>();
             Toast.makeText(context, "Не вдалося відновити дані", Toast.LENGTH_LONG).show();
         }
     }
@@ -138,6 +139,7 @@ public class GamesProcessor {
     }
 
     public static List<Game> getCopyOfGames() {
+        if (games == null) return new ArrayList<>();
         List<Game> result = new ArrayList<Game>(games.size());
         result.addAll(games);
         return result;

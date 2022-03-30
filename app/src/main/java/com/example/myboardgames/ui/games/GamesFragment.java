@@ -154,6 +154,12 @@ public class GamesFragment extends Fragment { // implements AdapterInterface {
     public void onResume() {
         super.onResume();
         //Toast.makeText(getActivity(), "Resumed", Toast.LENGTH_LONG).show();
+        for (Game g: filteredGames) {
+            if (!games.contains(g)) {
+                filteredGames.remove(g);
+                break;
+            }
+        }
         adapter.notifyDataSetChanged();
     }
 
@@ -389,6 +395,7 @@ public class GamesFragment extends Fragment { // implements AdapterInterface {
     }
 
     private void makeRecommendations() {
+        //Toast.makeText(getActivity(), "Make recommendations", Toast.LENGTH_LONG).show();
         String categoryLabel = getResources().getString(R.string.categories_filter_label);
         Set<String> categoriesChecked = checkedFilterItems.get(categoryLabel);
 
@@ -581,7 +588,8 @@ public class GamesFragment extends Fragment { // implements AdapterInterface {
                     filteredGames.add(game);
             }
         } else {
-            filteredGames.addAll(games);
+            if (games != null)
+                filteredGames.addAll(games);
         }
 
         //Points check
@@ -636,7 +644,8 @@ public class GamesFragment extends Fragment { // implements AdapterInterface {
 
     private void showAll() {
         filteredGames.clear();
-        filteredGames.addAll(games);
+        if (games != null)
+            filteredGames.addAll(games);
         sortWithCurrentSorter();
         adapter.notifyDataSetChanged();
     }

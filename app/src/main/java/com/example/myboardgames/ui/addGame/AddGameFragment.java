@@ -241,6 +241,10 @@ public class AddGameFragment extends Fragment {
         String playingTime = (String)playingTimeSp.getSelectedItem();
         //ArrayList<String> categories = (ArrayList<String>) (Arrays.asList(categoriesText.getText().toString().split(", ")));
         List<String> categories = Arrays.asList(categoriesText.getText().toString().split("\\s*,\\s*"));
+        if (categories.get(0).equals("")) {
+            categories = new ArrayList<>();
+            categories.add("загальна категорія");
+        }
         //int quantOfPoints = Integer.parseInt(quantOfPointsText.getText().toString());
         int quantOfTimesBeingChosen = 0;
         //boolean isFavorite = Boolean.parseBoolean(isFavoriteText.getText().toString());

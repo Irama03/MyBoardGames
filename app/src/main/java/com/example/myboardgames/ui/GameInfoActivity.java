@@ -265,7 +265,12 @@ public class GameInfoActivity extends AppCompatActivity {
         game.setSmallestQuantOfPlayers(Integer.parseInt((String)smallestQuantOfPlayersSpI.getSelectedItem()));
         game.setBiggestQuantOfPlayers(Integer.parseInt((String)biggestQuantOfPlayersSpI.getSelectedItem()));
         game.setPlayingTime((String)playingTimeSpI.getSelectedItem());
-        game.setCategories(Arrays.asList(categoriesTextI.getText().toString().split("\\s*,\\s*")));
+        List<String> categories = Arrays.asList(categoriesTextI.getText().toString().split("\\s*,\\s*"));
+        if (categories.get(0).equals("")) {
+            categories = new ArrayList<>();
+            categories.add("загальна категорія");
+        }
+        game.setCategories(categories);
         //g.setQuantOfPoints(Integer.parseInt(quantOfPointsTextI.getText().toString()));
         //boolean isFavorite = quantOfPoints == 5;
         Toast.makeText(this, "Інформацію про гру було оновлено", Toast.LENGTH_LONG).show();
