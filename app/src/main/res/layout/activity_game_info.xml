@@ -74,27 +74,51 @@
                 android:layout_height="wrap_content"
                 android:text="GameInfoActivity" />-->
 
+            <TextView
+                android:id="@+id/nameT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/nameT"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@id/nameTextI"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
             <EditText
                 android:id="@+id/nameTextI"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="name"
+                android:hint="@string/nameT"
                 android:inputType="text"
+                android:textSize="20sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/descriptionT"
+                app:layout_constraintTop_toBottomOf="@id/nameT" />
+            <TextView
+                android:id="@+id/descriptionT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@string/descriptionT"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toTopOf="@id/descriptionTextI"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nameTextI" />
             <EditText
                 android:id="@+id/descriptionTextI"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="description"
+                android:hint="@string/descriptionT"
                 android:inputType="textMultiLine"
+                android:textSize="20sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/photoPathTextI"
-                app:layout_constraintTop_toBottomOf="@id/nameTextI" />
+                app:layout_constraintTop_toBottomOf="@id/descriptionT" />
             <EditText
                 android:id="@+id/photoPathTextI"
                 android:layout_width="0dp"
@@ -116,83 +140,171 @@
                 android:contentDescription="Choose photo.."
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/rulesTextI"
+                app:layout_constraintBottom_toTopOf="@id/rulesT"
                 app:layout_constraintTop_toBottomOf="@id/photoPathTextI"/>
+            <TextView
+                android:id="@+id/rulesT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@string/rulesT"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@id/rulesTextI"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imageViewI" />
             <EditText
                 android:id="@+id/rulesTextI"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="rules"
+                android:hint="@string/rulesT"
                 android:inputType="textMultiLine"
+                android:textSize="20sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/rulesTextI"
-                app:layout_constraintTop_toBottomOf="@id/photoPathTextI" />
+                app:layout_constraintBottom_toTopOf="@id/rulesT"
+                app:layout_constraintTop_toBottomOf="@id/placeT" />
+            <TextView
+                android:id="@+id/placeT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@string/placeT"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@id/placeTextI"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rulesTextI" />
             <EditText
                 android:id="@+id/placeTextI"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="place"
+                android:hint="@string/placeT"
                 android:inputType="textMultiLine"
+                android:textSize="20sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/smallestAgeSpI"
-                app:layout_constraintTop_toBottomOf="@id/rulesTextI" />
+                app:layout_constraintTop_toBottomOf="@id/placeT" />
+            <TextView
+                android:id="@+id/ageT1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@string/ageT1"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/placeTextI" />
             <include
                 layout="@layout/my_spinner"
                 android:id="@+id/smallestAgeSpI"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/biggestAgeSpI"
-                app:layout_constraintTop_toBottomOf="@id/placeTextI"/>
+                app:layout_constraintBottom_toTopOf="@id/ageT2"
+                app:layout_constraintTop_toBottomOf="@id/ageT1"/>
+            <TextView
+                android:id="@+id/ageT2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@string/ageT2"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/smallestAgeSpI" />
             <include
                 layout="@layout/my_spinner"
                 android:id="@+id/biggestAgeSpI"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/smallestQuantOfPlayersSpI"
-                app:layout_constraintTop_toBottomOf="@id/smallestAgeSpI"/>
+                app:layout_constraintBottom_toTopOf="@id/playersT1"
+                app:layout_constraintTop_toBottomOf="@id/ageT2"/>
+            <TextView
+                android:id="@+id/playersT1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@string/playersT1"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/biggestAgeSpI" />
             <include
                 layout="@layout/my_spinner"
                 android:id="@+id/smallestQuantOfPlayersSpI"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/biggestQuantOfPlayersSpI"
-                app:layout_constraintTop_toBottomOf="@id/biggestAgeSpI"/>
+                app:layout_constraintBottom_toTopOf="@id/playersT2"
+                app:layout_constraintTop_toBottomOf="@id/playersT1"/>
+            <TextView
+                android:id="@+id/playersT2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@string/playersT2"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/smallestQuantOfPlayersSpI" />
             <include
                 layout="@layout/my_spinner"
                 android:id="@+id/biggestQuantOfPlayersSpI"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/playingTimeSpI"
-                app:layout_constraintTop_toBottomOf="@id/smallestQuantOfPlayersSpI"/>
+                app:layout_constraintBottom_toTopOf="@id/timeT"
+                app:layout_constraintTop_toBottomOf="@id/playersT2"/>
+            <TextView
+                android:id="@+id/timeT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@string/timeT"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/biggestQuantOfPlayersSpI" />
             <include
                 layout="@layout/my_spinner"
                 android:id="@+id/playingTimeSpI"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/categoriesTextI"
-                app:layout_constraintTop_toBottomOf="@id/biggestQuantOfPlayersSpI"/>
+                app:layout_constraintBottom_toTopOf="@id/categoriesT"
+                app:layout_constraintTop_toBottomOf="@id/timeT"/>
+            <TextView
+                android:id="@+id/categoriesT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@string/categoriesT"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/playingTimeSpI" />
             <TextView
                 android:id="@+id/categoriesTextI"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
                 android:hint="@string/choose_categories"
                 android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24"
                 android:drawablePadding="5dp"
                 android:width="200dp"
+                android:textSize="20sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/checkGameI"
-                app:layout_constraintTop_toBottomOf="@id/playingTimeSpI" />
+                app:layout_constraintTop_toBottomOf="@id/categoriesT" />
+
             <ImageButton
                 android:id="@+id/addCategoryButtonI"
-                android:layout_width="15dp"
+                android:layout_width="21dp"
                 android:layout_height="21dp"
+                android:layout_marginRight="16dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_baseline_playlist_add_24"
                 app:layout_constraintBottom_toTopOf="@id/checkGameI"

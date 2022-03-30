@@ -138,4 +138,14 @@
     <string name="cancel">Скасувати</string>
     <string name="dialog_button_add">Додати</string>
     <string name="dialog_button_edit">Оновити</string>
+    <string name="nameT">Назва</string>
+    <string name="descriptionT">Опис</string>
+    <string name="rulesT">Правила</string>
+    <string name="placeT">Місцезнаходження</string>
+    <string name="ageT1">Вік: від </string>
+    <string name="ageT2">до</string>
+    <string name="playersT1">Кількість гравців: від</string>
+    <string name="playersT2">до</string>
+    <string name="timeT">Час гри</string>
+    <string name="categoriesT">Категорії</string>
 </resources>
