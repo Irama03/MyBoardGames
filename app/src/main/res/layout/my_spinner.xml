@@ -5,7 +5,8 @@
     android:layout_width="wrap_content"
     app:layout_constraintWidth_max="100dp"
     android:layout_height="wrap_content"
-    android:background="@color/white"/>
+    android:background="@color/white"
+    android:textAlignment="center"/>
 
 <!--
 android:background="@color/purple_light" - тоді буде без стрілочки

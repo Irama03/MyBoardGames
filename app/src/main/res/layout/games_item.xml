@@ -13,17 +13,17 @@
             android:id="@+id/ivGameImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:maxHeight="200dp"
-            android:src="@drawable/ic_cubiki"
-            android:adjustViewBounds="true"/>
+            android:src="@drawable/ic_cubiki" />
 
         <ImageButton
             android:id="@+id/ibFavoriteButton"
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:src="@drawable/ic_baseline_favorite_border_24"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/ivGameImage"
             android:background="@android:color/transparent"
-            android:layout_alignStart="@id/ivGameImage"/>
+            android:src="@drawable/ic_baseline_favorite_border_24" />
 
         <include
             layout="@layout/stars"
@@ -47,19 +47,19 @@
             style="@style/GameName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/ivGameImage"
             android:padding="8dp"
-            android:layout_alignBottom="@id/ivGameImage"
-            android:text="Name" />
+            android:text="Назва" />
 
         <TextView
             android:id="@+id/tvGameCategories"
             style="@style/CategoriesText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ivGameImage"
+            android:layout_below="@id/tvGameName"
             android:textColor="?android:textColorSecondary"
             android:padding="8dp"
-            android:text="Categories" />
+            android:text="Категорії" />
 
         <TextView
             android:id="@+id/tvGameDescription"
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tvGameCategories"
             android:padding="8dp"
-            android:text="Description" />
+            android:text="Опис" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

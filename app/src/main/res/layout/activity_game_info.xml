@@ -34,7 +34,7 @@
             android:layout_marginTop="14dp"
             android:layout_marginBottom="8dp"
             android:fontFamily="sans-serif-condensed-light"
-            android:text="Game Info"
+            android:text="Інфа про гру"
             android:textColor="@color/purple_base"
             android:textSize="28sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -67,12 +67,6 @@
 
             android:paddingStart="2dp"
             android:paddingEnd="2dp">
-
-            <!--<TextView
-                android:id="@+id/text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="GameInfoActivity" />-->
 
             <TextView
                 android:id="@+id/nameT"
@@ -123,7 +117,7 @@
                 android:id="@+id/photoPathTextI"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
-                android:hint="photoPath"
+                android:hint="шлях до фото"
                 android:inputType="text"
                 android:visibility="invisible"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -137,7 +131,7 @@
                 android:maxHeight="200dp"
                 android:src="@drawable/ic_cubiki"
                 android:adjustViewBounds="true"
-                android:contentDescription="Choose photo.."
+                android:contentDescription="Оберіть фото.."
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/rulesT"
@@ -182,99 +176,97 @@
                 android:hint="@string/placeT"
                 android:inputType="textMultiLine"
                 android:textSize="20sp"
+                android:layout_marginBottom="5dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/placeT" />
             <TextView
                 android:id="@+id/ageT1"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:text="@string/ageT1"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/placeTextI" />
             <include
                 layout="@layout/my_spinner"
                 android:id="@+id/smallestAgeSpI"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/ageT2"
-                app:layout_constraintTop_toBottomOf="@id/ageT1"/>
+                android:layout_width="35dp"
+                android:layout_height="32dp"
+                app:layout_constraintLeft_toRightOf="@id/ageT1"
+                app:layout_constraintTop_toBottomOf="@id/placeTextI"
+                app:layout_constraintBottom_toTopOf="@id/playersT1"/>
             <TextView
                 android:id="@+id/ageT2"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:text="@string/ageT2"
                 android:textSize="16sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/smallestAgeSpI" />
+                app:layout_constraintLeft_toRightOf="@id/smallestAgeSpI"
+                app:layout_constraintTop_toBottomOf="@id/placeTextI" />
             <include
                 layout="@layout/my_spinner"
                 android:id="@+id/biggestAgeSpI"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/playersT1"
-                app:layout_constraintTop_toBottomOf="@id/ageT2"/>
+                android:layout_width="35dp"
+                android:layout_height="32dp"
+                app:layout_constraintLeft_toRightOf="@id/ageT2"
+                app:layout_constraintTop_toBottomOf="@id/placeTextI"
+                app:layout_constraintBottom_toTopOf="@id/playersT1"/>
             <TextView
                 android:id="@+id/playersT1"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:text="@string/playersT1"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/biggestAgeSpI" />
+                app:layout_constraintTop_toBottomOf="@id/ageT1" />
             <include
                 layout="@layout/my_spinner"
                 android:id="@+id/smallestQuantOfPlayersSpI"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/playersT2"
-                app:layout_constraintTop_toBottomOf="@id/playersT1"/>
+                android:layout_width="25dp"
+                android:layout_height="36dp"
+                app:layout_constraintLeft_toRightOf="@id/playersT1"
+                app:layout_constraintTop_toBottomOf="@id/ageT1"
+                app:layout_constraintBottom_toTopOf="@id/timeT"/>
             <TextView
                 android:id="@+id/playersT2"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:text="@string/playersT2"
                 android:textSize="16sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/smallestQuantOfPlayersSpI" />
+                app:layout_constraintLeft_toRightOf="@id/smallestQuantOfPlayersSpI"
+                app:layout_constraintTop_toBottomOf="@id/ageT1" />
             <include
                 layout="@layout/my_spinner"
                 android:id="@+id/biggestQuantOfPlayersSpI"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/timeT"
-                app:layout_constraintTop_toBottomOf="@id/playersT2"/>
+                android:layout_width="25dp"
+                android:layout_height="36dp"
+                app:layout_constraintLeft_toRightOf="@id/playersT2"
+                app:layout_constraintTop_toBottomOf="@id/ageT1"
+                app:layout_constraintBottom_toTopOf="@id/timeT"/>
             <TextView
                 android:id="@+id/timeT"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
+                android:layout_marginTop="5dp"
                 android:text="@string/timeT"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/biggestQuantOfPlayersSpI" />
+                app:layout_constraintTop_toBottomOf="@id/playersT1" />
             <include
                 layout="@layout/my_spinner"
                 android:id="@+id/playingTimeSpI"
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_height="32dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintLeft_toRightOf="@id/timeT"
                 app:layout_constraintBottom_toTopOf="@id/categoriesT"
-                app:layout_constraintTop_toBottomOf="@id/timeT"/>
+                app:layout_constraintTop_toBottomOf="@id/playersT1"/>
             <TextView
                 android:id="@+id/categoriesT"
                 android:layout_width="match_parent"
@@ -284,7 +276,7 @@
                 android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/playingTimeSpI" />
+                app:layout_constraintTop_toBottomOf="@id/timeT" />
             <TextView
                 android:id="@+id/categoriesTextI"
                 android:layout_width="wrap_content"
@@ -304,7 +296,7 @@
                 android:id="@+id/addCategoryButtonI"
                 android:layout_width="21dp"
                 android:layout_height="21dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_baseline_playlist_add_24"
                 app:layout_constraintBottom_toTopOf="@id/checkGameI"
@@ -318,8 +310,8 @@
                 android:background="@android:color/transparent"
                 android:layout_margin="8dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/quantOfTimesBeingChosenText"
-                app:layout_constraintTop_toBottomOf="@id/categoriesTextI"/>
+                app:layout_constraintTop_toBottomOf="@id/categoriesTextI"
+                app:layout_constraintBottom_toTopOf="@id/quantOfTimesBeingChosenText"/>
             <ImageButton
                 android:id="@+id/favoriteButtonI"
                 android:layout_height="wrap_content"
@@ -328,8 +320,8 @@
                 android:background="@android:color/transparent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/quantOfTimesBeingChosenText"
-                app:layout_constraintTop_toBottomOf="@id/categoriesTextI" />
+                app:layout_constraintTop_toBottomOf="@id/categoriesTextI"
+                app:layout_constraintBottom_toTopOf="@id/quantOfTimesBeingChosenText"/>
             <include
                 layout="@layout/stars"
                 android:id="@+id/starsButtonsI"
@@ -341,106 +333,94 @@
                 app:layout_constraintTop_toBottomOf="@id/categoriesTextI"/>
             <TextView
                 android:id="@+id/quantOfTimesBeingChosenText"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="quantOfTimesBeingChosen"
+                android:textSize="16sp"
+                android:layout_marginStart="4dp"
+                android:text="Скільки разів була обрана: "
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/dateOfAddingText"
-                app:layout_constraintTop_toBottomOf="@id/favoriteButtonI" />
-            <!--dateOfAdding dateOfLastChoosing-->
+                app:layout_constraintTop_toBottomOf="@id/checkGameI" />
             <TextView
-                android:id="@+id/dateOfAddingText"
-                android:layout_width="0dp"
+                android:id="@+id/quantOfTimesBeingChosen"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="dateOfAdding"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/dateOfLastChoosingText"
-                app:layout_constraintTop_toBottomOf="@id/quantOfTimesBeingChosenText" />
+                android:textSize="16sp"
+                android:hint="Кількість разів"
+                app:layout_constraintLeft_toRightOf="@id/quantOfTimesBeingChosenText"
+                app:layout_constraintTop_toBottomOf="@id/checkGameI" />
             <TextView
                 android:id="@+id/dateOfLastChoosingText"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="dateOfLastChoosing"
+                android:textSize="16sp"
+                android:layout_marginStart="4dp"
+                android:text="Дата останнього обрання: "
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/updateButton"
-                app:layout_constraintTop_toBottomOf="@id/dateOfAddingText" />
-
-            <androidx.appcompat.widget.AppCompatButton
+                app:layout_constraintTop_toBottomOf="@id/quantOfTimesBeingChosen" />
+            <TextView
+                android:id="@+id/dateOfLastChoosing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:hint="Дата"
+                app:layout_constraintLeft_toRightOf="@id/dateOfLastChoosingText"
+                app:layout_constraintTop_toBottomOf="@id/quantOfTimesBeingChosen" />
+            <TextView
+                android:id="@+id/dateOfAddingText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginStart="4dp"
+                android:text="Дата додавання: "
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dateOfLastChoosing" />
+            <TextView
+                android:id="@+id/dateOfAdding"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:hint="Дата"
+                app:layout_constraintLeft_toRightOf="@id/dateOfAddingText"
+                app:layout_constraintTop_toBottomOf="@id/dateOfLastChoosing" />
+            <Button
                 android:id="@+id/updateButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="70dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginRight="70dp"
                 android:fontFamily="sans-serif-condensed-light"
                 android:text="Оновити"
-                android:background="#C171CF"
+                android:backgroundTint="@color/purple_base"
                 android:textAllCaps="false"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.714"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/removeButton"
-                app:layout_constraintTop_toBottomOf="@+id/dateOfLastChoosingText"
+                app:layout_constraintTop_toBottomOf="@+id/dateOfAdding"
                 app:layout_constraintVertical_bias="1.0" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <Button
                 android:id="@+id/removeButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="70dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginRight="70dp"
                 android:layout_marginBottom="100dp"
                 android:fontFamily="sans-serif-condensed-light"
                 android:text="Видалити"
-                android:background="#C171CF"
+                android:backgroundTint="@color/purple_base"
                 android:textAllCaps="false"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.714"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/updateButton"
                 app:layout_constraintVertical_bias="1.0" />
-
-            <!--<Button
-                android:id="@+id/saveButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="400dp"
-                android:text="Зберегти"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/openButton"
-                app:layout_constraintTop_toBottomOf="@id/addButton"/>
-            <Button
-                android:id="@+id/openButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="400dp"
-                android:text="Відкрити"
-                app:layout_constraintLeft_toRightOf="@id/saveButton"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/addButton"/>-->
-
-            <!--<TextView
-                android:id="@+id/text_notifications"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:textAlignment="center"
-                android:gravity="center_horizontal"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />-->
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </LinearLayout>

@@ -75,7 +75,7 @@
             android:id="@+id/photoPathText"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:hint="photoPath"
+            android:hint="шлях до фото"
             android:inputType="text"
             android:visibility="invisible"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -89,7 +89,7 @@
             android:maxHeight="200dp"
             android:src="@drawable/ic_cubiki"
             android:adjustViewBounds="true"
-            android:contentDescription="Choose photo.."
+            android:contentDescription="Оберіть фото.."
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toTopOf="@id/rulesT"
@@ -138,104 +138,102 @@
             android:hint="@string/placeT"
             android:inputType="textMultiLine"
             android:textSize="20sp"
+            android:layout_marginBottom="5dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/placeT" />
 
         <TextView
             android:id="@+id/ageT1"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:text="@string/ageT1"
             android:textSize="16sp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/placeText" />
         <include
             layout="@layout/my_spinner"
             android:id="@+id/smallestAgeSp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/ageT2"
-            app:layout_constraintTop_toBottomOf="@id/ageT1"/>
+            android:layout_width="35dp"
+            android:layout_height="32dp"
+            app:layout_constraintLeft_toRightOf="@id/ageT1"
+            app:layout_constraintTop_toBottomOf="@id/placeText"
+            app:layout_constraintBottom_toTopOf="@id/playersT1"/>
 
         <TextView
             android:id="@+id/ageT2"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:text="@string/ageT2"
             android:textSize="16sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/smallestAgeSp" />
+            app:layout_constraintLeft_toRightOf="@id/smallestAgeSp"
+            app:layout_constraintTop_toBottomOf="@id/placeText" />
         <include
             layout="@layout/my_spinner"
             android:id="@+id/biggestAgeSp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/playersT1"
-            app:layout_constraintTop_toBottomOf="@id/ageT2" />
+            android:layout_width="35dp"
+            android:layout_height="32dp"
+            app:layout_constraintLeft_toRightOf="@id/ageT2"
+            app:layout_constraintTop_toBottomOf="@id/placeText"
+            app:layout_constraintBottom_toTopOf="@id/playersT1"/>
 
         <TextView
             android:id="@+id/playersT1"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:text="@string/playersT1"
             android:textSize="16sp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/biggestAgeSp" />
+            app:layout_constraintTop_toBottomOf="@id/ageT1" />
         <include
             layout="@layout/my_spinner"
             android:id="@+id/smallestQuantOfPlayersSp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/playersT2"
-            app:layout_constraintTop_toBottomOf="@id/playersT1"/>
+            android:layout_width="25dp"
+            android:layout_height="36dp"
+            app:layout_constraintLeft_toRightOf="@id/playersT1"
+            app:layout_constraintTop_toBottomOf="@id/ageT1"
+            app:layout_constraintBottom_toTopOf="@id/timeT"/>
 
         <TextView
             android:id="@+id/playersT2"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:text="@string/playersT2"
             android:textSize="16sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/smallestQuantOfPlayersSp" />
+            app:layout_constraintLeft_toRightOf="@id/smallestQuantOfPlayersSp"
+            app:layout_constraintTop_toBottomOf="@id/ageT1" />
         <include
             layout="@layout/my_spinner"
             android:id="@+id/biggestQuantOfPlayersSp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/timeT"
-            app:layout_constraintTop_toBottomOf="@id/playersT2"/>
+            android:layout_width="25dp"
+            android:layout_height="36dp"
+            app:layout_constraintLeft_toRightOf="@id/playersT2"
+            app:layout_constraintTop_toBottomOf="@id/ageT1"
+            app:layout_constraintBottom_toTopOf="@id/timeT"/>
 
         <TextView
             android:id="@+id/timeT"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
+            android:layout_marginTop="5dp"
             android:text="@string/timeT"
             android:textSize="16sp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/biggestQuantOfPlayersSp" />
+            app:layout_constraintTop_toBottomOf="@id/playersT1" />
         <include
             layout="@layout/my_spinner"
             android:id="@+id/playingTimeSp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_height="32dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintLeft_toRightOf="@id/timeT"
             app:layout_constraintBottom_toTopOf="@id/categoriesT"
-            app:layout_constraintTop_toBottomOf="@id/timeT"/>
+            app:layout_constraintTop_toBottomOf="@id/playersT1"/>
 
         <TextView
             android:id="@+id/categoriesT"
@@ -246,7 +244,7 @@
             android:textSize="16sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/playingTimeSp" />
+            app:layout_constraintTop_toBottomOf="@id/timeT" />
 
         <TextView
             android:id="@+id/categoriesText"
@@ -291,28 +289,8 @@
             android:layout_marginEnd="16dp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/categoriesText" />
-        <!--<EditText
-            android:id="@+id/isFavoriteTextI"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="isFavorite"
-            android:inputType="text"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/addButton"
-            app:layout_constraintTop_toBottomOf="@id/quantOfPointsTextI" />-->
-        <!--<Button
-            android:id="@+id/addButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="400dp"
-            android:text="Додати"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/saveButton"
-            app:layout_constraintTop_toBottomOf="@id/isFavoriteText" />-->
 
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/addButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -320,11 +298,11 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="70dp"
             android:layout_marginBottom="100dp"
-            android:background="#C171CF"
+            android:backgroundTint="@color/purple_base"
             android:fontFamily="sans-serif-condensed-light"
             android:text="Додати"
             android:textAllCaps="false"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.714"

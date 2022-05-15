@@ -3,6 +3,8 @@ package com.example.myboardgames.adapters;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myboardgames.ButtonsActions;
@@ -104,22 +107,20 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
         }
 
         Game game = games.get(position);
-        //think about case when photo was deleted
-        //holder.ivGameImage.setImageBitmap(BitmapFactory.decodeFile(game.getPhotoPath()));
-
-        try {
-            //final Uri imageUri = Uri.parse(game.getPhotoPath());
-            //final InputStream imageStream = context.getContentResolver().openInputStream(imageUri);
-            final InputStream imageStream = context.openFileInput(game.getPhotoPath());
-            final Bitmap image = BitmapFactory.decodeStream(imageStream);
-            holder.ivGameImage.setImageBitmap(image);
-            //holder.ivGameImage.setImageURI(imageUri);
-        } catch (FileNotFoundException e) {
-            //Toast.makeText(context, "FileNotFoundException: " + e.getMessage(), Toast.LENGTH_LONG).show();
-            e.printStackTrace();
-        } catch (Exception e) {
-            //Toast.makeText(context, "Exception: " + e.getMessage(), Toast.LENGTH_LONG).show();
-            e.printStackTrace();
+        //System.out.println(position + ") " + game.getName() + ", " + game.getPhotoPath());
+        if (!game.getPhotoPath().equals("")) {
+            try {
+                final InputStream imageStream = context.openFileInput(game.getPhotoPath());
+                final Bitmap image = BitmapFactory.decodeStream(imageStream);
+                holder.ivGameImage.setImageBitmap(image);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            holder.ivGameImage.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_cubiki, null));
         }
 
         ButtonsActions.favoriteAction(game, holder.ibFavoriteButton, context);
@@ -138,7 +139,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
         holder.tvGameCategories.setText(categoriesStringBuilder.toString());
         String description = game.getDescription();
         if (description.isEmpty()) {
-            holder.tvGameDescription.setText("No description");
+            holder.tvGameDescription.setText("Немає опису");
         } else
             holder.tvGameDescription.setText(game.getDescription());
 

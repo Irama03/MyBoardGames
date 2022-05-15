@@ -47,7 +47,7 @@ public class GameInfoActivity extends AppCompatActivity {
     private boolean[] selectedCategories;
     private ArrayList<Integer> categoriesList;
     private String[] categories;
-    private TextView quantOfTimesBeingChosenText, dateOfAddingText, dateOfLastChoosingText, btnBack;
+    private TextView quantOfTimesBeingChosen, dateOfAdding, dateOfLastChoosing, btnBack;
     private ImageView imageViewI;
     private ImageButton ibStar1, ibStar2, ibStar3, ibStar4, ibStar5;
     private ImageButton favoriteButtonI, checkButtonI, addCategoryButtonI;
@@ -118,19 +118,18 @@ public class GameInfoActivity extends AppCompatActivity {
         initMultiSpinner();
         ButtonsActions.setCategoriesListener(categoriesTextI, this, categoriesList, categories, selectedCategories);
 
-        quantOfTimesBeingChosenText = (TextView)(findViewById(R.id.quantOfTimesBeingChosenText));
-        quantOfTimesBeingChosenText.setText(game.getQuantOfTimesBeingChosen() + "");
+        quantOfTimesBeingChosen = (TextView)(findViewById(R.id.quantOfTimesBeingChosen));
+        quantOfTimesBeingChosen.setText(game.getQuantOfTimesBeingChosen() + "");
 
-        dateOfAddingText = (TextView)(findViewById(R.id.dateOfAddingText));
+        dateOfAdding = (TextView)(findViewById(R.id.dateOfAdding));
         if (game.getDateOfAdding() == null)
-            dateOfAddingText.setText("No adding date");
-        //else dateOfAddingText.setText(DateTimeUtils.formatDate(new Date(), Locale.getDefault()));
-        else dateOfAddingText.setText(DateTimeUtils.formatDate(game.getDateOfAdding(), Locale.getDefault()));
+            dateOfAdding.setText("невідомо");
+        else dateOfAdding.setText(Utils.convertDateToLocalString(game.getDateOfAdding()));
 
-        dateOfLastChoosingText = (TextView)(findViewById(R.id.dateOfLastChoosingText));
+        dateOfLastChoosing = (TextView)(findViewById(R.id.dateOfLastChoosing));
         if (game.getDateOfLastChoosing() == null)
-            dateOfLastChoosingText.setText("No choosing date");
-        else dateOfLastChoosingText.setText(DateTimeUtils.formatDate(game.getDateOfLastChoosing()));
+            dateOfLastChoosing.setText("немає");
+        else dateOfLastChoosing.setText(Utils.convertDateToLocalString(game.getDateOfLastChoosing()));
 
         ibStar1 = (ImageButton)findViewById(R.id.ibStar1);
         ibStar2 = (ImageButton)findViewById(R.id.ibStar2);
@@ -185,14 +184,14 @@ public class GameInfoActivity extends AppCompatActivity {
         checkButtonI = (ImageButton)(findViewById(R.id.checkGameI));
 
         ButtonsActions.favoriteAction(game, favoriteButtonI, this);
-        ButtonsActions.chooseAction(game, checkButtonI, this, quantOfTimesBeingChosenText, dateOfLastChoosingText);
+        ButtonsActions.chooseAction(game, checkButtonI, this, quantOfTimesBeingChosen, dateOfLastChoosing);
         ButtonsActions.pointsAction(game, stars, this);
 
         findViewById(R.id.updateButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updateGame();
-                GamesProcessor.saveGames(GameInfoActivity.this);
+                if (updateGame())
+                    GamesProcessor.saveGames(GameInfoActivity.this);
                 //Toast.makeText(GameInfoActivity.this, "updating", Toast.LENGTH_LONG).show();
             }
         });
@@ -205,18 +204,20 @@ public class GameInfoActivity extends AppCompatActivity {
         });
 
         imageViewI = (ImageView)(findViewById(R.id.imageViewI));
-        try {
-            final InputStream imageStream = openFileInput(game.getPhotoPath());
-            final Bitmap image = BitmapFactory.decodeStream(imageStream);
-            imageViewI.setImageBitmap(image);
-            ((EditText)findViewById(R.id.photoPathTextI)).setText(game.getPhotoPath());
-            //holder.ivGameImage.setImageURI(imageUri);
-        } catch (FileNotFoundException e) {
-            //Toast.makeText(context, "FileNotFoundException: " + e.getMessage(), Toast.LENGTH_LONG).show();
-            e.printStackTrace();
-        } catch (Exception e) {
-            //Toast.makeText(context, "Exception: " + e.getMessage(), Toast.LENGTH_LONG).show();
-            e.printStackTrace();
+        if (!game.getPhotoPath().equals("")) {
+            try {
+                final InputStream imageStream = openFileInput(game.getPhotoPath());
+                final Bitmap image = BitmapFactory.decodeStream(imageStream);
+                imageViewI.setImageBitmap(image);
+                ((EditText)findViewById(R.id.photoPathTextI)).setText(game.getPhotoPath());
+                //holder.ivGameImage.setImageURI(imageUri);
+            } catch (FileNotFoundException e) {
+                //Toast.makeText(context, "FileNotFoundException: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            } catch (Exception e) {
+                //Toast.makeText(context, "Exception: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            }
         }
 
         imageViewI.setOnClickListener(new View.OnClickListener() {
@@ -254,26 +255,38 @@ public class GameInfoActivity extends AppCompatActivity {
         }
     }
 
-    private void updateGame(){
-        game.setName(nameTextI.getText().toString());
-        game.setDescription(descriptionTextI.getText().toString());
-        game.setPhotoPath(photoPathTextI.getText().toString());
-        game.setRules(rulesTextI.getText().toString());
-        game.setPlace(placeTextI.getText().toString());
-        game.setSmallestAge(Integer.parseInt((String)smallestAgeSpI.getSelectedItem()));
-        game.setBiggestAge(Integer.parseInt((String)biggestAgeSpI.getSelectedItem()));
-        game.setSmallestQuantOfPlayers(Integer.parseInt((String)smallestQuantOfPlayersSpI.getSelectedItem()));
-        game.setBiggestQuantOfPlayers(Integer.parseInt((String)biggestQuantOfPlayersSpI.getSelectedItem()));
-        game.setPlayingTime((String)playingTimeSpI.getSelectedItem());
-        List<String> categories = Arrays.asList(categoriesTextI.getText().toString().split("\\s*,\\s*"));
-        if (categories.get(0).equals("")) {
-            categories = new ArrayList<>();
-            categories.add("загальна категорія");
+    private boolean updateGame(){
+        String name = nameTextI.getText().toString().trim();
+        if (name.length() == 0) {
+            Toast.makeText(this, "Введіть назву гри!", Toast.LENGTH_LONG).show();
+            return false;
         }
-        game.setCategories(categories);
-        //g.setQuantOfPoints(Integer.parseInt(quantOfPointsTextI.getText().toString()));
-        //boolean isFavorite = quantOfPoints == 5;
-        Toast.makeText(this, "Інформацію про гру було оновлено", Toast.LENGTH_LONG).show();
+        else if (!name.equalsIgnoreCase(game.getName()) && GamesProcessor.gameAlreadyExists(name)) {
+            Toast.makeText(this, "Гра з такою назвою вже існує", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        else {
+            game.setName(name);
+            game.setDescription(descriptionTextI.getText().toString());
+            game.setPhotoPath(photoPathTextI.getText().toString());
+            game.setRules(rulesTextI.getText().toString());
+            game.setPlace(placeTextI.getText().toString());
+            game.setSmallestAge(Integer.parseInt((String)smallestAgeSpI.getSelectedItem()));
+            game.setBiggestAge(Integer.parseInt((String)biggestAgeSpI.getSelectedItem()));
+            game.setSmallestQuantOfPlayers(Integer.parseInt((String)smallestQuantOfPlayersSpI.getSelectedItem()));
+            game.setBiggestQuantOfPlayers(Integer.parseInt((String)biggestQuantOfPlayersSpI.getSelectedItem()));
+            game.setPlayingTime((String)playingTimeSpI.getSelectedItem());
+            List<String> categories = Arrays.asList(categoriesTextI.getText().toString().split("\\s*,\\s*"));
+            if (categories.get(0).equals("")) {
+                categories = new ArrayList<>();
+                categories.add("загальна категорія");
+            }
+            game.setCategories(categories);
+            //g.setQuantOfPoints(Integer.parseInt(quantOfPointsTextI.getText().toString()));
+            //boolean isFavorite = quantOfPoints == 5;
+            Toast.makeText(this, "Інформацію про гру було оновлено", Toast.LENGTH_LONG).show();
+            return true;
+        }
     }
 
     public void removeGame(){

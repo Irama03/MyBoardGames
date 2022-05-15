@@ -175,8 +175,7 @@ public class AddGameFragment extends Fragment {
         view.findViewById(R.id.addButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addGame();
-                if (GamesProcessor.saveGames(getContext())) clearFields();
+                if (addGame() && GamesProcessor.saveGames(getContext())) clearFields();
             }
         });
         /*view.findViewById(R.id.saveButton).setOnClickListener(new View.OnClickListener() {
@@ -227,35 +226,42 @@ public class AddGameFragment extends Fragment {
         ButtonsActions.setCategoriesListener(categoriesText, getActivity(), categoriesList, categories, selectedCategories);
     }
 
-    private void addGame(){
-        String name = nameText.getText().toString();
-        String description = descriptionText.getText().toString();
-        String photoPath = photoPathText.getText().toString();
-        String rules = rulesText.getText().toString();
-        String place = placeText.getText().toString();
-        //int smallestAge = Integer.parseInt(smallestAgeText.getText().toString());
-        int smallestAge = Integer.parseInt((String)smallestAgeSp.getSelectedItem());
-        int biggestAge = Integer.parseInt((String)biggestAgeSp.getSelectedItem());
-        int smallestQuantOfPlayers = Integer.parseInt((String)smallestQuantOfPlayersSp.getSelectedItem());
-        int biggestQuantOfPlayers = Integer.parseInt((String)biggestQuantOfPlayersSp.getSelectedItem());
-        String playingTime = (String)playingTimeSp.getSelectedItem();
-        //ArrayList<String> categories = (ArrayList<String>) (Arrays.asList(categoriesText.getText().toString().split(", ")));
-        List<String> categories = Arrays.asList(categoriesText.getText().toString().split("\\s*,\\s*"));
-        if (categories.get(0).equals("")) {
-            categories = new ArrayList<>();
-            categories.add("загальна категорія");
+    private boolean addGame(){
+        String name = nameText.getText().toString().trim();
+        if (name.length() == 0) {
+            Toast.makeText(getActivity(), "Введіть назву гри!", Toast.LENGTH_LONG).show();
+            return false;
         }
-        //int quantOfPoints = Integer.parseInt(quantOfPointsText.getText().toString());
-        int quantOfTimesBeingChosen = 0;
-        //boolean isFavorite = Boolean.parseBoolean(isFavoriteText.getText().toString());
+        else if (GamesProcessor.gameAlreadyExists(name)) {
+            Toast.makeText(getActivity(), "Гра з такою назвою вже існує", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        else {
+            String description = descriptionText.getText().toString();
+            String photoPath = photoPathText.getText().toString();
+            String rules = rulesText.getText().toString();
+            String place = placeText.getText().toString();
+            int smallestAge = Integer.parseInt((String)smallestAgeSp.getSelectedItem());
+            int biggestAge = Integer.parseInt((String)biggestAgeSp.getSelectedItem());
+            int smallestQuantOfPlayers = Integer.parseInt((String)smallestQuantOfPlayersSp.getSelectedItem());
+            int biggestQuantOfPlayers = Integer.parseInt((String)biggestQuantOfPlayersSp.getSelectedItem());
+            String playingTime = (String)playingTimeSp.getSelectedItem();
+            List<String> categories = Arrays.asList(categoriesText.getText().toString().split("\\s*,\\s*"));
+            if (categories.get(0).equals("")) {
+                categories = new ArrayList<>();
+                categories.add("загальна категорія");
+            }
+            //int quantOfPoints = Integer.parseInt(quantOfPointsText.getText().toString());
+            int quantOfTimesBeingChosen = 0;
+            //boolean isFavorite = Boolean.parseBoolean(isFavoriteText.getText().toString());
 
-        Game game = new Game(name, description, photoPath, rules, place, smallestAge,
-                biggestAge, smallestQuantOfPlayers, biggestQuantOfPlayers, playingTime, categories,
-                quantOfPoints, quantOfTimesBeingChosen, isFavorite, Utils.getCurrentDate(), null);
-        GamesProcessor.addGame(game);
-        Toast.makeText(getActivity(), "Quant of games: " + GamesProcessor.getGames().size(), Toast.LENGTH_LONG).show();
-        //??????
-        //((MainActivity)getActivity()).adapter.notifyDataSetChanged();
+            Game game = new Game(name, description, photoPath, rules, place, smallestAge,
+                    biggestAge, smallestQuantOfPlayers, biggestQuantOfPlayers, playingTime, categories,
+                    quantOfPoints, quantOfTimesBeingChosen, isFavorite, Utils.getCurrentDate(), null);
+            GamesProcessor.addGame(game);
+            //Toast.makeText(getActivity(), "Quant of games: " + GamesProcessor.getGames().size(), Toast.LENGTH_LONG).show();
+            return true;
+        }
     }
 
     private void clearFields() {

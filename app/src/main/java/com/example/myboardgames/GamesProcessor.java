@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 public class GamesProcessor {
 
@@ -136,6 +137,15 @@ public class GamesProcessor {
                 return game;
         }
         return null;
+    }
+
+    public static boolean gameAlreadyExists(String name) {
+        name = name.toLowerCase();
+        for (Game game: games) {
+            if (game.getName().toLowerCase().equals(name))
+                return true;
+        }
+        return false;
     }
 
     public static List<Game> getCopyOfGames() {

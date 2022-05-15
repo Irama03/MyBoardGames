@@ -4,9 +4,27 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/activity_categories.xml" value="0.1956521739130435" />
-        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/activity_game_info.xml" value="0.23072916666666668" />
-        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/fragment_add_game.xml" value="0.1814874696847211" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/activity_game_info.xml" value="0.14838709677419354" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/activity_main.xml" value="0.20969202898550723" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/activity_settings.xml" value="0.20969202898550723" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/app_bar_main.xml" value="0.20969202898550723" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/button_choose.xml" value="0.20969202898550723" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/categories_item.xml" value="0.20969202898550723" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/content_main.xml" value="0.20969202898550723" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/dialog_add_edit_category.xml" value="0.20969202898550723" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/filter_child_checkbox.xml" value="0.23278985507246377" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/filter_drawer.xml" value="0.21768707482993196" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/filter_parent.xml" value="0.23278985507246377" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/fragment_add_game.xml" value="0.2" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/fragment_games.xml" value="0.23278985507246377" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/fragment_home.xml" value="0.24003623188405798" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/games_item.xml" value="0.2047244094488189" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/my_spinner.xml" value="0.2477355072463768" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/spinner_layout.xml" value="0.24003623188405798" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/spinner_layout_sort_closed.xml" value="0.24003623188405798" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/spinner_layout_sort_open.xml" value="0.24003623188405798" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/menu/bottom_nav_menu.xml" value="0.259375" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/menu/menu_main.xml" value="0.259375" />
       </map>
     </option>
   </component>
