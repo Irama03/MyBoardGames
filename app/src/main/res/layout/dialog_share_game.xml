@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="sans-serif-condensed-medium"
-        android:text="@string/dialog_title_add"
+        android:text="Порекомендувати гру"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,14 +19,14 @@
 
 
     <EditText
-        android:id="@+id/categoryName"
+        android:id="@+id/friendName"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:fontFamily="sans-serif-condensed-light"
         android:freezesText="true"
-        android:hint="@string/dialog_category_name_hint_add"
+        android:hint="Введіть id або псевдонім користувача.."
         android:inputType="text"
         android:padding="5dp"
         android:textSize="16sp"
@@ -36,7 +36,7 @@
 
 
     <Button
-        android:id="@+id/cancelCategory"
+        android:id="@+id/cancelShare"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -47,23 +47,23 @@
         android:textAllCaps="false"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/categoryName"
-        app:layout_constraintTop_toBottomOf="@+id/categoryName" />
+        app:layout_constraintStart_toStartOf="@+id/friendName"
+        app:layout_constraintTop_toBottomOf="@+id/friendName" />
 
     <Button
-        android:id="@+id/doCategory"
+        android:id="@+id/shareGame"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="sans-serif-condensed-light"
-        android:text="@string/dialog_button_add"
+        android:text="Рекомендувати"
         android:backgroundTint="@color/purple_base"
         android:textAllCaps="false"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/categoryName"
-        app:layout_constraintTop_toBottomOf="@+id/categoryName" />
+        app:layout_constraintEnd_toEndOf="@+id/friendName"
+        app:layout_constraintTop_toBottomOf="@+id/friendName" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

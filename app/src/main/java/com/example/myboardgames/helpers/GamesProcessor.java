@@ -1,8 +1,10 @@
-package com.example.myboardgames;
+package com.example.myboardgames.helpers;
 
 import android.content.Context;
 import android.widget.Toast;
 
+import com.example.myboardgames.R;
+import com.example.myboardgames.models.Game;
 import com.github.thunder413.datetimeutils.DateTimeUnits;
 import com.github.thunder413.datetimeutils.DateTimeUtils;
 
@@ -10,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
 
 public class GamesProcessor {
 

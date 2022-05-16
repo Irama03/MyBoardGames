@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.GameInfoActivity">
+    tools:context=".ui.activities.GameInfoActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -365,6 +365,16 @@
                 android:hint="Дата"
                 app:layout_constraintLeft_toRightOf="@id/dateOfLastChoosingText"
                 app:layout_constraintTop_toBottomOf="@id/quantOfTimesBeingChosen" />
+            <ImageButton
+                android:id="@+id/shareGame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_share_24"
+                android:background="@android:color/transparent"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintLeft_toRightOf="@id/dateOfLastChoosing"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/quantOfTimesBeingChosen"/>
             <TextView
                 android:id="@+id/dateOfAddingText"
                 android:layout_width="wrap_content"

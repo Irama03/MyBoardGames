@@ -1,4 +1,4 @@
-package com.example.myboardgames;
+package com.example.myboardgames.helpers;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -7,13 +7,13 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.FragmentActivity;
 
+import com.example.myboardgames.R;
+import com.example.myboardgames.models.Game;
 import com.github.thunder413.datetimeutils.DateTimeUtils;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.myboardgames;
+package com.example.myboardgames.ui.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+
+import com.example.myboardgames.R;
 
 public class CategoryDialog extends Dialog {
 

@@ -1,6 +1,5 @@
 package com.example.myboardgames.ui.games;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
@@ -10,14 +9,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.SearchView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.annotation.ArrayRes;
 import androidx.annotation.NonNull;
@@ -27,20 +24,19 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myboardgames.ButtonsActions;
-import com.example.myboardgames.Game;
-import com.example.myboardgames.GamesProcessor;
+import com.example.myboardgames.helpers.ButtonsActions;
+import com.example.myboardgames.models.Game;
+import com.example.myboardgames.helpers.GamesProcessor;
 import com.example.myboardgames.R;
-import com.example.myboardgames.SortType;
-import com.example.myboardgames.Utils;
+import com.example.myboardgames.helpers.SortType;
+import com.example.myboardgames.helpers.Utils;
 import com.example.myboardgames.adapters.ChangeStateEvent;
 import com.example.myboardgames.adapters.ExpListViewAdapterWithCheckbox;
 import com.example.myboardgames.adapters.GameAdapter;
-import com.example.myboardgames.ui.GameInfoActivity;
+import com.example.myboardgames.ui.activities.GameInfoActivity;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -660,6 +656,7 @@ public class GamesFragment extends Fragment { // implements AdapterInterface {
             GamesProcessor.loadGames(getActivity());
         games = GamesProcessor.getGames();
         filteredGames = GamesProcessor.getCopyOfGames();
+        sortWithCurrentSorter();
         adapter = new GameAdapter(getContext(), filteredGames, new GameAdapter.OnGameClickListener() {
             @Override
             public void onGameClicked(Game game, int position) {

@@ -3,8 +3,6 @@ package com.example.myboardgames.adapters;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myboardgames.ButtonsActions;
-import com.example.myboardgames.Game;
+import com.example.myboardgames.helpers.ButtonsActions;
+import com.example.myboardgames.models.Game;
 import com.example.myboardgames.R;
 
 import java.io.FileNotFoundException;

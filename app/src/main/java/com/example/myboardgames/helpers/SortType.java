@@ -1,4 +1,4 @@
-package com.example.myboardgames;
+package com.example.myboardgames.helpers;
 
 public enum SortType {
     NAME_ASCENDING,

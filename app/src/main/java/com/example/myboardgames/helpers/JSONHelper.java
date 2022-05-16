@@ -1,6 +1,8 @@
-package com.example.myboardgames;
+package com.example.myboardgames.helpers;
 
 import android.content.Context;
+
+import com.example.myboardgames.models.Game;
 import com.google.gson.Gson;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

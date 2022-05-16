@@ -2,13 +2,16 @@ package com.example.myboardgames;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
-import com.example.myboardgames.ui.CategoriesActivity;
-import com.example.myboardgames.ui.SettingsActivity;
+import com.example.myboardgames.database.AppDatabase;
+import com.example.myboardgames.models.User;
+import com.example.myboardgames.ui.activities.CategoriesActivity;
+import com.example.myboardgames.ui.activities.ProfileActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,22 +25,26 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
 
     //public List<Game> games;
     //public ArrayAdapter<Game> adapter;
+    SharedPreferences prefs = null;
+    private AppDatabase appDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        appDatabase = new AppDatabase();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -52,16 +59,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        //open();
-
-        /*FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
+        prefs = getSharedPreferences("com.example.myboardgames", MODE_PRIVATE);
     }
 
     @Override
@@ -88,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_settings:
                 Intent settingsIntent = new Intent(this,
-                        SettingsActivity.class);
+                        ProfileActivity.class);
                 startActivity(settingsIntent);
                 return true;
             default:
@@ -126,6 +124,21 @@ public class MainActivity extends AppCompatActivity {
             os.close();
         }
     }*/
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (prefs.getString("userId", "").equals("")) {
+            // Do first run stuff here then set 'userId' as false
+            // using the following line to edit/commit prefs
+            String uuid = UUID.randomUUID().toString();
+            System.out.println("UUID: " + uuid);
+            prefs.edit().putString("userId", uuid).apply();
+            User user = new User(uuid, "");
+            appDatabase.addUserToDatabase(user);
+        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {

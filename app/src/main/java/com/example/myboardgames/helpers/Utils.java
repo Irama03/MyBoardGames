@@ -1,4 +1,8 @@
-package com.example.myboardgames;
+package com.example.myboardgames.helpers;
+
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import com.github.thunder413.datetimeutils.DateTimeUtils;
 
@@ -37,7 +41,13 @@ public class Utils {
         return -1;
     }
 
-    public static boolean validateName(String categoryName) {
-        return !categoryName.isEmpty();
+    public static boolean validateName(String name) {
+        return !name.isEmpty();
+    }
+
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

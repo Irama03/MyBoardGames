@@ -15,7 +15,7 @@
         android:theme="@style/Theme.MyBoardGames">
 
         <activity
-            android:name=".ui.GameInfoActivity"
+            android:name=".ui.activities.GameInfoActivity"
             android:label="@string/title_activity_game_info"
             android:theme="@style/Theme.MyBoardGames.NoActionBar"
             android:parentActivityName=".MainActivity">
@@ -29,12 +29,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.CategoriesActivity"
+            android:name=".ui.activities.CategoriesActivity"
             android:label="@string/title_activity_categories"
             android:parentActivityName=".MainActivity">
         </activity>
         <activity
-            android:name=".ui.SettingsActivity"
+            android:name=".ui.activities.ProfileActivity"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".MainActivity">
         </activity>

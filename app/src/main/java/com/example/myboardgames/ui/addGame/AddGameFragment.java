@@ -17,12 +17,12 @@ import androidx.annotation.ArrayRes;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.myboardgames.CategoryDialog;
-import com.example.myboardgames.ButtonsActions;
-import com.example.myboardgames.Game;
-import com.example.myboardgames.GamesProcessor;
+import com.example.myboardgames.ui.dialogs.CategoryDialog;
+import com.example.myboardgames.helpers.ButtonsActions;
+import com.example.myboardgames.models.Game;
+import com.example.myboardgames.helpers.GamesProcessor;
 import com.example.myboardgames.R;
-import com.example.myboardgames.Utils;
+import com.example.myboardgames.helpers.Utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;

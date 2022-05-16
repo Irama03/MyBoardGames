@@ -1,18 +1,14 @@
-package com.example.myboardgames.ui;
+package com.example.myboardgames.ui.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myboardgames.Game;
-import com.example.myboardgames.GamesProcessor;
+import com.example.myboardgames.helpers.GamesProcessor;
 import com.example.myboardgames.R;
 import com.example.myboardgames.adapters.CategoryAdapter;
-import com.example.myboardgames.adapters.GameAdapter;
-import com.example.myboardgames.ui.games.GamesFragment;
 
 import java.util.List;
 

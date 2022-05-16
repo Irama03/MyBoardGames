@@ -11,11 +11,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myboardgames.CategoryDialog;
-import com.example.myboardgames.ButtonsActions;
-import com.example.myboardgames.GamesProcessor;
+import com.example.myboardgames.ui.dialogs.CategoryDialog;
+import com.example.myboardgames.helpers.GamesProcessor;
 import com.example.myboardgames.R;
-import com.example.myboardgames.Utils;
+import com.example.myboardgames.helpers.Utils;
 
 import java.util.List;
 

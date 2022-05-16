@@ -1,7 +1,8 @@
-package com.example.myboardgames.ui;
+package com.example.myboardgames.ui.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -16,17 +17,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.ArrayRes;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myboardgames.ButtonsActions;
-import com.example.myboardgames.CategoryDialog;
-import com.example.myboardgames.Game;
-import com.example.myboardgames.GamesProcessor;
+import com.example.myboardgames.database.AppDatabase;
+import com.example.myboardgames.helpers.ButtonsActions;
+import com.example.myboardgames.models.SharedGame;
+import com.example.myboardgames.models.User;
+import com.example.myboardgames.ui.dialogs.CategoryDialog;
+import com.example.myboardgames.models.Game;
+import com.example.myboardgames.helpers.GamesProcessor;
 import com.example.myboardgames.R;
-import com.example.myboardgames.Utils;
+import com.example.myboardgames.helpers.Utils;
 import com.example.myboardgames.ui.addGame.AddGameFragment;
+import com.example.myboardgames.ui.dialogs.ShareGameDialog;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 //import com.example.myboardgames.ui.games.AdapterInterface;
-import com.github.thunder413.datetimeutils.DateTimeUtils;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -35,8 +44,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
+import java.util.Map;
 
 public class GameInfoActivity extends AppCompatActivity {
 
@@ -52,7 +62,12 @@ public class GameInfoActivity extends AppCompatActivity {
     private ImageButton ibStar1, ibStar2, ibStar3, ibStar4, ibStar5;
     private ImageButton favoriteButtonI, checkButtonI, addCategoryButtonI;
     private ImageButton[] stars = new ImageButton[5];
-    private CategoryDialog dialog;
+    private ImageButton shareButton;
+    private CategoryDialog categoryDialog;
+    private ShareGameDialog shareGameDialog;
+
+    SharedPreferences prefs = null;
+    private AppDatabase appDatabase;
 
     //private TextView mTextView;
     private Game game;
@@ -64,6 +79,9 @@ public class GameInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_info);
+
+        prefs = getSharedPreferences("com.example.myboardgames", MODE_PRIVATE);
+        appDatabase = new AppDatabase();
         //mContainer = findViewById(R.id.nav_host_fragment_container);
         Game gameCopy = (Game)getIntent().getSerializableExtra("Game");
         //gamePosition = (int)getIntent().getSerializableExtra("GamePosition");
@@ -146,12 +164,12 @@ public class GameInfoActivity extends AppCompatActivity {
         addCategoryButtonI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog = new CategoryDialog(GameInfoActivity.this, R.string.dialog_title_add,
+                categoryDialog = new CategoryDialog(GameInfoActivity.this, R.string.dialog_title_add,
                         R.string.dialog_category_name_hint_add, R.string.dialog_button_add, "",
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                String categoryName = dialog.getCategoryName();
+                                String categoryName = categoryDialog.getCategoryName();
                                 if(!Utils.validateName(categoryName))
                                     Toast.makeText(GameInfoActivity.this, "Введіть непорожню назву категорії!", Toast.LENGTH_LONG).show();
                                 else if (GamesProcessor.categoryNameAlreadyExists(categoryName))
@@ -169,14 +187,11 @@ public class GameInfoActivity extends AppCompatActivity {
                                     selectedCategories = helpSelectedCategories;
                                     ButtonsActions.setCategoriesListener(categoriesTextI, GameInfoActivity.this, categoriesList, categories, selectedCategories);
                                     //Toast.makeText(getContext(), "Категорію додано", Toast.LENGTH_LONG).show();
-                                    dialog.dismiss();
+                                    categoryDialog.dismiss();
                                 }
                             }
                         });
-                dialog.show();
-                //List<String> listCategories = GamesProcessor.getCategories();
-                //        categories = listCategories.toArray(new String[0]);
-                //        selectedCategories = new boolean[categories.length];
+                categoryDialog.show();
             }
         });
 
@@ -186,6 +201,97 @@ public class GameInfoActivity extends AppCompatActivity {
         ButtonsActions.favoriteAction(game, favoriteButtonI, this);
         ButtonsActions.chooseAction(game, checkButtonI, this, quantOfTimesBeingChosen, dateOfLastChoosing);
         ButtonsActions.pointsAction(game, stars, this);
+
+        shareButton = (ImageButton)(findViewById(R.id.shareGame));
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shareGameDialog = new ShareGameDialog(GameInfoActivity.this, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                String friendName = shareGameDialog.getFriendName();
+                                if(!Utils.validateName(friendName))
+                                    Toast.makeText(GameInfoActivity.this, "Введіть непорожню інформацію про друга!", Toast.LENGTH_LONG).show();
+                                else if (!Utils.isNetworkAvailable(GameInfoActivity.this)) {
+                                    Toast.makeText(GameInfoActivity.this, "Неможливо порекомендувати гру. Мережа Інтернет відсутня", Toast.LENGTH_LONG).show();
+                                }
+                                else{
+                                    appDatabase.usernameExists(friendName).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            if(dataSnapshot.exists()) {
+
+                                                DatabaseReference databaseReference = appDatabase.getReferenceToGroup(AppDatabase.USERS_GROUP_KEY);
+                                                ValueEventListener valueEventListener = new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                                            User u = dataSnapshot.getValue(User.class);
+                                                            assert u != null;
+                                                            if (u.getUsername().equals(friendName)) {
+                                                                recommendGame(u.getId());
+                                                                break;
+                                                            }
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                                    }
+                                                };
+                                                databaseReference.addValueEventListener(valueEventListener);
+                                            }
+                                            else {
+                                                appDatabase.userIdExists(friendName).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                        if(dataSnapshot.exists()) {
+
+                                                            DatabaseReference databaseReference = appDatabase.getReferenceToGroup(AppDatabase.USERS_GROUP_KEY);
+                                                            ValueEventListener valueEventListener = new ValueEventListener() {
+                                                                @Override
+                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                                                        User u = dataSnapshot.getValue(User.class);
+                                                                        assert u != null;
+                                                                        if (u.getId().equals(friendName)) {
+                                                                            recommendGame(u.getId());
+                                                                            break;
+                                                                        }
+                                                                    }
+                                                                }
+
+                                                                @Override
+                                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                                }
+                                                            };
+                                                            databaseReference.addValueEventListener(valueEventListener);
+                                                        }
+                                                        else {
+                                                            Toast.makeText(GameInfoActivity.this, "Такого користувача не існує", Toast.LENGTH_LONG).show();
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(@NonNull DatabaseError databaseError) { }
+                                                });
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) { }
+                                    });
+                                }
+                            }
+                        });
+                shareGameDialog.show();
+                //List<String> listCategories = GamesProcessor.getCategories();
+                //        categories = listCategories.toArray(new String[0]);
+                //        selectedCategories = new boolean[categories.length];
+            }
+        });
 
         findViewById(R.id.updateButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -229,6 +335,37 @@ public class GameInfoActivity extends AppCompatActivity {
                 startActivityForResult(photoPickerIntent, AddGameFragment.PICK_IMAGE);
             }
         });
+    }
+
+    private void recommendGame(String friendId) {
+        DatabaseReference databaseReference = appDatabase.getReferenceToGroup(AppDatabase.SHARED_GAMES_GROUP_KEY);
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                boolean recoFound = false;
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    SharedGame sharedGame = dataSnapshot.getValue(SharedGame.class);
+                    assert sharedGame != null;
+                    if (sharedGame.getName().equals(game.getName()) && sharedGame.getReceiverId().equals(friendId)) {
+                        Toast.makeText(GameInfoActivity.this, "Ця гра вже була порекомендована цьому користувачу", Toast.LENGTH_LONG).show();
+                        recoFound = true;
+                        break;
+                    }
+                }
+                if (!recoFound) {
+                    SharedGame sharedGameNew = new SharedGame(game, prefs.getString("userId", ""), friendId);
+                    appDatabase.addSharedGameToDatabase(sharedGameNew);
+                    Toast.makeText(GameInfoActivity.this, "Гру успішно порекомендовано", Toast.LENGTH_LONG).show();
+                    shareGameDialog.dismiss();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+        databaseReference.addValueEventListener(valueEventListener);
     }
 
     private void initSpinnerAndSetSelection(@ArrayRes int id, Spinner spinner, String str) {
