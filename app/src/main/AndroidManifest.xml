@@ -3,8 +3,6 @@
     package="com.example.myboardgames">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <!--<uses-permission android:name="android.permission." />-->
-    <!--<uses-feature android:name="android.hardware.type.watch"/>-->
 
     <application
         android:allowBackup="true"
@@ -16,6 +14,12 @@
 
         <activity
             android:name=".ui.activities.GameInfoActivity"
+            android:label="@string/title_activity_game_info"
+            android:theme="@style/Theme.MyBoardGames.NoActionBar"
+            android:parentActivityName=".MainActivity">
+        </activity>
+        <activity
+            android:name=".ui.activities.SharedGameInfoActivity"
             android:label="@string/title_activity_game_info"
             android:theme="@style/Theme.MyBoardGames.NoActionBar"
             android:parentActivityName=".MainActivity">

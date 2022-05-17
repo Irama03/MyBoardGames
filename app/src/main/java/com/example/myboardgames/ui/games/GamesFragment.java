@@ -19,7 +19,6 @@ import android.widget.Spinner;
 import androidx.annotation.ArrayRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -54,9 +53,7 @@ enum SpinnerName {
     PLAYING_TIME
 }
 
-public class GamesFragment extends Fragment { // implements AdapterInterface {
-
-    private AppCompatActivity mActivity;
+public class GamesFragment extends Fragment {
 
     private View view;
     private RecyclerView recyclerView;
@@ -77,43 +74,9 @@ public class GamesFragment extends Fragment { // implements AdapterInterface {
 
     private List<Game> games;
     private List<Game> filteredGames;
-    public static final int GAME_INFO_REQUEST = 2;
     private static final String SAVED_INSTANCE_SORT_KEY = "sortPosition";
     private boolean filterChecked = true;
     private static final int QUANT_OF_RECOMMENDATIONS = 6;
-
-    //In previous project it was used for databaseReference
-    //private ValueEventListener valueEventListener;
-
-    /**
-     * method is used to initialise fragment on attach
-     * @param context
-     */
-    /*@Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        mActivity = (AppCompatActivity) context;
-    }*/
-
-    /**
-     * method is used to initialise fragment when it is started
-     */
-    /*@Override
-    public void onStart() {
-        super.onStart();
-        initRecyclerView();
-    }*/
-
-    /*
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PROBLEM_INFO_REQUEST && resultCode == PROBLEM_INFO_REQUEST) {
-            NavHostFragment.findNavController(ListProblemsFragment.this)
-                    .navigate(R.id.action_ListProblemsFragment_to_MapsFragment);
-        }
-    }
-     */
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -149,7 +112,6 @@ public class GamesFragment extends Fragment { // implements AdapterInterface {
     @Override
     public void onResume() {
         super.onResume();
-        //Toast.makeText(getActivity(), "Resumed", Toast.LENGTH_LONG).show();
         for (Game g: filteredGames) {
             if (!games.contains(g)) {
                 filteredGames.remove(g);
@@ -209,7 +171,6 @@ public class GamesFragment extends Fragment { // implements AdapterInterface {
                     filterButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.purple_light)));
                     recommendationButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.purple_base)));
                     filterChecked = false;
-                    //???
                     sortSpinner.setEnabled(false);
                     filterOrRecommend(true);
                 }
@@ -286,8 +247,6 @@ public class GamesFragment extends Fragment { // implements AdapterInterface {
 
         if (!GamesProcessor.categoriesAreLoaded())
             GamesProcessor.loadCategories(getActivity());
-        //games = GamesProcessor.getGames();
-        //String[] categories = {"funny", "other"};
         String[] points = getResources().getStringArray(R.array.points);
         String[] favorites = getResources().getStringArray(R.array.favorite);
 
@@ -298,21 +257,13 @@ public class GamesFragment extends Fragment { // implements AdapterInterface {
         String favoriteLabel = getResources().getString(R.string.favorite_filter_label);
 
         childData.put(categoryLabel, GamesProcessor.getCategories());
-        //childData.put(categoryLabel, Arrays.asList(categories));
         childData.put(pointsLabel, Arrays.asList(points));
         childData.put(favoriteLabel, Arrays.asList(favorites));
-
-        //checkedFilterItems.put(categoryLabel, Set.of(categories));
-        //checkedFilterItems.put(pointsLabel, Set.of(points));
-        //checkedFilterItems.put(favoriteLabel, Set.of(favorites));
 
         smallestAgeSpF.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //int smallestAge = Integer.parseInt((String)smallestAgeSpF.getSelectedItem());
-                //Toast.makeText(getActivity(), "Selected " + smallestAge, Toast.LENGTH_LONG).show();
                 selectedFilterItems.put(SpinnerName.SMALLEST_AGE, (String)smallestAgeSpF.getSelectedItem());
-                //What is position???
                 filterOrRecommend(position == 0);
             }
 
@@ -391,7 +342,6 @@ public class GamesFragment extends Fragment { // implements AdapterInterface {
     }
 
     private void makeRecommendations() {
-        //Toast.makeText(getActivity(), "Make recommendations", Toast.LENGTH_LONG).show();
         String categoryLabel = getResources().getString(R.string.categories_filter_label);
         Set<String> categoriesChecked = checkedFilterItems.get(categoryLabel);
 
@@ -550,8 +500,6 @@ public class GamesFragment extends Fragment { // implements AdapterInterface {
 
                 score1 += g1.getQuantOfTimesBeingChosen() / 8;
                 score2 += g2.getQuantOfTimesBeingChosen() / 8;
-
-                //dateOfLastChoosing???
                 return score2 - score1;
             }
         });
@@ -573,12 +521,10 @@ public class GamesFragment extends Fragment { // implements AdapterInterface {
         String favoriteLabel = getResources().getString(R.string.favorite_filter_label);
 
         filteredGames.clear();
-        //Toast.makeText(getActivity(), "games size: " + games.size(), Toast.LENGTH_LONG).show();
 
         //Categories check
         Set<String> categoriesChecked = checkedFilterItems.get(categoryLabel);
         if (categoriesChecked != null) {
-            //Toast.makeText(getActivity(), "categoriesChecked", Toast.LENGTH_LONG).show();
             for (Game game : games) {
                 if (!Collections.disjoint(categoriesChecked, game.getCategories()))
                     filteredGames.add(game);
@@ -591,7 +537,6 @@ public class GamesFragment extends Fragment { // implements AdapterInterface {
         //Points check
         Set<String> pointsChecked = checkedFilterItems.get(pointsLabel);
         if (pointsChecked != null) {
-            //Toast.makeText(getActivity(), "pointsChecked", Toast.LENGTH_LONG).show();
             List<Integer> convertedPoints = pointsChecked
                     .stream()
                     .map(Integer::parseInt)
@@ -634,7 +579,6 @@ public class GamesFragment extends Fragment { // implements AdapterInterface {
             }
         }
 
-        //Toast.makeText(getActivity(), "filteredGames size: " + filteredGames.size(), Toast.LENGTH_LONG).show();
         adapter.notifyDataSetChanged();
     }
 
@@ -662,23 +606,9 @@ public class GamesFragment extends Fragment { // implements AdapterInterface {
             public void onGameClicked(Game game, int position) {
                 Intent intent = new Intent(GamesFragment.this.getContext(), GameInfoActivity.class);
                 intent.putExtra("Game", game);
-                //intent.putExtra("GamePosition", position);
-                //intent.putExtra("Adapter", (Parcelable) adapter);
-                //startActivityForResult(intent, GAME_INFO_REQUEST);
                 startActivity(intent);
             }
         });
         recyclerView.setAdapter(adapter);
     }
-
-    /*@Override
-    public void notifyGameChanged(int position) {
-        adapter.notifyItemChanged(position);
-    }
-
-    @Override
-    public void notifyGameRemoved(int position) {
-        //adapter.notifyDataSetChanged();
-        adapter.notifyItemRemoved(position);
-    }*/
 }

@@ -87,27 +87,22 @@ public class ButtonsActions {
     public static void pointsAction(Game game, ImageButton[] stars, Context context) {
         for (int i = 0; i < stars.length; i++) {
             int finalI = i;
-            //Why fignya???
             if (game.getQuantOfPoints() > i) addStar(stars[i]); else removeStar(stars[i]);
             stars[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int points = game.getQuantOfPoints();
-                    //TODO Перевірити в якомусь додатку!
                     if (points <= finalI) {
                         processSmallerQuantOfStars(stars, finalI);
                         game.setQuantOfPoints(finalI + 1);
-                        //Toast.makeText(context, "smaller; there were " + points + " points; now " + (finalI + 1) + " points", Toast.LENGTH_LONG).show();
                     }
                     else if (points == finalI + 1) {
                         processTheSameQuantOfStars(stars);
                         game.setQuantOfPoints(0);
-                        //Toast.makeText(context, "the same; there were " + points + " points; now " + (0) + " points", Toast.LENGTH_LONG).show();
                     }
                     else {
                         processBiggerQuantOfStars(stars, finalI);
                         game.setQuantOfPoints(finalI + 1);
-                        //Toast.makeText(context, "bigger; there were " + points + " points; now " + (finalI + 1) + " points", Toast.LENGTH_LONG).show();
                     }
                     GamesProcessor.saveGames(context);
                 }
@@ -139,7 +134,6 @@ public class ButtonsActions {
             @Override
             public void onClick(View v) {
                 ButtonsActions.hideKeyboard(activity);
-                //Toast.makeText(activity, "categoriesList: " + categoriesList + "; categories.length: " + categories.length + "; selectedCategories.length: " + selectedCategories.length, Toast.LENGTH_LONG).show();
                 AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                 builder.setTitle(R.string.selectCategories);
                 builder.setCancelable(true);
@@ -166,7 +160,6 @@ public class ButtonsActions {
                         }
                         String concatCategories = stringBuilder.toString();
                         categoriesText.setText(concatCategories);
-                        //setEnabledButton();
                     }
                 });
                 builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {

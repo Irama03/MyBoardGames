@@ -155,7 +155,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     private static RecyclerView.LayoutParams getDefaultLayoutParams() {
         RecyclerView.LayoutParams res = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT);
-        //TODO Звідки такі числа???
         res.topMargin = 25;
         res.rightMargin = 25;
         res.leftMargin = 25;

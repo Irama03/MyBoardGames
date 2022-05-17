@@ -6,10 +6,10 @@
     app:startDestination="@+id/navigation_games">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.myboardgames.ui.home.HomeFragment"
+        android:id="@+id/navigation_from_friends"
+        android:name="com.example.myboardgames.ui.fromFriends.FromFriendsFragment"
         android:label="@string/title_friends_reco"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_from_friends" />
 
     <fragment
         android:id="@+id/navigation_games"

@@ -48,7 +48,6 @@ public class GamesProcessor {
     public static void loadCategories(Context context){
         categories = JSONHelper.importCategoriesFromJSON(context);
         if(categories != null){
-            Toast.makeText(context, "Категорії відновлено", Toast.LENGTH_LONG).show();
             if (categories.size() == 0) {
                 categories.addAll(Arrays.asList(context.getResources().getStringArray(R.array.start_categories)));
                 saveCategories(context);
@@ -58,7 +57,6 @@ public class GamesProcessor {
             categories = new ArrayList<>();
             categories.addAll(Arrays.asList(context.getResources().getStringArray(R.array.start_categories)));
             saveCategories(context);
-            Toast.makeText(context, "Встановлено дефолтні категорії", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -173,17 +171,12 @@ public class GamesProcessor {
         games.add(game);
     }
 
-    public void createGame(Game game){
-        games.add(game);
-    }
-
     public static void chooseGame(Game game){
         game.increaseQuantOfTimesBeingChosen();
         game.setDateOfLastChoosing(Utils.getCurrentDate());
     }
 
     public static void deleteGame(Game game){
-        //games.remove(position);
         games.remove(game);
     }
 
@@ -209,12 +202,5 @@ public class GamesProcessor {
         }
         categories.set(position, categoryName);
     }
-
-    public Game getRecommendationOfTheDay(){
-        Game game = new Game();
-        //some algorithm
-        return game;
-    }
-
 
 }

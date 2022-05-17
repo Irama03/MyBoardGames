@@ -35,7 +35,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-//import com.example.myboardgames.ui.games.AdapterInterface;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -44,9 +43,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class GameInfoActivity extends AppCompatActivity {
 
@@ -68,12 +65,7 @@ public class GameInfoActivity extends AppCompatActivity {
 
     SharedPreferences prefs = null;
     private AppDatabase appDatabase;
-
-    //private TextView mTextView;
     private Game game;
-    //private int gamePosition;
-    //private FrameLayout mContainer;
-    //private GameAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,15 +74,8 @@ public class GameInfoActivity extends AppCompatActivity {
 
         prefs = getSharedPreferences("com.example.myboardgames", MODE_PRIVATE);
         appDatabase = new AppDatabase();
-        //mContainer = findViewById(R.id.nav_host_fragment_container);
         Game gameCopy = (Game)getIntent().getSerializableExtra("Game");
-        //gamePosition = (int)getIntent().getSerializableExtra("GamePosition");
-        //game = GamesProcessor.getGames().get(gamePosition);
         game = GamesProcessor.getGameByName(gameCopy.getName());
-        //adapterInterface = (AdapterInterface) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
-        //adapter = (RecyclerView.Adapter<GameAdapter.GameViewHolder>)getIntent().getParcelableExtra("Adapter");
-        //mTextView = (TextView) findViewById(R.id.text);
-        //mTextView.setText(game.getName());
 
         btnBack = (TextView)(findViewById(R.id.btnBack));
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -107,7 +92,6 @@ public class GameInfoActivity extends AppCompatActivity {
         descriptionTextI.setText(game.getDescription());
 
         photoPathTextI = (EditText)(findViewById(R.id.photoPathTextI));
-        //photoPathTextI.setText(game.getPhotoPath());
 
         rulesTextI = (EditText)(findViewById(R.id.rulesTextI));
         rulesTextI.setText(game.getRules());
@@ -132,7 +116,6 @@ public class GameInfoActivity extends AppCompatActivity {
 
         categoriesTextI = (TextView)(findViewById(R.id.categoriesTextI));
         categoriesTextI.setText(game.getCategoriesToString());
-        //ButtonsActions.initMultiSpinner(categoriesList, categories, selectedCategories);
         initMultiSpinner();
         ButtonsActions.setCategoriesListener(categoriesTextI, this, categoriesList, categories, selectedCategories);
 
@@ -186,7 +169,6 @@ public class GameInfoActivity extends AppCompatActivity {
                                     System.arraycopy(selectedCategories, 0, helpSelectedCategories, 0, size - 1);
                                     selectedCategories = helpSelectedCategories;
                                     ButtonsActions.setCategoriesListener(categoriesTextI, GameInfoActivity.this, categoriesList, categories, selectedCategories);
-                                    //Toast.makeText(getContext(), "Категорію додано", Toast.LENGTH_LONG).show();
                                     categoryDialog.dismiss();
                                 }
                             }
@@ -212,6 +194,9 @@ public class GameInfoActivity extends AppCompatActivity {
                                 String friendName = shareGameDialog.getFriendName();
                                 if(!Utils.validateName(friendName))
                                     Toast.makeText(GameInfoActivity.this, "Введіть непорожню інформацію про друга!", Toast.LENGTH_LONG).show();
+                                else if (friendName.equals(prefs.getString("userId", "")) || friendName.equals(prefs.getString("username", ""))) {
+                                    Toast.makeText(GameInfoActivity.this, "Ігри не можна рекомендувати собі)", Toast.LENGTH_LONG).show();
+                                }
                                 else if (!Utils.isNetworkAvailable(GameInfoActivity.this)) {
                                     Toast.makeText(GameInfoActivity.this, "Неможливо порекомендувати гру. Мережа Інтернет відсутня", Toast.LENGTH_LONG).show();
                                 }
@@ -287,9 +272,6 @@ public class GameInfoActivity extends AppCompatActivity {
                             }
                         });
                 shareGameDialog.show();
-                //List<String> listCategories = GamesProcessor.getCategories();
-                //        categories = listCategories.toArray(new String[0]);
-                //        selectedCategories = new boolean[categories.length];
             }
         });
 
@@ -298,7 +280,6 @@ public class GameInfoActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (updateGame())
                     GamesProcessor.saveGames(GameInfoActivity.this);
-                //Toast.makeText(GameInfoActivity.this, "updating", Toast.LENGTH_LONG).show();
             }
         });
         findViewById(R.id.removeButton).setOnClickListener(new View.OnClickListener() {
@@ -316,12 +297,7 @@ public class GameInfoActivity extends AppCompatActivity {
                 final Bitmap image = BitmapFactory.decodeStream(imageStream);
                 imageViewI.setImageBitmap(image);
                 ((EditText)findViewById(R.id.photoPathTextI)).setText(game.getPhotoPath());
-                //holder.ivGameImage.setImageURI(imageUri);
-            } catch (FileNotFoundException e) {
-                //Toast.makeText(context, "FileNotFoundException: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                e.printStackTrace();
             } catch (Exception e) {
-                //Toast.makeText(context, "Exception: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
         }
@@ -339,20 +315,22 @@ public class GameInfoActivity extends AppCompatActivity {
 
     private void recommendGame(String friendId) {
         DatabaseReference databaseReference = appDatabase.getReferenceToGroup(AppDatabase.SHARED_GAMES_GROUP_KEY);
+        final boolean[] recoFound = {false};
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                boolean recoFound = false;
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    SharedGame sharedGame = dataSnapshot.getValue(SharedGame.class);
-                    assert sharedGame != null;
-                    if (sharedGame.getName().equals(game.getName()) && sharedGame.getReceiverId().equals(friendId)) {
-                        Toast.makeText(GameInfoActivity.this, "Ця гра вже була порекомендована цьому користувачу", Toast.LENGTH_LONG).show();
-                        recoFound = true;
-                        break;
+                if (!recoFound[0]) {
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        SharedGame sharedGame = dataSnapshot.getValue(SharedGame.class);
+                        assert sharedGame != null;
+                        if (sharedGame.getName().equals(game.getName()) && sharedGame.getReceiverId().equals(friendId)) {
+                            Toast.makeText(GameInfoActivity.this, "Ця гра вже була порекомендована цьому користувачу", Toast.LENGTH_LONG).show();
+                            recoFound[0] = true;
+                            break;
+                        }
                     }
                 }
-                if (!recoFound) {
+                if (!recoFound[0]) {
                     SharedGame sharedGameNew = new SharedGame(game, prefs.getString("userId", ""), friendId);
                     appDatabase.addSharedGameToDatabase(sharedGameNew);
                     Toast.makeText(GameInfoActivity.this, "Гру успішно порекомендовано", Toast.LENGTH_LONG).show();
@@ -419,19 +397,13 @@ public class GameInfoActivity extends AppCompatActivity {
                 categories.add("загальна категорія");
             }
             game.setCategories(categories);
-            //g.setQuantOfPoints(Integer.parseInt(quantOfPointsTextI.getText().toString()));
-            //boolean isFavorite = quantOfPoints == 5;
             Toast.makeText(this, "Інформацію про гру було оновлено", Toast.LENGTH_LONG).show();
             return true;
         }
     }
 
     public void removeGame(){
-        //String res = "There were " + GamesProcessor.getGames().size() + " games. Game "
-                //+ game.getName() + " on position " + gamePosition + " is deleting... ";
         GamesProcessor.deleteGame(game);
-        //res = res + "Now there are " + GamesProcessor.getGames().size() + " games.";
-        //Toast.makeText(this, res, Toast.LENGTH_LONG).show();
         Toast.makeText(this, "Гру було видалено", Toast.LENGTH_LONG).show();
         this.finish();
     }
@@ -439,18 +411,9 @@ public class GameInfoActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-        //Toast.makeText(this, "In onActivityResult()", Toast.LENGTH_LONG).show();
-
-        //if (requestCode == Pick_image) {
-        //Toast.makeText(this, "requestCode: " + requestCode, Toast.LENGTH_LONG).show();
         if(resultCode == RESULT_OK){
             try {
-
-                //Получаем URI изображения, преобразуем его в Bitmap
-                //объект и отображаем в элементе ImageView нашего интерфейса:
-                //Toast.makeText(this, "resultCode == RESULT_OK. Before getting uri", Toast.LENGTH_LONG).show();
                 final Uri imageUri = imageReturnedIntent.getData();
-                //Toast.makeText(this, "Got uri: " + imageUri.toString(), Toast.LENGTH_LONG).show();
                 final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                 final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                 ((ImageView)findViewById(R.id.imageViewI)).setImageBitmap(selectedImage);
@@ -467,8 +430,6 @@ public class GameInfoActivity extends AppCompatActivity {
                     while ((length = is.read(buffer)) > 0) {
                         fileOutputStream.write(buffer, 0, length);
                     }
-                    //fileOutputStream.write(selectedImage.getNinePatchChunk());
-                    //copyFileUsingStream();
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
@@ -488,19 +449,9 @@ public class GameInfoActivity extends AppCompatActivity {
                     }
                 }
                 ((EditText)findViewById(R.id.photoPathTextI)).setText(fileName);
-                //Toast.makeText(this, fileName, Toast.LENGTH_LONG).show();
-                //Uri uri = Uri.parse(imageUri.toString());
-
-                //Toast.makeText(this, "Uri set!", Toast.LENGTH_LONG).show();
             } catch (FileNotFoundException e) {
-                //Toast.makeText(this, "FileNotFoundException: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
         }
-
-        //}
-        //else {
-        //   Toast.makeText(this, "Error. requestCode == " + requestCode, Toast.LENGTH_LONG).show();
-        //}
     }
 }

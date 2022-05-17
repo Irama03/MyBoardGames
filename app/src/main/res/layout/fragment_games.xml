@@ -69,71 +69,6 @@
             android:textAllCaps="false" />
     </RelativeLayout>
 
-    <!--
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="10dp"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/filter_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_weight="40"
-            android:fontFamily="sans-serif-condensed-light"
-            android:text="Фільтр"
-            android:textAllCaps="false"
-            android:textSize="20dp"
-            android:backgroundTint="@color/purple_base"/>
-
-        <Button
-            android:id="@+id/recommendation_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_weight="60"
-            android:fontFamily="sans-serif-condensed-light"
-            android:text="Рекомендації"
-            android:textAllCaps="false"
-            android:textSize="20dp"
-            android:backgroundTint="@color/purple_light"/>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:layout_marginHorizontal="10dp">
-
-            <Spinner
-                android:id="@+id/sort"
-                style="@style/Widget.AppCompat.Spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top"
-                android:dropDownWidth="match_parent"
-                android:entries="@array/sort_items"
-                android:overlapAnchor="false"
-                android:textAllCaps="false"/>
-        </LinearLayout>
-    </LinearLayout>
-    -->
-
-    <!--<ScrollView
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewGames"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="70dp"
-            android:clipToPadding="false"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
-        </androidx.recyclerview.widget.RecyclerView>
-    </ScrollView>-->
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewGames"
         android:layout_width="match_parent"
@@ -144,36 +79,4 @@
     </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>
-<!--<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.games.GamesFragment">
-
-    <ListView
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="60dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />-->
-    <!--todo: забрати marginBottom!!!-->
-
-    <!--<TextView
-        android:id="@+id/text_dashboard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:gravity="center_horizontal"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />-->
 

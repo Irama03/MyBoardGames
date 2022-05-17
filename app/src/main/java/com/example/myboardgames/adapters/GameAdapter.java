@@ -105,7 +105,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
         }
 
         Game game = games.get(position);
-        //System.out.println(position + ") " + game.getName() + ", " + game.getPhotoPath());
         if (!game.getPhotoPath().equals("")) {
             try {
                 final InputStream imageStream = context.openFileInput(game.getPhotoPath());
@@ -141,7 +140,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
         } else
             holder.tvGameDescription.setText(game.getDescription());
 
-        //holder.tvgameDate.setText(Html.fromHtml("<b>Дата: </b>" + game.getgameDate(), Html.FROM_HTML_MODE_LEGACY));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,7 +160,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
 
     private static RecyclerView.LayoutParams getDefaultLayoutParams() {
         RecyclerView.LayoutParams res = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT);
-        //TODO Звідки такі числа???
         res.topMargin = 25;
         res.rightMargin = 25;
         res.leftMargin = 25;

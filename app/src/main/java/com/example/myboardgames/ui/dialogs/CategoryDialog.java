@@ -22,7 +22,6 @@ public class CategoryDialog extends Dialog {
         super(context);
         setCancelable(true);
         setContentView(R.layout.dialog_add_edit_category);
-        //getWindow().setBackgroundDrawableResource(R.drawable.dialog_back);
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
 
         TextView title = findViewById(R.id.dialogTitle);

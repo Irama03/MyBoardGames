@@ -13,22 +13,13 @@ import java.util.Map;
 public class AppDatabase {
 
     public static final String USERS_GROUP_KEY = User.class.getSimpleName();
-    public static final String USERS_IDS_GROUP_KEY = "User ids";
-
     public static final String SHARED_GAMES_GROUP_KEY = SharedGame.class.getSimpleName();
-    public static final String SHARED_GAMES_IDS_GROUP_KEY = "Shared games ids";
 
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
 
     public AppDatabase(){
         database = FirebaseDatabase.getInstance();
-    }
-
-    public Task<Void> addObjectToDatabase(UniqueObject object){
-        if(object == null)throw new NullPointerException("Object must not be null");
-        databaseReference = database.getReference(object.whichGroup());
-        return databaseReference.child(object.getId()).setValue(object);
     }
 
     public Task<Void> addSharedGameToDatabase(SharedGame sharedGame){
@@ -42,27 +33,8 @@ public class AppDatabase {
         if (user == null)
             throw new NullPointerException("Object must not be null");
         databaseReference = database.getReference(USERS_GROUP_KEY);
-        //databaseReference.get().
         return databaseReference.child(user.getId()).setValue(user);
     }
-
-    public Task<Void> addObjectToDatabase(String id, Object object, String group){
-        if (object == null)
-            throw new NullPointerException("Object must not be null");
-        databaseReference = database.getReference(group);
-        return databaseReference.child(id).setValue(object);
-    }
-
-    /*public Task<Void> removeFromDatabase(String key,String group){
-        databaseReference = database.getReference(group);
-        return databaseReference.child(key).removeValue();
-    }
-
-    public Task<Void> deleteObjectFromDatabase(UniqueObject object){
-        if(object == null )throw new NullPointerException("Object must not be null");
-        databaseReference = database.getReference(object.whichGroup());
-        return databaseReference.child(object.getKey()).removeValue();
-    }*/
 
     public Task<Void> updateObjectInDatabase(UniqueObject objectToUpdate, Map<String, Object> updates){
         if (objectToUpdate == null || updates == null)

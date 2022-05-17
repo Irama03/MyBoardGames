@@ -10,7 +10,6 @@ public class SharedGame implements UniqueObject, Serializable {
     private String id;
     private String name;
     private String description;
-    //private String photoPath;
     private String rules;
     private int smallestAge;
     private int biggestAge;

@@ -13,7 +13,6 @@ public class Game implements Serializable {
     private String name;
     private String description;
     private String photoPath;
-    //you can open and close
     private String rules;
     //where the game is now
     private String place;
@@ -25,7 +24,7 @@ public class Game implements Serializable {
     private List<String> categories;
     //from 1 to 5
     private int quantOfPoints;
-    //will be with heart
+    //with heart
     private boolean isFavorite;
     private int quantOfTimesBeingChosen;
     private Date dateOfAdding;
@@ -169,10 +168,6 @@ public class Game implements Serializable {
         return quantOfTimesBeingChosen;
     }
 
-    //public void setQuantOfTimesBeingChosen(int quantOfTimesBeingChosen) {
-    //    this.quantOfTimesBeingChosen = quantOfTimesBeingChosen;
-    //}
-
     public void increaseQuantOfTimesBeingChosen() {
         quantOfTimesBeingChosen = quantOfTimesBeingChosen + 1;
     }
@@ -188,10 +183,6 @@ public class Game implements Serializable {
     public Date getDateOfAdding() {
         return dateOfAdding;
     }
-
-    //public void setDateOfAdding(Date dateOfAdding) {
-    //    this.dateOfAdding = dateOfAdding;
-    //}
 
     public Date getDateOfLastChoosing() {
         return dateOfLastChoosing;
@@ -225,8 +216,8 @@ public class Game implements Serializable {
                 "\nКатегорії: " + getCategoriesToString() + "\nКількість балів: " + quantOfPoints +
                 "\nСкільки разів гру обирали: " + quantOfTimesBeingChosen +
                 "\nЧи є улюбленою: " + isFavorite +
-                "\nДата додання: " + (dateOfLastChoosing == null ? "no date" : DateTimeUtils.formatWithStyle(dateOfAdding, DateTimeStyle.LONG)) +
-                "\nДата останнього обрання: " + (dateOfLastChoosing == null ? "no date" : DateTimeUtils.formatWithStyle(dateOfLastChoosing, DateTimeStyle.LONG));
+                "\nДата додавання: " + (dateOfLastChoosing == null ? "невідомо" : DateTimeUtils.formatWithStyle(dateOfAdding, DateTimeStyle.LONG)) +
+                "\nДата останнього обрання: " + (dateOfLastChoosing == null ? "немає" : DateTimeUtils.formatWithStyle(dateOfLastChoosing, DateTimeStyle.LONG));
     }
 
 }

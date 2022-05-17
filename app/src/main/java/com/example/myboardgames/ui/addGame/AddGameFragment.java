@@ -50,13 +50,6 @@ public class AddGameFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_add_game, container, false);
-        /*final TextView textView = root.findViewById(R.id.text_notifications);
-        addGameViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });*/
         return root;
     }
 
@@ -69,7 +62,6 @@ public class AddGameFragment extends Fragment {
         photoPathText = (EditText)(view.findViewById(R.id.photoPathText));
         rulesText = (EditText)(view.findViewById(R.id.rulesText));
         placeText = (EditText)(view.findViewById(R.id.placeText));
-        //smallestAgeText = (EditText)(view.findViewById(R.id.smallestAgeText));
         smallestAgeSp = (Spinner)(view.findViewById(R.id.smallestAgeSp));
         initSpinner(R.array.years, smallestAgeSp, false);
         biggestAgeSp = (Spinner)(view.findViewById(R.id.biggestAgeSp));
@@ -80,9 +72,7 @@ public class AddGameFragment extends Fragment {
         initSpinner(R.array.quantOfPlayers, biggestQuantOfPlayersSp, true);
         playingTimeSp = (Spinner)(view.findViewById(R.id.playingTimeSp));
         initSpinner(R.array.time, playingTimeSp, false);
-        //categoriesText = (TextView)(view.findViewById(R.id.categoriesText));
         initMultiSpinner();
-        //ButtonsActions.setCategoriesListener(categoriesText, getActivity(), categoriesList, categories, selectedCategories);
 
         ibStar1 = (ImageButton)(view.findViewById(R.id.ibStar1));
         ibStar2 = (ImageButton)(view.findViewById(R.id.ibStar2));
@@ -97,12 +87,10 @@ public class AddGameFragment extends Fragment {
 
         for (int i = 0; i < stars.length; i++) {
             int finalI = i;
-            //Why fignya???
             if (quantOfPoints > i) ButtonsActions.addStar(stars[i]); else ButtonsActions.removeStar(stars[i]);
             stars[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //TODO Перевірити в якомусь додатку!
                     if (quantOfPoints <= finalI) {
                         ButtonsActions.processSmallerQuantOfStars(stars, finalI);
                         quantOfPoints = finalI + 1;
@@ -145,15 +133,11 @@ public class AddGameFragment extends Fragment {
                             System.arraycopy(selectedCategories, 0, helpSelectedCategories, 0, size - 1);
                             selectedCategories = helpSelectedCategories;
                             ButtonsActions.setCategoriesListener(categoriesText, getActivity(), categoriesList, categories, selectedCategories);
-                            //Toast.makeText(getContext(), "Категорію додано", Toast.LENGTH_LONG).show();
                             dialog.dismiss();
                         }
                     }
                 });
                 dialog.show();
-                //List<String> listCategories = GamesProcessor.getCategories();
-                //        categories = listCategories.toArray(new String[0]);
-                //        selectedCategories = new boolean[categories.length];
             }
         });
 
@@ -178,31 +162,15 @@ public class AddGameFragment extends Fragment {
                 if (addGame() && GamesProcessor.saveGames(getContext())) clearFields();
             }
         });
-        /*view.findViewById(R.id.saveButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                save(view);
-            }
-        });*/
 
-        //Связываемся с нашим ImageView:
         imageView = (ImageView)(view.findViewById(R.id.imageView));
-
-        //Связываемся с нашей кнопкой Button:
-        //Button pickImage = (Button)(view.findViewById(R.id.pickImageButton));
-        //Настраиваем для нее обработчик нажатий OnClickListener:
         imageView.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                //Вызываем стандартную галерею для выбора изображения с помощью Intent.ACTION_PICK:
                 Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-                //Intent photoPickerIntent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-                //Тип получаемых объектов - image:
                 photoPickerIntent.setType("image/*");
-                //Запускаем переход с ожиданием обратного результата в виде информации об изображении:
                 startActivityForResult(photoPickerIntent, PICK_IMAGE);
-                //view.getContext().startActivity(photoPickerIntent);
             }
         });
     }
@@ -251,15 +219,12 @@ public class AddGameFragment extends Fragment {
                 categories = new ArrayList<>();
                 categories.add("загальна категорія");
             }
-            //int quantOfPoints = Integer.parseInt(quantOfPointsText.getText().toString());
             int quantOfTimesBeingChosen = 0;
-            //boolean isFavorite = Boolean.parseBoolean(isFavoriteText.getText().toString());
 
             Game game = new Game(name, description, photoPath, rules, place, smallestAge,
                     biggestAge, smallestQuantOfPlayers, biggestQuantOfPlayers, playingTime, categories,
                     quantOfPoints, quantOfTimesBeingChosen, isFavorite, Utils.getCurrentDate(), null);
             GamesProcessor.addGame(game);
-            //Toast.makeText(getActivity(), "Quant of games: " + GamesProcessor.getGames().size(), Toast.LENGTH_LONG).show();
             return true;
         }
     }
@@ -267,20 +232,16 @@ public class AddGameFragment extends Fragment {
     private void clearFields() {
         nameText.setText("");
         descriptionText.setText("");
-        //see on phone!!!
-        //photoPathText.setText("ic_cubiki.xml");
         photoPathText.setText("");
         imageView.setImageResource(R.drawable.ic_cubiki);
         rulesText.setText("");
         placeText.setText("");
-        //smallestAgeText.setText("");
         smallestAgeSp.setSelection(0);
         biggestAgeSp.setSelection(0);
         smallestQuantOfPlayersSp.setSelection(0);
         biggestQuantOfPlayersSp.setSelection(0);
         playingTimeSp.setSelection(0);
         categoriesText.setText("");
-        //ButtonsActions.initMultiSpinner(categoriesList, categories, selectedCategories);
         initMultiSpinner();
         ButtonsActions.setDefaultStars(stars);
         favoriteButton.setImageResource(R.drawable.ic_baseline_favorite_border_24);

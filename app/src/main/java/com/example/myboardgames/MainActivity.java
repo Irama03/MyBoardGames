@@ -34,8 +34,6 @@ import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
 
-    //public List<Game> games;
-    //public ArrayAdapter<Game> adapter;
     SharedPreferences prefs = null;
     private AppDatabase appDatabase;
 
@@ -50,10 +48,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_games, R.id.navigation_add_game)
+                R.id.navigation_from_friends, R.id.navigation_games, R.id.navigation_add_game)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
@@ -64,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -81,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_categories:
                 Intent intent = new Intent(MainActivity.this,
                         CategoriesActivity.class);
-                //intent.putExtra(EXTRA_MESSAGE, mOrderMessage);
                 startActivity(intent);
                 return true;
             case R.id.action_settings:
@@ -96,42 +90,11 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /*public void open(ListView listView){
-        games = JSONHelper.importFromJSON(this);
-        if(games != null){
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, games);
-            listView.setAdapter(adapter);
-            Toast.makeText(this, "Дані відновлено", Toast.LENGTH_LONG).show();
-        }
-        else{
-            Toast.makeText(this, "Не вдалося відновити дані", Toast.LENGTH_LONG).show();
-        }
-    }*/
-
-    /*private static void copyFileUsingStream(File source, File dest) throws IOException {
-        InputStream is = null;
-        OutputStream os = null;
-        try {
-            is = new FileInputStream(source);
-            os = new FileOutputStream(dest);
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = is.read(buffer)) > 0) {
-                os.write(buffer, 0, length);
-            }
-        } finally {
-            is.close();
-            os.close();
-        }
-    }*/
-
     @Override
     protected void onResume() {
         super.onResume();
 
         if (prefs.getString("userId", "").equals("")) {
-            // Do first run stuff here then set 'userId' as false
-            // using the following line to edit/commit prefs
             String uuid = UUID.randomUUID().toString();
             System.out.println("UUID: " + uuid);
             prefs.edit().putString("userId", uuid).apply();
@@ -143,18 +106,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-        //Toast.makeText(this, "In onActivityResult()", Toast.LENGTH_LONG).show();
-
-        //if (requestCode == Pick_image) {
-        //Toast.makeText(this, "requestCode: " + requestCode, Toast.LENGTH_LONG).show();
                 if(resultCode == RESULT_OK){
                     try {
-
-                        //Получаем URI изображения, преобразуем его в Bitmap
-                        //объект и отображаем в элементе ImageView нашего интерфейса:
-                        //Toast.makeText(this, "resultCode == RESULT_OK. Before getting uri", Toast.LENGTH_LONG).show();
                         final Uri imageUri = imageReturnedIntent.getData();
-                        //Toast.makeText(this, "Got uri: " + imageUri.toString(), Toast.LENGTH_LONG).show();
                         final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                         final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                         ((ImageView)findViewById(R.id.imageView)).setImageBitmap(selectedImage);
@@ -171,8 +125,6 @@ public class MainActivity extends AppCompatActivity {
                             while ((length = is.read(buffer)) > 0) {
                                 fileOutputStream.write(buffer, 0, length);
                             }
-                            //fileOutputStream.write(selectedImage.getNinePatchChunk());
-                            //copyFileUsingStream();
                         } catch (Exception e) {
                             e.printStackTrace();
                         } finally {
@@ -192,19 +144,9 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         ((EditText)findViewById(R.id.photoPathText)).setText(fileName);
-                        //Toast.makeText(this, fileName, Toast.LENGTH_LONG).show();
-                        //Uri uri = Uri.parse(imageUri.toString());
-
-                        //Toast.makeText(this, "Uri set!", Toast.LENGTH_LONG).show();
                     } catch (FileNotFoundException e) {
-                        //Toast.makeText(this, "FileNotFoundException: " + e.getMessage(), Toast.LENGTH_LONG).show();
                         e.printStackTrace();
                     }
                 }
-
-        //}
-        //else {
-         //   Toast.makeText(this, "Error. requestCode == " + requestCode, Toast.LENGTH_LONG).show();
-        //}
     }
 }

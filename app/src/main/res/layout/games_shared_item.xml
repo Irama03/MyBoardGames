@@ -9,53 +9,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/ivGameImage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:maxHeight="200dp"
-            android:src="@drawable/ic_cubiki" />
-
-        <ImageButton
-            android:id="@+id/ibFavoriteButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@id/ivGameImage"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_baseline_favorite_border_24" />
-
-        <include
-            layout="@layout/stars"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@id/ivGameImage"/>
-
-        <ImageButton
-            android:id="@+id/ibCheckGame"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@layout/button_choose"
-            android:background="@android:color/transparent"
-            android:layout_alignBottom="@id/ivGameImage"
-            android:layout_alignEnd="@id/ivGameImage"
-            android:padding="8dp"/>
-
         <TextView
             android:id="@+id/tvGameName"
             style="@style/GameName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="Назва"
+            android:textAlignment="center"
+            android:textColor="#9C27B0" />
+
+        <TextView
+            android:id="@+id/tvGameRecommender"
+            style="@style/DescriptionText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ivGameImage"
-            android:padding="8dp"
-            android:text="Назва" />
+            android:layout_below="@id/tvGameName"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="8dp"
+            android:text="Від" />
 
         <TextView
             android:id="@+id/tvGameCategories"
             style="@style/CategoriesText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvGameName"
+            android:layout_below="@id/tvGameRecommender"
             android:paddingVertical="4dp"
             android:paddingHorizontal="8dp"
             android:text="Категорії"

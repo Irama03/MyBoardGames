@@ -3,14 +3,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/drawable-v24/ic_cubiki_logo.xml" value="0.1" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/drawable/btn_back.xml" value="0.1" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/drawable/btn_back_ripple.xml" value="0.1" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/drawable/ic_baseline_arrow_drop_down_24.xml" value="0.1" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/drawable/ic_baseline_check_circle_24.xml" value="0.1" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/drawable/ic_baseline_check_circle_outline_24.xml" value="0.124" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.1" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.1" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.1" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/drawable/ic_baseline_format_list_bulleted_24.xml" value="0.1" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/drawable/ic_baseline_playlist_add_24.xml" value="0.1" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/drawable/ic_baseline_share_24.xml" value="0.1" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/drawable/ic_baseline_star_24.xml" value="0.1" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/drawable/ic_cubiki.xml" value="0.1" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.1" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.1" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/drawable/ic_outline_folder_shared_24.xml" value="0.1" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/activity_categories.xml" value="0.1956521739130435" />
@@ -18,6 +29,7 @@
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/activity_main.xml" value="0.20969202898550723" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/activity_profile.xml" value="0.2418478260869565" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/activity_settings.xml" value="0.20969202898550723" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/activity_shared_game_info.xml" value="0.17857142857142858" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/app_bar_main.xml" value="0.20969202898550723" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/button_choose.xml" value="0.20969202898550723" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/categories_item.xml" value="0.20969202898550723" />
@@ -28,15 +40,21 @@
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/filter_drawer.xml" value="0.21768707482993196" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/filter_parent.xml" value="0.23278985507246377" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/fragment_add_game.xml" value="0.2" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/fragment_from_friends.xml" value="0.24682971014492755" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/fragment_games.xml" value="0.23278985507246377" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/fragment_home.xml" value="0.24003623188405798" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/games_item.xml" value="0.2047244094488189" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/games_shared_item.xml" value="0.2441123188405797" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/my_spinner.xml" value="0.2477355072463768" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/one_star.xml" value="0.2259963768115942" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/spinner_layout.xml" value="0.24003623188405798" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/spinner_layout_sort_closed.xml" value="0.24003623188405798" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/spinner_layout_sort_open.xml" value="0.24003623188405798" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/stars.xml" value="0.2259963768115942" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/menu/bottom_nav_menu.xml" value="0.259375" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/menu/menu_main.xml" value="0.259375" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
       </map>
     </option>
   </component>

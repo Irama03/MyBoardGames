@@ -3,15 +3,9 @@ package com.example.myboardgames.helpers;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-
-import com.github.thunder413.datetimeutils.DateTimeUtils;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 public class Utils {
 
