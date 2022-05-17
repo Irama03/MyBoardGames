@@ -45,15 +45,14 @@
             android:id="@+id/tvSort"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/filter_button"
-            android:fontFamily="sans-serif-condensed-light"
-            android:textAlignment="center"
-            android:textSize="18sp"
-            android:textColor="@color/black"
             android:layout_alignStart="@id/sort"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="10dp"
-            android:text="Сортування" />
+            android:layout_toEndOf="@id/filter_button"
+            android:fontFamily="sans-serif-condensed-light"
+            android:text="Сортування"
+            android:textAlignment="center"
+            android:textSize="18sp" />
 
         <Spinner
             android:id="@+id/sort"

@@ -1,7 +1,9 @@
 package com.example.myboardgames.ui.fromFriends;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +38,7 @@ public class FromFriendsFragment extends Fragment {
     private AppDatabase appDatabase;
     private DatabaseReference databaseReference;
     private ValueEventListener valueEventListener;
+    SharedPreferences prefs = null;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -45,6 +48,7 @@ public class FromFriendsFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        prefs = getActivity().getSharedPreferences("com.example.myboardgames", Context.MODE_PRIVATE);
         if (!Utils.isNetworkAvailable(getContext()))
             Toast.makeText(getContext(), "Неможливо завантажити рекомендовані ігри. Мережа Інтернет відсутня", Toast.LENGTH_LONG).show();
         initRecyclerView();
@@ -81,11 +85,14 @@ public class FromFriendsFragment extends Fragment {
                     games.clear();
                     adapter.notifyDataSetChanged();
                 }
+                String userId = prefs.getString("userId", "");
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     SharedGame sharedGame = dataSnapshot.getValue(SharedGame.class);
                     assert sharedGame != null;
-                    games.add(sharedGame);
-                    adapter.notifyDataSetChanged();
+                    if (sharedGame.getReceiverId().equals(userId)) {
+                        games.add(sharedGame);
+                        adapter.notifyDataSetChanged();
+                    }
                 }
             }
 

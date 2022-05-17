@@ -315,26 +315,29 @@ public class GameInfoActivity extends AppCompatActivity {
 
     private void recommendGame(String friendId) {
         DatabaseReference databaseReference = appDatabase.getReferenceToGroup(AppDatabase.SHARED_GAMES_GROUP_KEY);
-        final boolean[] recoFound = {false};
+        final int[] recoFound = {0};
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (!recoFound[0]) {
+                if (recoFound[0] == 0) {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         SharedGame sharedGame = dataSnapshot.getValue(SharedGame.class);
                         assert sharedGame != null;
-                        if (sharedGame.getName().equals(game.getName()) && sharedGame.getReceiverId().equals(friendId)) {
-                            Toast.makeText(GameInfoActivity.this, "Ця гра вже була порекомендована цьому користувачу", Toast.LENGTH_LONG).show();
-                            recoFound[0] = true;
+                        if (sharedGame.getName().equals(game.getName()) && sharedGame.getReceiverId().equals(friendId) && sharedGame.getRecommenderId().equals(prefs.getString("userId", ""))) {
+                            recoFound[0] = 1;
                             break;
                         }
                     }
                 }
-                if (!recoFound[0]) {
+                if (recoFound[0] == 0) {
                     SharedGame sharedGameNew = new SharedGame(game, prefs.getString("userId", ""), friendId);
                     appDatabase.addSharedGameToDatabase(sharedGameNew);
                     Toast.makeText(GameInfoActivity.this, "Гру успішно порекомендовано", Toast.LENGTH_LONG).show();
+                    recoFound[0] = 2;
                     shareGameDialog.dismiss();
+                }
+                else if (recoFound[0] == 1) {
+                    Toast.makeText(GameInfoActivity.this, "Ця гра вже була порекомендована цьому користувачу", Toast.LENGTH_LONG).show();
                 }
             }
 

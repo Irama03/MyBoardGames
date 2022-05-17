@@ -55,7 +55,7 @@ public class ButtonsActions {
                 GamesProcessor.saveGames(context);
                 if (quantOfTimesBeingChosenText != null) {
                     quantOfTimesBeingChosenText.setText(game.getQuantOfTimesBeingChosen() + "");
-                    dateOfLastChoosingText.setText(DateTimeUtils.formatDate(game.getDateOfLastChoosing()));
+                    dateOfLastChoosingText.setText(Utils.convertDateToLocalString(game.getDateOfLastChoosing()));
                 }
             }
         });
