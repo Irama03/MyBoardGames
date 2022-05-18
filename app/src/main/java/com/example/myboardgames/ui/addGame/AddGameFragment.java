@@ -211,8 +211,18 @@ public class AddGameFragment extends Fragment {
             String place = placeText.getText().toString();
             int smallestAge = Integer.parseInt((String)smallestAgeSp.getSelectedItem());
             int biggestAge = Integer.parseInt((String)biggestAgeSp.getSelectedItem());
+            if (smallestAge > biggestAge) {
+                int tempAge = smallestAge;
+                smallestAge = biggestAge;
+                biggestAge = tempAge;
+            }
             int smallestQuantOfPlayers = Integer.parseInt((String)smallestQuantOfPlayersSp.getSelectedItem());
             int biggestQuantOfPlayers = Integer.parseInt((String)biggestQuantOfPlayersSp.getSelectedItem());
+            if (smallestQuantOfPlayers > biggestQuantOfPlayers) {
+                int tempQuant = smallestQuantOfPlayers;
+                smallestQuantOfPlayers = biggestQuantOfPlayers;
+                biggestQuantOfPlayers = tempQuant;
+            }
             String playingTime = (String)playingTimeSp.getSelectedItem();
             List<String> categories = Arrays.asList(categoriesText.getText().toString().split("\\s*,\\s*"));
             if (categories.get(0).equals("")) {
@@ -237,9 +247,9 @@ public class AddGameFragment extends Fragment {
         rulesText.setText("");
         placeText.setText("");
         smallestAgeSp.setSelection(0);
-        biggestAgeSp.setSelection(0);
+        biggestAgeSp.setSelection(21);
         smallestQuantOfPlayersSp.setSelection(0);
-        biggestQuantOfPlayersSp.setSelection(0);
+        biggestQuantOfPlayersSp.setSelection(19);
         playingTimeSp.setSelection(0);
         categoriesText.setText("");
         initMultiSpinner();

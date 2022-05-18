@@ -391,8 +391,33 @@ public class GameInfoActivity extends AppCompatActivity {
             game.setPlace(placeTextI.getText().toString());
             game.setSmallestAge(Integer.parseInt((String)smallestAgeSpI.getSelectedItem()));
             game.setBiggestAge(Integer.parseInt((String)biggestAgeSpI.getSelectedItem()));
-            game.setSmallestQuantOfPlayers(Integer.parseInt((String)smallestQuantOfPlayersSpI.getSelectedItem()));
-            game.setBiggestQuantOfPlayers(Integer.parseInt((String)biggestQuantOfPlayersSpI.getSelectedItem()));
+
+            int smallestAge = Integer.parseInt((String)smallestAgeSpI.getSelectedItem());
+            int biggestAge = Integer.parseInt((String)biggestAgeSpI.getSelectedItem());
+            if (smallestAge > biggestAge) {
+                int tempAge = smallestAge;
+                smallestAge = biggestAge;
+                biggestAge = tempAge;
+                int tempSelected = smallestAgeSpI.getSelectedItemPosition();
+                smallestAgeSpI.setSelection(biggestAgeSpI.getSelectedItemPosition());
+                biggestAgeSpI.setSelection(tempSelected);
+            }
+            game.setSmallestAge(smallestAge);
+            game.setBiggestAge(biggestAge);
+
+            int smallestQuantOfPlayers = Integer.parseInt((String)smallestQuantOfPlayersSpI.getSelectedItem());
+            int biggestQuantOfPlayers = Integer.parseInt((String)biggestQuantOfPlayersSpI.getSelectedItem());
+            if (smallestQuantOfPlayers > biggestQuantOfPlayers) {
+                int tempQuant = smallestQuantOfPlayers;
+                smallestQuantOfPlayers = biggestQuantOfPlayers;
+                biggestQuantOfPlayers = tempQuant;
+                int tempSelected = smallestQuantOfPlayersSpI.getSelectedItemPosition();
+                smallestQuantOfPlayersSpI.setSelection(biggestQuantOfPlayersSpI.getSelectedItemPosition());
+                biggestQuantOfPlayersSpI.setSelection(tempSelected);
+            }
+            game.setSmallestQuantOfPlayers(smallestQuantOfPlayers);
+            game.setBiggestQuantOfPlayers(biggestQuantOfPlayers);
+
             game.setPlayingTime((String)playingTimeSpI.getSelectedItem());
             List<String> categories = Arrays.asList(categoriesTextI.getText().toString().split("\\s*,\\s*"));
             if (categories.get(0).equals("")) {
