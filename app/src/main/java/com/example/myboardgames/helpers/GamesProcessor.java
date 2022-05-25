@@ -147,13 +147,6 @@ public class GamesProcessor {
         return false;
     }
 
-    public static List<Game> getCopyOfGames() {
-        if (games == null) return new ArrayList<>();
-        List<Game> result = new ArrayList<Game>(games.size());
-        result.addAll(games);
-        return result;
-    }
-
     public static boolean categoryNameAlreadyExists(String categoryName) {
         String catName = categoryName.toLowerCase();
         for (String category: categories) {
@@ -161,6 +154,13 @@ public class GamesProcessor {
                 return true;
         }
         return false;
+    }
+
+    public static List<Game> getCopyOfGames() {
+        if (games == null) return new ArrayList<>();
+        List<Game> result = new ArrayList<Game>(games.size());
+        result.addAll(games);
+        return result;
     }
 
     public static void addCategory(String categoryName) {
@@ -184,7 +184,7 @@ public class GamesProcessor {
         for (Game game: games) {
             List<String> gameCategories = game.getCategories();
             if (gameCategories.remove(category)) {
-                if ( gameCategories.size() == 0)
+                if (gameCategories.size() == 0)
                     gameCategories.add(categories.get(0));
                 saveGames(context);
             }

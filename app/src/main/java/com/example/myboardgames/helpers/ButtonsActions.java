@@ -29,8 +29,8 @@ public class ButtonsActions {
 
     public static void favoriteAction(Game game, ImageButton heart, Context context) {
         if (game.isFavorite())
-            heart.setImageResource(R.drawable.ic_baseline_favorite_24);
-        else heart.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+            makeFavorite(heart);
+        else makeNotFavorite(heart);
         heart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,7 +87,8 @@ public class ButtonsActions {
     public static void pointsAction(Game game, ImageButton[] stars, Context context) {
         for (int i = 0; i < stars.length; i++) {
             int finalI = i;
-            if (game.getQuantOfPoints() > i) addStar(stars[i]); else removeStar(stars[i]);
+            if (game.getQuantOfPoints() > i) addStar(stars[i]);
+            else removeStar(stars[i]);
             stars[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -127,7 +128,7 @@ public class ButtonsActions {
     }
 
     /**
-     * method is used to set listener to spheres list
+     * method is used to set listener to categories list
      */
     public static void setCategoriesListener(TextView categoriesText, FragmentActivity activity, List<Integer> categoriesList, String[] categories, boolean[] selectedCategories) {
         categoriesText.setOnClickListener(new View.OnClickListener() {
@@ -172,11 +173,6 @@ public class ButtonsActions {
                 alertDialog.show();
             }
         });
-    }
-
-    public static void removeOnClickListener(View view) {
-        view.setOnClickListener(null);
-        view.setClickable(false);
     }
 
 }

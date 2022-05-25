@@ -131,6 +131,7 @@ public class JSONHelper {
         List<Game> getGames() {
             return games;
         }
+
         void setGames(List<Game> games) {
             this.games = games;
         }
