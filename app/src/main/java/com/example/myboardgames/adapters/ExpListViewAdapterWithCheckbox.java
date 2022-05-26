@@ -147,16 +147,8 @@ public class ExpListViewAdapterWithCheckbox extends BaseExpandableListAdapter {
         return convertView;
     }
 
-    public void kickAll(){
-        doEventCallback(getCheckedItems());
-    }
-
     public void setOnChangeStateListener(ChangeStateEvent event){
         observers.add(event);
-    }
-
-    public void removeAllStateListeners(){
-        observers.clear();
     }
 
     private void doEventCallback(Map<String, Set<String>> items){

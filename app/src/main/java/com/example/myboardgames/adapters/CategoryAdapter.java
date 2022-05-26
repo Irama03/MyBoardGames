@@ -11,7 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myboardgames.ui.dialogs.CategoryDialog;
+import com.example.myboardgames.dialogs.CategoryDialog;
 import com.example.myboardgames.helpers.GamesProcessor;
 import com.example.myboardgames.R;
 import com.example.myboardgames.helpers.Utils;
@@ -21,35 +21,19 @@ import java.util.List;
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>{
     private List<String> categories;
     private boolean[] isHidden;
-    private OnCategoryClickListener onCategoryClickListener;
     private final LayoutInflater inflater;
     private Context context;
-
-    /**
-     * public interface is used to set action when the category item is clicked
-     */
-    public interface OnCategoryClickListener {
-        /**
-         * method is used to react to the click on the category item
-         *
-         * @param category
-         * @param position
-         */
-        void onCategoryClicked(String category, int position);
-    }
 
     /**
      * public constructor with parameters
      *
      * @param context
      * @param categories
-     * @param onClickListener
      */
-    public CategoryAdapter(Context context, List<String> categories, OnCategoryClickListener onClickListener) {
+    public CategoryAdapter(Context context, List<String> categories) {
         this.categories = categories;
         this.isHidden = new boolean[categories.size()];
         this.context = context;
-        onCategoryClickListener = onClickListener;
         inflater = LayoutInflater.from(context);
     }
 
@@ -134,13 +118,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
                 }
             });
         }
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onCategoryClickListener.onCategoryClicked(category, position);
-            }
-        });
     }
 
     /**

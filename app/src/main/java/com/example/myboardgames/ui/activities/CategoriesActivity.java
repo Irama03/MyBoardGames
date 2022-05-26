@@ -23,10 +23,7 @@ public class CategoriesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_categories);
         recyclerView = findViewById(R.id.recyclerViewCategories);
         categories = GamesProcessor.getCategories();
-        adapter = new CategoryAdapter(this, categories, new CategoryAdapter.OnCategoryClickListener() {
-            @Override
-            public void onCategoryClicked(String category, int position) { }
-        });
+        adapter = new CategoryAdapter(this, categories);
         recyclerView.setAdapter(adapter);
     }
 }

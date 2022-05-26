@@ -1,4 +1,4 @@
-package com.example.myboardgames.ui.dialogs;
+package com.example.myboardgames.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;

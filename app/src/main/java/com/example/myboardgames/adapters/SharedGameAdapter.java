@@ -20,7 +20,7 @@ import java.util.List;
 
 public class SharedGameAdapter extends RecyclerView.Adapter<SharedGameAdapter.SharedGameViewHolder>{
 
-    private List<SharedGame> games;
+    private List<SharedGame> sharedGames;
     private boolean[] isHidden;
     private OnSharedGameClickListener onSharedGameClickListener;
     private final LayoutInflater inflater;
@@ -44,12 +44,12 @@ public class SharedGameAdapter extends RecyclerView.Adapter<SharedGameAdapter.Sh
      * public constructor with parameters
      *
      * @param context
-     * @param games
+     * @param sharedGames
      * @param onClickListener
      */
-    public SharedGameAdapter(Context context, List<SharedGame> games, OnSharedGameClickListener onClickListener) {
-        this.games = games;
-        this.isHidden = new boolean[games.size()];
+    public SharedGameAdapter(Context context, List<SharedGame> sharedGames, OnSharedGameClickListener onClickListener) {
+        this.sharedGames = sharedGames;
+        this.isHidden = new boolean[sharedGames.size()];
         this.context = context;
         onSharedGameClickListener = onClickListener;
         inflater = LayoutInflater.from(context);
@@ -78,8 +78,8 @@ public class SharedGameAdapter extends RecyclerView.Adapter<SharedGameAdapter.Sh
      */
     @Override
     public void onBindViewHolder(@NonNull SharedGameViewHolder holder, int position) {
-        if (games.size() != isHidden.length) {
-            isHidden = new boolean[games.size()];
+        if (sharedGames.size() != isHidden.length) {
+            isHidden = new boolean[sharedGames.size()];
         }
         if (isHidden[position]) {
             holder.itemView.setVisibility(View.GONE);
@@ -90,7 +90,7 @@ public class SharedGameAdapter extends RecyclerView.Adapter<SharedGameAdapter.Sh
             holder.itemView.setLayoutParams(getDefaultLayoutParams());
         }
 
-        SharedGame game = games.get(position);
+        SharedGame game = sharedGames.get(position);
 
         holder.tvGameName.setText(game.getName());
 
@@ -129,7 +129,7 @@ public class SharedGameAdapter extends RecyclerView.Adapter<SharedGameAdapter.Sh
      */
     @Override
     public int getItemCount() {
-        return games.size();
+        return sharedGames.size();
     }
 
     private static RecyclerView.LayoutParams getDefaultLayoutParams() {

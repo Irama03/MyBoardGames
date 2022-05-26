@@ -17,7 +17,7 @@ import androidx.annotation.ArrayRes;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.myboardgames.ui.dialogs.CategoryDialog;
+import com.example.myboardgames.dialogs.CategoryDialog;
 import com.example.myboardgames.helpers.ButtonsActions;
 import com.example.myboardgames.models.Game;
 import com.example.myboardgames.helpers.GamesProcessor;
