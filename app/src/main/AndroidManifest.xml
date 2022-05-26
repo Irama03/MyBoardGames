@@ -13,13 +13,13 @@
         android:theme="@style/Theme.MyBoardGames">
 
         <activity
-            android:name=".ui.activities.GameInfoActivity"
+            android:name=".activities.GameInfoActivity"
             android:label="@string/title_activity_game_info"
             android:theme="@style/Theme.MyBoardGames.NoActionBar"
             android:parentActivityName=".MainActivity">
         </activity>
         <activity
-            android:name=".ui.activities.SharedGameInfoActivity"
+            android:name=".activities.SharedGameInfoActivity"
             android:label="@string/title_activity_game_info"
             android:theme="@style/Theme.MyBoardGames.NoActionBar"
             android:parentActivityName=".MainActivity">
@@ -33,12 +33,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activities.CategoriesActivity"
+            android:name=".activities.CategoriesActivity"
             android:label="@string/title_activity_categories"
             android:parentActivityName=".MainActivity">
         </activity>
         <activity
-            android:name=".ui.activities.ProfileActivity"
+            android:name=".activities.ProfileActivity"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".MainActivity">
         </activity>

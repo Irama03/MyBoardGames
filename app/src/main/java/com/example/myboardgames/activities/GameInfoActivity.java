@@ -1,4 +1,4 @@
-package com.example.myboardgames.ui.activities;
+package com.example.myboardgames.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -29,7 +29,7 @@ import com.example.myboardgames.models.Game;
 import com.example.myboardgames.helpers.GamesProcessor;
 import com.example.myboardgames.R;
 import com.example.myboardgames.helpers.Utils;
-import com.example.myboardgames.ui.addGame.AddGameFragment;
+import com.example.myboardgames.fragments.AddGameFragment;
 import com.example.myboardgames.dialogs.ShareGameDialog;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

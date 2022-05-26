@@ -1,4 +1,4 @@
-package com.example.myboardgames.ui.fromFriends;
+package com.example.myboardgames.fragments;
 
 
 import android.content.Context;
@@ -19,7 +19,7 @@ import com.example.myboardgames.adapters.SharedGameAdapter;
 import com.example.myboardgames.database.AppDatabase;
 import com.example.myboardgames.helpers.Utils;
 import com.example.myboardgames.models.SharedGame;
-import com.example.myboardgames.ui.activities.SharedGameInfoActivity;
+import com.example.myboardgames.activities.SharedGameInfoActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

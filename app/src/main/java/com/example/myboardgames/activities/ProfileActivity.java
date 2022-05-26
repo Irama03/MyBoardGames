@@ -1,4 +1,4 @@
-package com.example.myboardgames.ui.activities;
+package com.example.myboardgames.activities;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;

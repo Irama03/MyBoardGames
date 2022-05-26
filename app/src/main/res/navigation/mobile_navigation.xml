@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_from_friends"
-        android:name="com.example.myboardgames.ui.fromFriends.FromFriendsFragment"
+        android:name="com.example.myboardgames.fragments.FromFriendsFragment"
         android:label="@string/title_friends_reco"
         tools:layout="@layout/fragment_from_friends" />
 
     <fragment
         android:id="@+id/navigation_games"
-        android:name="com.example.myboardgames.ui.games.GamesFragment"
+        android:name="com.example.myboardgames.fragments.GamesFragment"
         android:label="@string/title_games"
         tools:layout="@layout/fragment_games" />
 
     <fragment
         android:id="@+id/navigation_add_game"
-        android:name="com.example.myboardgames.ui.addGame.AddGameFragment"
+        android:name="com.example.myboardgames.fragments.AddGameFragment"
         android:label="@string/title_add_game"
         tools:layout="@layout/fragment_add_game" />
 </navigation>

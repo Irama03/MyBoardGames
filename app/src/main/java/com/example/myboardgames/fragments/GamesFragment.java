@@ -1,4 +1,4 @@
-package com.example.myboardgames.ui.games;
+package com.example.myboardgames.fragments;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myboardgames.helpers.ButtonsActions;
+import com.example.myboardgames.helpers.SpinnerName;
 import com.example.myboardgames.models.Game;
 import com.example.myboardgames.helpers.GamesProcessor;
 import com.example.myboardgames.R;
@@ -32,7 +33,7 @@ import com.example.myboardgames.helpers.Utils;
 import com.example.myboardgames.adapters.ChangeStateEvent;
 import com.example.myboardgames.adapters.ExpListViewAdapterWithCheckbox;
 import com.example.myboardgames.adapters.GameAdapter;
-import com.example.myboardgames.ui.activities.GameInfoActivity;
+import com.example.myboardgames.activities.GameInfoActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -44,14 +45,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-enum SpinnerName {
-    SMALLEST_AGE,
-    BIGGEST_AGE,
-    SMALLEST_QUANT_OF_PLAYERS,
-    BIGGEST_QUANT_OF_PLAYERS,
-    PLAYING_TIME
-}
 
 public class GamesFragment extends Fragment {
 

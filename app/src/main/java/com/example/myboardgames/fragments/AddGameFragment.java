@@ -1,4 +1,4 @@
-package com.example.myboardgames.ui.addGame;
+package com.example.myboardgames.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;

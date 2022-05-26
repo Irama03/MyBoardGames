@@ -10,8 +10,8 @@ import android.os.Bundle;
 
 import com.example.myboardgames.database.AppDatabase;
 import com.example.myboardgames.models.User;
-import com.example.myboardgames.ui.activities.CategoriesActivity;
-import com.example.myboardgames.ui.activities.ProfileActivity;
+import com.example.myboardgames.activities.CategoriesActivity;
+import com.example.myboardgames.activities.ProfileActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
