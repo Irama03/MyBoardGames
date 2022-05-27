@@ -23,7 +23,7 @@ public class SharedGameInfoActivity extends AppCompatActivity {
 
     SharedPreferences prefs = null;
     private AppDatabase appDatabase;
-    private SharedGame game;
+    private SharedGame sharedGame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class SharedGameInfoActivity extends AppCompatActivity {
         prefs = getSharedPreferences("com.example.myboardgames", MODE_PRIVATE);
         appDatabase = new AppDatabase();
 
-        game = (SharedGame)getIntent().getSerializableExtra("SharedGame");
+        sharedGame = (SharedGame)getIntent().getSerializableExtra("SharedGame");
 
         btnBack = (TextView)(findViewById(R.id.btnBack));
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -44,31 +44,31 @@ public class SharedGameInfoActivity extends AppCompatActivity {
         });
 
         nameTextI = (TextView)(findViewById(R.id.nameTextI));
-        nameTextI.setText(game.getName());
+        nameTextI.setText(sharedGame.getName());
 
         descriptionTextI = (TextView)(findViewById(R.id.descriptionTextI));
-        descriptionTextI.setText(game.getDescription());
+        descriptionTextI.setText(sharedGame.getDescription());
 
         rulesTextI = (TextView)(findViewById(R.id.rulesTextI));
-        rulesTextI.setText(game.getRules());
+        rulesTextI.setText(sharedGame.getRules());
 
         ageT = (TextView)(findViewById(R.id.ageT));
-        String age = ageT.getText().toString() + " " + game.getSmallestAge() + " до " + game.getBiggestAge();
+        String age = ageT.getText().toString() + " " + sharedGame.getSmallestAge() + " до " + sharedGame.getBiggestAge();
         ageT.setText(age);
 
         quantOfPlayersT = (TextView)(findViewById(R.id.playersT));
-        String quantOfPlayers = quantOfPlayersT.getText().toString() + " " + game.getSmallestQuantOfPlayers() + " до " + game.getBiggestQuantOfPlayers();
+        String quantOfPlayers = quantOfPlayersT.getText().toString() + " " + sharedGame.getSmallestQuantOfPlayers() + " до " + sharedGame.getBiggestQuantOfPlayers();
         quantOfPlayersT.setText(quantOfPlayers);
 
         playingTime = (TextView)(findViewById(R.id.playingTime));
-        playingTime.setText(game.getPlayingTime());
+        playingTime.setText(sharedGame.getPlayingTime());
 
         categoriesTextI = (TextView)(findViewById(R.id.categoriesTextI));
-        categoriesTextI.setText(game.getCategories());
+        categoriesTextI.setText(sharedGame.getCategories());
 
         recommenderText = (TextView)(findViewById(R.id.recommenderText));
-        recommenderText.setText("Від " +  game.getRecommenderId());
-        appDatabase.getReferenceToGroup(AppDatabase.USERS_GROUP_KEY).child(game.getRecommenderId()).addListenerForSingleValueEvent(new ValueEventListener() {
+        recommenderText.setText("Від " +  sharedGame.getRecommenderId());
+        appDatabase.getReferenceToGroup(AppDatabase.USERS_GROUP_KEY).child(sharedGame.getRecommenderId()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);

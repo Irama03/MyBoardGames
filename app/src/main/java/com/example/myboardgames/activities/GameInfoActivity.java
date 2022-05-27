@@ -67,6 +67,126 @@ public class GameInfoActivity extends AppCompatActivity {
     private AppDatabase appDatabase;
     private Game game;
 
+    private void initSpinnerAndSetSelection(@ArrayRes int id, Spinner spinner, String str) {
+        String[] arr = getResources().getStringArray(id);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,R.layout.spinner_layout,R.id.spinnerItem,arr);
+        spinner.setAdapter(adapter);
+        if (str != null)
+            spinner.setSelection(Utils.getPositionOfStr(str, arr));
+    }
+
+    private void initMultiSpinner() {
+        List<String> listCategories = GamesProcessor.getCategories();
+        categories = listCategories.toArray(new String[0]);
+        categoriesList = new ArrayList<>();
+        selectedCategories = new boolean[categories.length];
+        for (String category: game.getCategories()) {
+            int position = Utils.getPositionOfStr(category, categories);
+            categoriesList.add(position);
+            selectedCategories[position] = true;
+            Collections.sort(categoriesList);
+        }
+    }
+
+    private void recommendGame(String friendId) {
+        DatabaseReference databaseReference = appDatabase.getReferenceToGroup(AppDatabase.SHARED_GAMES_GROUP_KEY);
+        final int[] recoFound = {0};
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (recoFound[0] == 0) {
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        SharedGame sharedGame = dataSnapshot.getValue(SharedGame.class);
+                        assert sharedGame != null;
+                        if (sharedGame.getName().equals(game.getName()) && sharedGame.getReceiverId().equals(friendId) && sharedGame.getRecommenderId().equals(prefs.getString("userId", ""))) {
+                            recoFound[0] = 1;
+                            break;
+                        }
+                    }
+                }
+                if (recoFound[0] == 0) {
+                    SharedGame sharedGameNew = new SharedGame(game, prefs.getString("userId", ""), friendId);
+                    appDatabase.addSharedGameToDatabase(sharedGameNew);
+                    Toast.makeText(GameInfoActivity.this, "Гру успішно порекомендовано", Toast.LENGTH_LONG).show();
+                    recoFound[0] = 2;
+                    shareGameDialog.dismiss();
+                }
+                else if (recoFound[0] == 1) {
+                    Toast.makeText(GameInfoActivity.this, "Ця гра вже була порекомендована цьому користувачу", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+        databaseReference.addValueEventListener(valueEventListener);
+    }
+
+    private boolean updateGame(){
+        String name = nameTextI.getText().toString().trim();
+        if (name.length() == 0) {
+            Toast.makeText(this, "Введіть назву гри!", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        else if (!name.equalsIgnoreCase(game.getName()) && GamesProcessor.gameAlreadyExists(name)) {
+            Toast.makeText(this, "Гра з такою назвою вже існує", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        else {
+            game.setName(name);
+            game.setDescription(descriptionTextI.getText().toString());
+            game.setPhotoPath(photoPathTextI.getText().toString());
+            game.setRules(rulesTextI.getText().toString());
+            game.setPlace(placeTextI.getText().toString());
+            game.setSmallestAge(Integer.parseInt((String)smallestAgeSpI.getSelectedItem()));
+            game.setBiggestAge(Integer.parseInt((String)biggestAgeSpI.getSelectedItem()));
+
+            int smallestAge = Integer.parseInt((String)smallestAgeSpI.getSelectedItem());
+            int biggestAge = Integer.parseInt((String)biggestAgeSpI.getSelectedItem());
+            if (smallestAge > biggestAge) {
+                int tempAge = smallestAge;
+                smallestAge = biggestAge;
+                biggestAge = tempAge;
+                int tempSelected = smallestAgeSpI.getSelectedItemPosition();
+                smallestAgeSpI.setSelection(biggestAgeSpI.getSelectedItemPosition());
+                biggestAgeSpI.setSelection(tempSelected);
+            }
+            game.setSmallestAge(smallestAge);
+            game.setBiggestAge(biggestAge);
+
+            int smallestQuantOfPlayers = Integer.parseInt((String)smallestQuantOfPlayersSpI.getSelectedItem());
+            int biggestQuantOfPlayers = Integer.parseInt((String)biggestQuantOfPlayersSpI.getSelectedItem());
+            if (smallestQuantOfPlayers > biggestQuantOfPlayers) {
+                int tempQuant = smallestQuantOfPlayers;
+                smallestQuantOfPlayers = biggestQuantOfPlayers;
+                biggestQuantOfPlayers = tempQuant;
+                int tempSelected = smallestQuantOfPlayersSpI.getSelectedItemPosition();
+                smallestQuantOfPlayersSpI.setSelection(biggestQuantOfPlayersSpI.getSelectedItemPosition());
+                biggestQuantOfPlayersSpI.setSelection(tempSelected);
+            }
+            game.setSmallestQuantOfPlayers(smallestQuantOfPlayers);
+            game.setBiggestQuantOfPlayers(biggestQuantOfPlayers);
+
+            game.setPlayingTime((String)playingTimeSpI.getSelectedItem());
+            List<String> categories = Arrays.asList(categoriesTextI.getText().toString().split("\\s*,\\s*"));
+            if (categories.get(0).equals("")) {
+                categories = new ArrayList<>();
+                categories.add("загальна категорія");
+            }
+            game.setCategories(categories);
+            Toast.makeText(this, "Інформацію про гру було оновлено", Toast.LENGTH_LONG).show();
+            return true;
+        }
+    }
+
+    public void removeGame(){
+        GamesProcessor.deleteGame(game);
+        Toast.makeText(this, "Гру було видалено", Toast.LENGTH_LONG).show();
+        this.finish();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -311,129 +431,6 @@ public class GameInfoActivity extends AppCompatActivity {
                 startActivityForResult(photoPickerIntent, AddGameFragment.PICK_IMAGE);
             }
         });
-    }
-
-    private void recommendGame(String friendId) {
-        DatabaseReference databaseReference = appDatabase.getReferenceToGroup(AppDatabase.SHARED_GAMES_GROUP_KEY);
-        final int[] recoFound = {0};
-        ValueEventListener valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (recoFound[0] == 0) {
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        SharedGame sharedGame = dataSnapshot.getValue(SharedGame.class);
-                        assert sharedGame != null;
-                        if (sharedGame.getName().equals(game.getName()) && sharedGame.getReceiverId().equals(friendId) && sharedGame.getRecommenderId().equals(prefs.getString("userId", ""))) {
-                            recoFound[0] = 1;
-                            break;
-                        }
-                    }
-                }
-                if (recoFound[0] == 0) {
-                    SharedGame sharedGameNew = new SharedGame(game, prefs.getString("userId", ""), friendId);
-                    appDatabase.addSharedGameToDatabase(sharedGameNew);
-                    Toast.makeText(GameInfoActivity.this, "Гру успішно порекомендовано", Toast.LENGTH_LONG).show();
-                    recoFound[0] = 2;
-                    shareGameDialog.dismiss();
-                }
-                else if (recoFound[0] == 1) {
-                    Toast.makeText(GameInfoActivity.this, "Ця гра вже була порекомендована цьому користувачу", Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        };
-        databaseReference.addValueEventListener(valueEventListener);
-    }
-
-    private void initSpinnerAndSetSelection(@ArrayRes int id, Spinner spinner, String str) {
-        String[] arr = getResources().getStringArray(id);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,R.layout.spinner_layout,R.id.spinnerItem,arr);
-        spinner.setAdapter(adapter);
-        if (str != null)
-            spinner.setSelection(Utils.getPositionOfStr(str, arr));
-    }
-
-    /**
-     * method is used to initialise multispinner
-     */
-    private void initMultiSpinner() {
-        List<String> listCategories = GamesProcessor.getCategories();
-        categories = listCategories.toArray(new String[0]);
-        categoriesList = new ArrayList<>();
-        selectedCategories = new boolean[categories.length];
-        for (String category: game.getCategories()) {
-            int position = Utils.getPositionOfStr(category, categories);
-            categoriesList.add(position);
-            selectedCategories[position] = true;
-            Collections.sort(categoriesList);
-        }
-    }
-
-    private boolean updateGame(){
-        String name = nameTextI.getText().toString().trim();
-        if (name.length() == 0) {
-            Toast.makeText(this, "Введіть назву гри!", Toast.LENGTH_LONG).show();
-            return false;
-        }
-        else if (!name.equalsIgnoreCase(game.getName()) && GamesProcessor.gameAlreadyExists(name)) {
-            Toast.makeText(this, "Гра з такою назвою вже існує", Toast.LENGTH_LONG).show();
-            return false;
-        }
-        else {
-            game.setName(name);
-            game.setDescription(descriptionTextI.getText().toString());
-            game.setPhotoPath(photoPathTextI.getText().toString());
-            game.setRules(rulesTextI.getText().toString());
-            game.setPlace(placeTextI.getText().toString());
-            game.setSmallestAge(Integer.parseInt((String)smallestAgeSpI.getSelectedItem()));
-            game.setBiggestAge(Integer.parseInt((String)biggestAgeSpI.getSelectedItem()));
-
-            int smallestAge = Integer.parseInt((String)smallestAgeSpI.getSelectedItem());
-            int biggestAge = Integer.parseInt((String)biggestAgeSpI.getSelectedItem());
-            if (smallestAge > biggestAge) {
-                int tempAge = smallestAge;
-                smallestAge = biggestAge;
-                biggestAge = tempAge;
-                int tempSelected = smallestAgeSpI.getSelectedItemPosition();
-                smallestAgeSpI.setSelection(biggestAgeSpI.getSelectedItemPosition());
-                biggestAgeSpI.setSelection(tempSelected);
-            }
-            game.setSmallestAge(smallestAge);
-            game.setBiggestAge(biggestAge);
-
-            int smallestQuantOfPlayers = Integer.parseInt((String)smallestQuantOfPlayersSpI.getSelectedItem());
-            int biggestQuantOfPlayers = Integer.parseInt((String)biggestQuantOfPlayersSpI.getSelectedItem());
-            if (smallestQuantOfPlayers > biggestQuantOfPlayers) {
-                int tempQuant = smallestQuantOfPlayers;
-                smallestQuantOfPlayers = biggestQuantOfPlayers;
-                biggestQuantOfPlayers = tempQuant;
-                int tempSelected = smallestQuantOfPlayersSpI.getSelectedItemPosition();
-                smallestQuantOfPlayersSpI.setSelection(biggestQuantOfPlayersSpI.getSelectedItemPosition());
-                biggestQuantOfPlayersSpI.setSelection(tempSelected);
-            }
-            game.setSmallestQuantOfPlayers(smallestQuantOfPlayers);
-            game.setBiggestQuantOfPlayers(biggestQuantOfPlayers);
-
-            game.setPlayingTime((String)playingTimeSpI.getSelectedItem());
-            List<String> categories = Arrays.asList(categoriesTextI.getText().toString().split("\\s*,\\s*"));
-            if (categories.get(0).equals("")) {
-                categories = new ArrayList<>();
-                categories.add("загальна категорія");
-            }
-            game.setCategories(categories);
-            Toast.makeText(this, "Інформацію про гру було оновлено", Toast.LENGTH_LONG).show();
-            return true;
-        }
-    }
-
-    public void removeGame(){
-        GamesProcessor.deleteGame(game);
-        Toast.makeText(this, "Гру було видалено", Toast.LENGTH_LONG).show();
-        this.finish();
     }
 
     @Override
