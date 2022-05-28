@@ -34,7 +34,7 @@ public class FromFriendsFragment extends Fragment {
     private RecyclerView recyclerView;
     private SharedGameAdapter adapter;
 
-    private List<SharedGame> games;
+    private List<SharedGame> sharedGames;
     private AppDatabase appDatabase;
     private DatabaseReference databaseReference;
     private ValueEventListener valueEventListener;
@@ -60,14 +60,11 @@ public class FromFriendsFragment extends Fragment {
         databaseReference.removeEventListener(valueEventListener);
     }
 
-    /**
-     * method is used to initialise recycler view
-     */
     private void initRecyclerView() {
         appDatabase = new AppDatabase();
         recyclerView = view.findViewById(R.id.recyclerViewFromFriends);
-        games = new ArrayList<>();
-        adapter = new SharedGameAdapter(getContext(), games, new SharedGameAdapter.OnSharedGameClickListener() {
+        sharedGames = new ArrayList<>();
+        adapter = new SharedGameAdapter(getContext(), sharedGames, new SharedGameAdapter.OnSharedGameClickListener() {
             @Override
             public void onSharedGameClicked(SharedGame game, int position) {
                 Intent intent = new Intent(FromFriendsFragment.this.getContext(), SharedGameInfoActivity.class);
@@ -81,8 +78,8 @@ public class FromFriendsFragment extends Fragment {
         valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (games.size() > 0) {
-                    games.clear();
+                if (sharedGames.size() > 0) {
+                    sharedGames.clear();
                     adapter.notifyDataSetChanged();
                 }
                 String userId = prefs.getString("userId", "");
@@ -90,7 +87,7 @@ public class FromFriendsFragment extends Fragment {
                     SharedGame sharedGame = dataSnapshot.getValue(SharedGame.class);
                     assert sharedGame != null;
                     if (sharedGame.getReceiverId().equals(userId)) {
-                        games.add(sharedGame);
+                        sharedGames.add(sharedGame);
                         adapter.notifyDataSetChanged();
                     }
                 }

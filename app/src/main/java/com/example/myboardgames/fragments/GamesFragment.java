@@ -114,6 +114,12 @@ public class GamesFragment extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
+    private void initSpinner(@ArrayRes int id, Spinner spinner, boolean setMaxSelection) {
+        String[] arr = getResources().getStringArray(id);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),R.layout.spinner_layout,R.id.spinnerItem,arr);
+        spinner.setAdapter(adapter);
+        if (setMaxSelection) spinner.setSelection(arr.length - 1);
+    }
 
     private void init() {
         drawerLayout = view.findViewById(R.id.filter_drawer_layout);
@@ -133,13 +139,6 @@ public class GamesFragment extends Fragment {
         sortSpinner = view.findViewById(R.id.sort);
         sortAdapter = new ArrayAdapter<String>(this.getActivity(), R.layout.spinner_layout_sort_closed, getResources().getStringArray(R.array.sort_items));
         search = view.findViewById(R.id.search);
-    }
-
-    private void initSpinner(@ArrayRes int id, Spinner spinner, boolean setMaxSelection) {
-        String[] arr = getResources().getStringArray(id);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),R.layout.spinner_layout,R.id.spinnerItem,arr);
-        spinner.setAdapter(adapter);
-        if (setMaxSelection) spinner.setSelection(arr.length - 1);
     }
 
     private void initDrawer() {
@@ -583,10 +582,6 @@ public class GamesFragment extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
-
-    /**
-     * method is used to initialise recycler view
-     */
     private void initRecyclerView() {
         recyclerView = view.findViewById(R.id.recyclerViewGames);
         if (!GamesProcessor.gamesAreLoaded())

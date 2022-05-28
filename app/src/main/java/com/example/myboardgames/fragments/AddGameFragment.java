@@ -182,9 +182,6 @@ public class AddGameFragment extends Fragment {
         if (setMaxSelection) spinner.setSelection(arr.length - 1);
     }
 
-    /**
-     * method is used to initialise multispinner
-     */
     private void initMultiSpinner() {
         categoriesText = (TextView)(view.findViewById(R.id.categoriesText));
         categoriesList = new ArrayList<>();
