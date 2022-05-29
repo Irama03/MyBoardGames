@@ -407,7 +407,7 @@ public class GamesFragment extends Fragment {
                     else if (smAge1 + 3 == smallestAge)
                         score1 += 4;
                 }
-                //bgAge1 > biggestAge
+                //bgAge1 > biggestAge, smAge1 >= smallestAge
                 else {
                     if (bgAge1 - 1 == biggestAge || bgAge1 - 2 == biggestAge)
                         score1 += 8;
@@ -426,7 +426,7 @@ public class GamesFragment extends Fragment {
                     else if (smAge2 + 3 == smallestAge)
                         score2 += 4;
                 }
-                //bgAge2 > biggestAge
+                //bgAge2 > biggestAge, smAge2 >= smallestAge
                 else {
                     if (bgAge2 - 1 == biggestAge || bgAge2 - 2 == biggestAge)
                         score2 += 8;

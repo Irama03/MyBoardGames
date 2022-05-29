@@ -18,12 +18,14 @@
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/drawable/ic_baseline_playlist_add_24.xml" value="0.1" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/drawable/ic_baseline_share_24.xml" value="0.1" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/drawable/ic_baseline_star_24.xml" value="0.1" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/drawable/ic_cubici_logo.xml" value="0.1015" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/drawable/ic_cubiki.xml" value="0.1" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.1" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.1" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/drawable/ic_outline_folder_shared_24.xml" value="0.1" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/drawable/my_ic_launcher_foreground.xml" value="0.1015" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/activity_categories.xml" value="0.1956521739130435" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/activity_game_info.xml" value="0.14838709677419354" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/layout/activity_main.xml" value="0.20969202898550723" />
@@ -55,6 +57,7 @@
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/menu/menu_main.xml" value="0.259375" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
+        <entry key="..\:/Users/Iryna/StudioProjects/MyBoardGames/app/src/main/res/mipmap-anydpi-v26/my_ic_launcher_round.xml" value="0.1" />
       </map>
     </option>
   </component>

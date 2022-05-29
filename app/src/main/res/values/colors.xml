@@ -10,4 +10,5 @@
 
     <color name="purple_base">#C171CF</color>
     <color name="purple_light">#D2A8DA</color>
+    <color name="yellow">#ffc107</color>
 </resources>
